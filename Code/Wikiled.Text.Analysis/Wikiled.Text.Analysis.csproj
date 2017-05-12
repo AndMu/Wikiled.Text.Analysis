@@ -62,6 +62,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="POS\IPOSTagger.cs" />
     <Compile Include="POS\IPosTagResolver.cs" />
     <Compile Include="POS\NaivePOSTagger.cs" />

@@ -4,8 +4,8 @@ using System.Reflection;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyCompany("Wikiled Ltd.")]
-[assembly: AssemblyProduct("Wikiled pSenti")]
-[assembly: AssemblyCopyright("Copyright © Wikiled Ltd. 2016")]
+[assembly: AssemblyProduct("Wikiled Text Analysis")]
+[assembly: AssemblyCopyright("Copyright © Wikiled Ltd. 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -18,5 +18,5 @@ using System.Reflection;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("2.1.*")]
-[assembly: AssemblyFileVersion ("2.1.0.0")]
+[assembly: AssemblyVersion("0.0.*")]
+[assembly: AssemblyFileVersion ("0.0.0.0")]
