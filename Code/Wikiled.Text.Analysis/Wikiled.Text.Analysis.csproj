@@ -65,6 +65,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Structure\NamedEntities.cs" />
     <Compile Include="POS\IPOSTagger.cs" />
     <Compile Include="POS\IPosTagResolver.cs" />
     <Compile Include="POS\NaivePOSTagger.cs" />
@@ -143,8 +144,11 @@
     <Compile Include="POS\Tags\XSPhrase.cs" />
     <Compile Include="POS\WordType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Structure\Document.cs" />
     <Compile Include="Structure\IItem.cs" />
+    <Compile Include="Structure\SentenceItem.cs" />
     <Compile Include="Structure\SimpleWord.cs" />
+    <Compile Include="Structure\WordEx.cs" />
     <Compile Include="Words\IWordTypeResolver.cs" />
   </ItemGroup>
   <ItemGroup>
