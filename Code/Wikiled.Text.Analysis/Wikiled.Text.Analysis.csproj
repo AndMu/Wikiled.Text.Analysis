@@ -65,6 +65,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Extensions\TextExtensions.cs" />
     <Compile Include="Structure\NamedEntities.cs" />
     <Compile Include="POS\IPOSTagger.cs" />
     <Compile Include="POS\IPosTagResolver.cs" />
