@@ -66,6 +66,7 @@
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Extensions\TextExtensions.cs" />
+    <Compile Include="Structure\ITextItem.cs" />
     <Compile Include="Structure\NamedEntities.cs" />
     <Compile Include="POS\IPOSTagger.cs" />
     <Compile Include="POS\IPosTagResolver.cs" />
@@ -150,6 +151,11 @@
     <Compile Include="Structure\SentenceItem.cs" />
     <Compile Include="Structure\SimpleWord.cs" />
     <Compile Include="Structure\WordEx.cs" />
+    <Compile Include="WordNet\Engine\IWordNetEngine.cs" />
+    <Compile Include="WordNet\Engine\LexicographerFileName.cs" />
+    <Compile Include="WordNet\Engine\SynSet.cs" />
+    <Compile Include="WordNet\Engine\SynSetRelation.cs" />
+    <Compile Include="WordNet\Engine\WordNetEngine.cs" />
     <Compile Include="Words\IWordTypeResolver.cs" />
   </ItemGroup>
   <ItemGroup>
