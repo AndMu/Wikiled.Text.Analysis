@@ -194,6 +194,23 @@
     <Compile Include="Tokenizer\NullWordsTokenizer.cs" />
     <Compile Include="Tokenizer\RegexSplitter.cs" />
     <Compile Include="Tokenizer\TreebankWordTokenizer.cs" />
+    <Compile Include="Twitter\Autolink.cs" />
+    <Compile Include="Twitter\Emoji.cs" />
+    <Compile Include="Twitter\EmojiSentiment.cs" />
+    <Compile Include="Twitter\Extractor.cs" />
+    <Compile Include="Twitter\HitHighlighter.cs" />
+    <Compile Include="Twitter\MessageCleanup.cs" />
+    <Compile Include="Twitter\StartIndexComparer.cs" />
+    <Compile Include="Twitter\StringExtensions.cs" />
+    <Compile Include="Twitter\TldLib.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TldLib.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Twitter\TweetEntity.cs" />
+    <Compile Include="Twitter\TweetEntityType.cs" />
+    <Compile Include="Twitter\TwitterRegex.cs" />
+    <Compile Include="Twitter\Validator.cs" />
     <Compile Include="WordNet\Engine\IWordNetEngine.cs" />
     <Compile Include="WordNet\Engine\LexicographerFileName.cs" />
     <Compile Include="WordNet\Engine\SynSet.cs" />
@@ -204,8 +221,17 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Twitter\tld_lib.yml" />
     <None Include="Wikiled.Text.Analysis.nuspec" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Twitter\TldLib.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TldLib.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

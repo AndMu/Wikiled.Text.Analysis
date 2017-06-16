@@ -60,6 +60,9 @@
     <Reference Include="Wikiled.Core.Utility, Version=2.1.7.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Wikiled.Core.Utility.2.1.7\lib\net462\Wikiled.Core.Utility.dll</HintPath>
     </Reference>
+    <Reference Include="YamlDotNet, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.4.2.1\lib\net35\YamlDotNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache\LocalDocumentsCacheTests.cs" />
@@ -70,10 +73,34 @@
     <Compile Include="Structure\SimpleWordTests.cs" />
     <Compile Include="Structure\WordExTests.cs" />
     <Compile Include="Tokenizer\TreebankWordTokenizerTests.cs" />
+    <Compile Include="Twitter\AutolinkTests.cs" />
+    <Compile Include="Twitter\ConformanceTests.cs" />
+    <Compile Include="Twitter\EmojiSentimentTests.cs" />
+    <Compile Include="Twitter\ExtractorTests.cs" />
+    <Compile Include="Twitter\MessageCleanupTests.cs" />
+    <Compile Include="Twitter\RegexTests.cs" />
+    <Compile Include="Twitter\StringExtensionsTest.cs" />
+    <Compile Include="Twitter\Test.cs" />
+    <Compile Include="Twitter\ValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Twitter\Conformance\autolink.yml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Twitter\Conformance\extract.yml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Twitter\Conformance\hit_highlighting.yml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Twitter\Conformance\tlds.yml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Twitter\Conformance\validate.yml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Wikiled.Text.Analysis\Wikiled.Text.Analysis.csproj">
