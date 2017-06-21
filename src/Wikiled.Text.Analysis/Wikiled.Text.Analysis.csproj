@@ -225,10 +225,10 @@
     <None Include="Wikiled.Text.Analysis.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Twitter\TldLib.tt">
+    <Compile Include="Twitter\TldLib.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TldLib.cs</LastGenOutput>
-    </Content>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
