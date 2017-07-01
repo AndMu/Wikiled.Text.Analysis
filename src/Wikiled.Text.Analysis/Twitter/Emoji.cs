@@ -60,6 +60,19 @@ namespace Wikiled.Text.Analysis.Twitter
 
         public bool EmojioneHasImage { get; set; }
 
+        public string Unicode
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Unified))
+                {
+                    return string.Empty;
+                }
+
+                return Char.ConvertFromUtf32(int.Parse(Unified, System.Globalization.NumberStyles.HexNumber));
+            }
+        }
+
         public override string ToString()
         {
             return ShortName;
