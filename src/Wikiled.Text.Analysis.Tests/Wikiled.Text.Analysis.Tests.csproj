@@ -68,6 +68,7 @@
     <Compile Include="Cache\LocalDocumentsCacheTests.cs" />
     <Compile Include="Dictionary\BasicEnglishDictionaryTests.cs" />
     <Compile Include="Extensions\TextExtensionsTests.cs" />
+    <Compile Include="NLP\EnglishSyllableCounterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structure\DocumentTests.cs" />
     <Compile Include="Structure\SentenceItemTests.cs" />

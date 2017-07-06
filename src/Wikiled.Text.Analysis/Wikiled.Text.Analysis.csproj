@@ -100,6 +100,8 @@
     <Compile Include="Dictionary\EnglishDictionary.cs" />
     <Compile Include="Dictionary\WordsDictionary.cs" />
     <Compile Include="Extensions\TextExtensions.cs" />
+    <Compile Include="NLP\EnglishSyllableCounter.cs" />
+    <Compile Include="POS\Converter.cs" />
     <Compile Include="Resources\ReadTabResourceDataFile.cs" />
     <Compile Include="Structure\ITextItem.cs" />
     <Compile Include="Structure\NamedEntities.cs" />
