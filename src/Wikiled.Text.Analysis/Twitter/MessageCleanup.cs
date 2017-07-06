@@ -16,6 +16,8 @@ namespace Wikiled.Text.Analysis.Twitter
 
         private readonly Extractor extractor = new Extractor();
 
+        private readonly Validator validator = new Validator();
+
         public MessageCleanup()
         {
             emojis = (from item in Emoji.All.Values

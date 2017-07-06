@@ -95,7 +95,12 @@
     <Compile Include="Cache\LocalDocumentsCache.cs" />
     <Compile Include="Cache\NullCachedDocumentsSource.cs" />
     <Compile Include="Cache\NullCacheFactory.cs" />
+    <Compile Include="Dictionary\BasicEnglishDictionary.cs" />
+    <Compile Include="Dictionary\IWordsDictionary.cs" />
+    <Compile Include="Dictionary\EnglishDictionary.cs" />
+    <Compile Include="Dictionary\WordsDictionary.cs" />
     <Compile Include="Extensions\TextExtensions.cs" />
+    <Compile Include="Resources\ReadTabResourceDataFile.cs" />
     <Compile Include="Structure\ITextItem.cs" />
     <Compile Include="Structure\NamedEntities.cs" />
     <Compile Include="POS\IPOSTagger.cs" />
@@ -213,6 +218,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <EmbeddedResource Include="Resources\Dictionary\RawEnglish.dat" />
     <None Include="Twitter\tld_lib.yml" />
     <None Include="Wikiled.Text.Analysis.nuspec" />
   </ItemGroup>
