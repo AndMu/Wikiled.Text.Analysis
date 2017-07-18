@@ -51,6 +51,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Reactive.Core, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Reactive.Core.3.1.1\lib\net46\System.Reactive.Core.dll</HintPath>
@@ -67,6 +68,7 @@
     <Reference Include="System.Reactive.Windows.Threading, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Reactive.Windows.Threading.3.1.1\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.ValueTuple, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.3.1\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -95,7 +97,20 @@
     <Compile Include="Cache\LocalDocumentsCache.cs" />
     <Compile Include="Cache\NullCachedDocumentsSource.cs" />
     <Compile Include="Cache\NullCacheFactory.cs" />
+    <Compile Include="Dictionary\BasicEnglishDictionary.cs" />
+    <Compile Include="Dictionary\IWordsDictionary.cs" />
+    <Compile Include="Dictionary\EnglishDictionary.cs" />
+    <Compile Include="Dictionary\WordsDictionary.cs" />
     <Compile Include="Extensions\TextExtensions.cs" />
+    <Compile Include="NLP\EnglishSyllableCounter.cs" />
+    <Compile Include="NLP\Frequency\BNCList.cs" />
+    <Compile Include="NLP\Frequency\FrequencyListManager.cs" />
+    <Compile Include="NLP\Frequency\IWordFrequencyList.cs" />
+    <Compile Include="NLP\Frequency\WordFrequencyList.cs" />
+    <Compile Include="NLP\IRawTextExtractor.cs" />
+    <Compile Include="NLP\RawWordExtractor.cs" />
+    <Compile Include="POS\Converter.cs" />
+    <Compile Include="Resources\ReadTabResourceDataFile.cs" />
     <Compile Include="Structure\ITextItem.cs" />
     <Compile Include="Structure\NamedEntities.cs" />
     <Compile Include="POS\IPOSTagger.cs" />
@@ -213,6 +228,11 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <EmbeddedResource Include="Resources\Dictionary\RawEnglish.dat" />
+    <EmbeddedResource Include="Resources\Frequency\bnc.dat" />
+    <EmbeddedResource Include="Resources\Frequency\internet.dat" />
+    <EmbeddedResource Include="Resources\Frequency\Reuters.dat" />
+    <EmbeddedResource Include="Resources\Frequency\subtitles.dat" />
     <None Include="Twitter\tld_lib.yml" />
     <None Include="Wikiled.Text.Analysis.nuspec" />
   </ItemGroup>
