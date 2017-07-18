@@ -12,8 +12,8 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
         [Test]
         public void Generate()
         {
-            var positive = EmojiSentiment.GetPositive().Distinct().Select(item => $"EMOTICON_{item.AsShortcode()}\t2").AccumulateItems(Environment.NewLine);
-            var negative = EmojiSentiment.GetNegative().Distinct().Select(item => $"EMOTICON_{item.AsShortcode()}\t-2").AccumulateItems(Environment.NewLine);
+            var positive = EmojiSentiment.Positive.Distinct().Select(item => $"EMOTICON_{item.AsShortcode()}\t2").AccumulateItems(Environment.NewLine);
+            var negative = EmojiSentiment.Negative.Distinct().Select(item => $"EMOTICON_{item.AsShortcode()}\t-2").AccumulateItems(Environment.NewLine);
             Assert.IsNotNull(positive);
             Assert.IsNotNull(negative);
         }
