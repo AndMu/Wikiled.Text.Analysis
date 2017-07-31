@@ -80,7 +80,7 @@ namespace Wikiled.Text.Analysis.Twitter
 
         public string AsShortcode()
         {
-            return String.Format(":{0}:", ShortName);
+            return String.Format("EMOTICON_{0}", ShortName);
         }
 
         public static Dictionary<string, Emoji> All = new Dictionary<string, Emoji>()

@@ -31,7 +31,7 @@ namespace Wikiled.Text.Analysis.Twitter
         public string Cleanup(string message)
         {
             Guard.NotNull(() => message, message);
-            var text = Replace(message.ToLower(), extractor.ExtractUrlsWithIndices(message), ":URL:");
+            var text = Replace(message.ToLower(), extractor.ExtractUrlsWithIndices(message), "URL_URL");
             StringBuilder builder = new StringBuilder();
             char? previous = null;
             char? previousToPrevious = null;
