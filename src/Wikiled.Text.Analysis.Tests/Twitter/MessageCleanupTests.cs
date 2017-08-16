@@ -18,6 +18,8 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
         [TestCase(@"Hi http://www.wikiled.com trump", "hi URL_URL trump")]
         [TestCase(@"Hi @mister trump", "hi @mister trump")]
         [TestCase(@"Hi @mister!!! trump????", "hi @mister! trump?")]
+        [TestCase(@"Hi :)", "hi EMOTICON_slightly_smiling_face")]
+        [TestCase(@">:-( Hi :)", "EMOTICON_angry hi EMOTICON_slightly_smiling_face")]
         [TestCase(@"Hiiii suuuperrrr TRRRump", "hii suuperr trrump")]
         [TestCase(@"@realDonaldTrump @seanhannity WAR ZONE IN N.C.❗TRUMP - @rudygiulianiGOP & amp; @PaulBabeuAZ R THE BEST 4 PROTECTING FOLKS❗NEED ALL OF U IN DC NOW❗",
                     "@realdonaldtrump @seanhannity war zone in n.c. EMOTICON_exclamation trump - @rudygiulianigop & amp; @paulbabeuaz r the best 4 protecting folks EMOTICON_exclamation need all of u in dc now EMOTICON_exclamation")]

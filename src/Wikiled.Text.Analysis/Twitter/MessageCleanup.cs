@@ -12,14 +12,29 @@ namespace Wikiled.Text.Analysis.Twitter
     {
         private readonly Dictionary<string, Emoji> complexEmojis;
 
+        private readonly Dictionary<string, Emoji> textEmojis;
+
         private readonly Dictionary<uint, Emoji> emojis;
 
         private readonly Extractor extractor = new Extractor();
 
-        private readonly Validator validator = new Validator();
+        private readonly int maxTextEmoji;
+
+        private readonly int minTextEmoji;
 
         public MessageCleanup()
         {
+            textEmojis = new Dictionary<string, Emoji>(StringComparer.OrdinalIgnoreCase);
+            foreach (var emoji in Emoji.All.Values)
+            {
+                foreach (var text in emoji.Texts)
+                {
+                    textEmojis[text] = emoji;
+                }
+            }
+
+            maxTextEmoji = textEmojis.Keys.Max(item => item.Length);
+            minTextEmoji = textEmojis.Keys.Min(item => item.Length);
             emojis = (from item in Emoji.All.Values
                       where !item.Unified.Contains('-')
                       select item).ToDictionary(item => uint.Parse(item.Unified, NumberStyles.AllowHexSpecifier), emoji => emoji);
@@ -38,7 +53,6 @@ namespace Wikiled.Text.Analysis.Twitter
             for (int i = 0; i < text.Length; i++)
             {
                 var letter = text[i];
-                bool isTwoStep;
                 if (letter == '…' ||
                     letter == '\r')
                 {
@@ -46,33 +60,26 @@ namespace Wikiled.Text.Analysis.Twitter
                 }
 
                 if (letter == '\n' ||
-                   letter == '\b')
+                    letter == '\b')
                 {
                     letter = ' ';
                 }
 
-
-                var emoji = GetEmoji(text, i, out isTwoStep);
+                var emoji = GetEmoji(text, ref i);
                 if (emoji != null)
                 {
-                    if (builder.Length > 0 &&
-                       builder[builder.Length - 1] != ' ')
-                    {
-                        builder.Append(' ');
-                    }
-
-                    builder.AppendFormat($"{emoji} ");
-                    if (isTwoStep)
-                    {
-                        i++;
-                    }
-
+                    ReplaceEmoji(builder, emoji);
                     continue;
                 }
 
+                emoji = GetTextEmoji(text, ref i);
+                if (emoji != null)
+                {
+                    ReplaceEmoji(builder, emoji);
+                    continue;
+                }
 
-                if ((char.IsLetterOrDigit(letter) && letter != previousToPrevious) ||
-                   letter != previous)
+                if ((char.IsLetterOrDigit(letter) && letter != previousToPrevious) || letter != previous)
                 {
                     builder.Append(letter);
                 }
@@ -85,10 +92,45 @@ namespace Wikiled.Text.Analysis.Twitter
             return Regex.Replace(text, @"\b(\w+)\s+\1\b", "$1", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
         }
 
-        private string GetEmoji(string text, int index, out bool isTwoStep)
+        private static void ReplaceEmoji(StringBuilder builder, string emoji)
+        {
+            if (builder.Length > 0 &&
+                builder[builder.Length - 1] != ' ')
+            {
+                builder.Append(' ');
+            }
+
+            builder.AppendFormat($"{emoji} ");
+        }
+
+        private string GetTextEmoji(string text, ref int index)
+        {
+            int left = text.Length - index;
+            if ((index > 0 && text[index - 1] != ' ') ||
+                left < minTextEmoji)
+            {
+                return null;
+            }
+
+            left = left < maxTextEmoji ? left : maxTextEmoji;
+
+            for (int i = left; i >= minTextEmoji; i--)
+            {
+                var block = text.Substring(index, i);
+                Emoji emoji;
+                if (textEmojis.TryGetValue(block, out emoji))
+                {
+                    index += i;
+                    return emoji.AsShortcode();
+                }
+            }
+
+            return null;
+        }
+
+        private string GetEmoji(string text, ref int index)
         {
             Emoji emoji;
-            isTwoStep = true;
             if (index < text.Length - 1)
             {
                 try
@@ -96,13 +138,14 @@ namespace Wikiled.Text.Analysis.Twitter
                     int unicodeCodePoint = char.ConvertToUtf32(text, index);
                     if (unicodeCodePoint > 0xffff)
                     {
-                        return emojis.TryGetValue((uint)unicodeCodePoint, out emoji) ? emoji.AsShortcode() : null;
+                        var result = emojis.TryGetValue((uint)unicodeCodePoint, out emoji) ? emoji.AsShortcode() : null;
+                        index++;
+                        return result;
                     }
                 }
                 catch (Exception)
                 {
-                    isTwoStep = false;
-                    return "";
+                    return string.Empty;
                 }
             }
 
@@ -110,7 +153,6 @@ namespace Wikiled.Text.Analysis.Twitter
             var map = $"{Convert.ToUInt16(letter):X4}";
             if (complexEmojis.TryGetValue(map, out emoji))
             {
-                isTwoStep = false;
                 return emoji.AsShortcode();
             }
 
@@ -119,6 +161,7 @@ namespace Wikiled.Text.Analysis.Twitter
                 map += $"-{Convert.ToUInt16(text[index + 1]):X4}";
                 if (complexEmojis.TryGetValue(map, out emoji))
                 {
+                    index++;
                     return emoji.AsShortcode();
                 }
             }
