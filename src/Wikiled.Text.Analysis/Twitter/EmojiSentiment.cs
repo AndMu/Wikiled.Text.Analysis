@@ -17,6 +17,7 @@
             Emoji.KISSING_CAT_FACE_WITH_CLOSED_EYES,
             Emoji.KISSING_FACE,
             Emoji.HEAVY_HEART_EXCLAMATION_MARK_ORNAMENT,
+            Emoji.HEAVY_BLACK_HEART,
             Emoji.COUPLE_WITH_HEART,
             Emoji.BEATING_HEART,
             Emoji.TWO_HEARTS,
