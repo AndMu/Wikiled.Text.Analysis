@@ -106,8 +106,7 @@ namespace Wikiled.Text.Analysis.Twitter
         private string GetTextEmoji(string text, ref int index)
         {
             int left = text.Length - index;
-            if ((index > 0 && text[index - 1] != ' ') ||
-                left < minTextEmoji)
+            if (left < minTextEmoji)
             {
                 return null;
             }
