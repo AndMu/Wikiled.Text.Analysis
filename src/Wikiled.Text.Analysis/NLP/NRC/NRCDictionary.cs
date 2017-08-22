@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Wikiled.Core.Utility.Arguments;
 using Wikiled.Core.Utility.Resources;
 using Wikiled.Text.Analysis.Resources;
 
@@ -21,6 +22,7 @@ namespace Wikiled.Text.Analysis.NLP.NRC
 
         public NRCRecord FindRecord(string word)
         {
+            Guard.NotNullOrEmpty(() => word, word);
             NRCRecord nrcRecord;
             table.TryGetValue(word, out nrcRecord);
             return (NRCRecord)nrcRecord?.Clone();

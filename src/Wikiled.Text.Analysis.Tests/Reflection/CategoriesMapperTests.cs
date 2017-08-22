@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using NUnit.Framework;
+using Wikiled.Text.Analysis.Reflection;
 using Wikiled.Text.Analysis.Tests.Reflection.TestData;
 
 namespace Wikiled.Text.Analysis.Tests.Reflection

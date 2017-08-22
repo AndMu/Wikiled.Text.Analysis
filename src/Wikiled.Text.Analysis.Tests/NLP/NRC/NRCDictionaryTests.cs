@@ -11,10 +11,11 @@ namespace Wikiled.Text.Analysis.Tests.NLP.NRC
         public NRCDictionaryTests()
         {
             dictionary = new NRCDictionary();
+            dictionary.Load();
         }
         
         [Test]
-        public void Test()
+        public void FindRecord()
         {
             var record = dictionary.FindRecord("smut");
             Assert.IsFalse(record.IsAnger);
