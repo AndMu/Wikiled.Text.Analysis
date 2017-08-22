@@ -74,6 +74,7 @@
     <Compile Include="NLP\Frequency\BNCListTests.cs" />
     <Compile Include="NLP\Frequency\FrequencyListManagerTests.cs" />
     <Compile Include="NLP\NRC\NRCDictionaryTests.cs" />
+    <Compile Include="NLP\NRC\SentimentVectorTests.cs" />
     <Compile Include="NLP\RawWordExtractorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\CategoriesMapperTests.cs" />
