@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Wikiled.Text.Analysis.Reflection;
 using Wikiled.Text.Analysis.Reflection.Data;
 
@@ -66,7 +65,6 @@ namespace Wikiled.Text.Analysis.NLP.NRC
         [InfoField("Trust")]
         public int Trust => trust;
      
-
         public IEnumerable<Tuple<ItemProbability<string>, ItemProbability<string>>> GetOccurencePairs()
         {
             yield return new Tuple<ItemProbability<string>, ItemProbability<string>>(
@@ -93,9 +91,9 @@ namespace Wikiled.Text.Analysis.NLP.NRC
             return GetOccurencesInternal(Total);
         }
 
-        private void ExtractData(NRCRecord record)
+        public void ExtractData(NRCRecord record)
         {
-            Interlocked.Increment(ref total);
+            total++;
             if (record == null)
             {
                 return;
@@ -105,54 +103,54 @@ namespace Wikiled.Text.Analysis.NLP.NRC
             if (record.IsAnger)
             {
                 added = true;
-                Interlocked.Increment(ref anger);
+                anger++;
             }
 
             if (record.IsAnticipation)
             {
                 added = true;
-                Interlocked.Increment(ref anticipation);
+                anticipation++;
             }
 
             if (record.IsDisgust)
             {
                 added = true;
-                Interlocked.Increment(ref disgust);
+                disgust++;
             }
 
             if (record.IsFear)
             {
                 added = true;
-                Interlocked.Increment(ref fear);
+                fear++;
             }
 
             if (record.IsJoy)
             {
                 added = true;
-                Interlocked.Increment(ref joy);
+                joy++;
             }
 
             if (record.IsSadness)
             {
                 added = true;
-                Interlocked.Increment(ref sadness);
+                sadness++;
             }
 
             if (record.IsSurprise)
             {
                 added = true;
-                Interlocked.Increment(ref surprise);
+                surprise++;
             }
 
             if (record.IsTrust)
             {
                 added = true;
-                Interlocked.Increment(ref trust);
+                trust++;
             }
 
             if (added)
             {
-                Interlocked.Increment(ref totalSentiment);
+                totalSentiment++;
             }
         }
 
