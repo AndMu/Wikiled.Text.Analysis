@@ -1,7 +1,10 @@
 # C# Text Analysis Library
 
 ![nuget](https://img.shields.io/nuget/v/Wikiled.Text.Analysis.svg)
-Wikiled.Text.Analysis
+
+'''
+Install-Package Wikiled.Text.Analysis
+'''
 
 Includes:
 
