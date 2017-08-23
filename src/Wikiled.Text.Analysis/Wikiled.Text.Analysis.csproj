@@ -255,6 +255,10 @@
     <Compile Include="WordNet\Engine\SynSet.cs" />
     <Compile Include="WordNet\Engine\SynSetRelation.cs" />
     <Compile Include="WordNet\Engine\WordNetEngine.cs" />
+    <Compile Include="WordNet\InformationContent\IInformationContentResnik.cs" />
+    <Compile Include="WordNet\InformationContent\InformationContentResnik.cs" />
+    <Compile Include="WordNet\InformationContent\IRelatednessMesaure.cs" />
+    <Compile Include="WordNet\InformationContent\JcnMeasure.cs" />
     <Compile Include="Words\IWordTypeResolver.cs" />
   </ItemGroup>
   <ItemGroup>

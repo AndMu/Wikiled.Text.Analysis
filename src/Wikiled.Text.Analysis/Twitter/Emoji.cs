@@ -86,7 +86,8 @@ namespace Wikiled.Text.Analysis.Twitter
         public static Dictionary<string, Emoji> All = new Dictionary<string, Emoji>()
         {
 
-        {"copyright",
+        {
+                "copyright",
             new Emoji
             {
                 Name = "COPYRIGHT SIGN",

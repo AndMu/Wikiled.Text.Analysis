@@ -96,6 +96,7 @@
     <Compile Include="Twitter\StringExtensionsTest.cs" />
     <Compile Include="Twitter\Test.cs" />
     <Compile Include="Twitter\ValidatorTests.cs" />
+    <Compile Include="Wordnet\InformationContent\InformationContentResnikTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

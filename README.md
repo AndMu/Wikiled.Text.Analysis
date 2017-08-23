@@ -18,3 +18,5 @@ Includes:
 * Emoji Extractor
 * Emoji Sentiment
 * WordNetEngine port from another project
+* Information Content Resnik
+* Jcn Measure
