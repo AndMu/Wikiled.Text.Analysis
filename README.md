@@ -2,9 +2,9 @@
 
 ![nuget](https://img.shields.io/nuget/v/Wikiled.Text.Analysis.svg)
 
-'''
+```
 Install-Package Wikiled.Text.Analysis
-'''
+```
 
 Includes:
 
