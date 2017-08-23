@@ -42,7 +42,7 @@ namespace Wikiled.Text.Analysis.NLP.NRC
                     NRCRecord nrcRecord;
                     if (!table.TryGetValue(record.Item1, out nrcRecord))
                     {
-                        nrcRecord = new NRCRecord();
+                        nrcRecord = new NRCRecord(record.Item1);
                         table[record.Item1] = nrcRecord;
                         index = 0;
                     }

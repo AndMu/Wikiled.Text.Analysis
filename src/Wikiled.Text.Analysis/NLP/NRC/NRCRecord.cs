@@ -9,9 +9,110 @@ namespace Wikiled.Text.Analysis.NLP.NRC
     [XmlRoot("NRC")]
     public class NRCRecord : ICloneable
     {
+        public NRCRecord(string word)
+        {
+            Word = word;
+        }
+
+        public string Word { get; set; }
+
+        public bool HasAnyValue => IsAnger ||
+                                   IsAnticipation ||
+                                   IsDisgust ||
+                                   IsFear ||
+                                   IsJoy ||
+                                   IsNegative ||
+                                   IsPositive ||
+                                   IsSadness ||
+                                   IsSurprise ||
+                                   IsTrust;
+
+        [XmlAttribute("Anger")]
+        [DefaultValue(false)]
+        public bool IsAnger { get; set; }
+
+        [XmlAttribute("Anticipation")]
+        [DefaultValue(false)]
+        public bool IsAnticipation { get; set; }
+
+        [XmlAttribute("Disgust")]
+        [DefaultValue(false)]
+        public bool IsDisgust { get; set; }
+
+        [XmlAttribute("Fear")]
+        [DefaultValue(false)]
+        public bool IsFear { get; set; }
+
+        [XmlAttribute("Joy")]
+        [DefaultValue(false)]
+        public bool IsJoy { get; set; }
+
+        [XmlAttribute("Negative")]
+        [DefaultValue(false)]
+        public bool IsNegative { get; set; }
+
+        [XmlAttribute("Positive")]
+        [DefaultValue(false)]
+        public bool IsPositive { get; set; }
+
+        [XmlAttribute("Sadness")]
+        [DefaultValue(false)]
+        public bool IsSadness { get; set; }
+
+        [XmlAttribute("Surprise")]
+        [DefaultValue(false)]
+        public bool IsSurprise { get; set; }
+
+        [XmlAttribute("Trust")]
+        [DefaultValue(false)]
+        public bool IsTrust { get; set; }
+
+        public object Clone()
+        {
+            NRCRecord record = new NRCRecord(Word);
+            record.IsAnger = IsAnger;
+            record.IsAnticipation = IsAnticipation;
+            record.IsDisgust = IsDisgust;
+            record.IsFear = IsFear;
+            record.IsJoy = IsJoy;
+            record.IsNegative = IsNegative;
+            record.IsPositive = IsPositive;
+            record.IsSadness = IsSadness;
+            record.IsSurprise = IsSurprise;
+            record.IsTrust = IsTrust;
+            return record;
+        }
+
         public IEnumerable<SentimentCategory> GetDefinedCategories()
         {
             return Enum.GetValues(typeof(SentimentCategory)).Cast<SentimentCategory>().Where(HasValue);
+        }
+
+        public bool HasValue(SentimentCategory category)
+        {
+            switch (category)
+            {
+                case SentimentCategory.Anger:
+                    return IsAnger;
+                case SentimentCategory.Anticipation:
+                    return IsAnticipation;
+                case SentimentCategory.Disgust:
+                    return IsDisgust;
+                case SentimentCategory.Fear:
+                    return IsFear;
+                case SentimentCategory.Joy:
+                    return IsJoy;
+                case SentimentCategory.Sadness:
+                    return IsSadness;
+                case SentimentCategory.Surprise:
+                    return IsSurprise;
+                case SentimentCategory.Trust:
+                    return IsTrust;
+                case SentimentCategory.None:
+                    return !HasAnyValue;
+                default:
+                    throw new ArgumentOutOfRangeException("category");
+            }
         }
 
         public void Invert()
@@ -71,89 +172,5 @@ namespace Wikiled.Text.Analysis.NLP.NRC
                 IsNegative = false;
             }
         }
-
-        public bool HasValue(SentimentCategory category)
-        {
-            switch (category)
-            {
-                case SentimentCategory.Anger:
-                    return IsAnger;
-                case SentimentCategory.Anticipation:
-                    return IsAnticipation;
-                case SentimentCategory.Disgust:
-                    return IsDisgust;
-                case SentimentCategory.Fear:
-                    return IsFear;
-                case SentimentCategory.Joy:
-                    return IsJoy;
-                case SentimentCategory.Sadness:
-                    return IsSadness;
-                case SentimentCategory.Surprise:
-                    return IsSurprise;
-                case SentimentCategory.Trust:
-                    return IsTrust;
-                case SentimentCategory.None:
-                    return !HasAnyValue;
-                default:
-                    throw new ArgumentOutOfRangeException("category");
-            }
-        }
-
-        public object Clone()
-        {
-            NRCRecord record = new NRCRecord();
-            record.IsAnger = IsAnger;
-            record.IsAnticipation = IsAnticipation;
-            record.IsDisgust = IsDisgust;
-            record.IsFear = IsFear;
-            record.IsJoy = IsJoy;
-            record.IsNegative = IsNegative;
-            record.IsPositive = IsPositive;
-            record.IsSadness = IsSadness;
-            record.IsSurprise = IsSurprise;
-            record.IsTrust = IsTrust;
-            return record;
-        }
-
-        public bool HasAnyValue => IsAnger ||
-                                   IsAnticipation ||
-                                   IsDisgust ||
-                                   IsFear ||
-                                   IsJoy ||
-                                   IsNegative ||
-                                   IsPositive ||
-                                   IsSadness ||
-                                   IsSurprise ||
-                                   IsTrust;
-
-        [XmlAttribute("Anger"), DefaultValue(false)]
-        public bool IsAnger { get; set; }
-
-        [XmlAttribute("Anticipation"), DefaultValue(false)]
-        public bool IsAnticipation { get; set; }
-
-        [XmlAttribute("Disgust"), DefaultValue(false)]
-        public bool IsDisgust { get; set; }
-
-        [XmlAttribute("Fear"), DefaultValue(false)]
-        public bool IsFear { get; set; }
-
-        [XmlAttribute("Joy"), DefaultValue(false)]
-        public bool IsJoy { get; set; }
-
-        [XmlAttribute("Negative"), DefaultValue(false)]
-        public bool IsNegative { get; set; }
-
-        [XmlAttribute("Positive"), DefaultValue(false)]
-        public bool IsPositive { get; set; }
-
-        [XmlAttribute("Sadness"), DefaultValue(false)]
-        public bool IsSadness { get; set; }
-
-        [XmlAttribute("Surprise"), DefaultValue(false)]
-        public bool IsSurprise { get; set; }
-
-        [XmlAttribute("Trust"), DefaultValue(false)]
-        public bool IsTrust { get; set; }
     }
 }
