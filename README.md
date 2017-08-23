@@ -1,5 +1,7 @@
 # C# Text Analysis Library
 
+![Nuget](https://img.shields.io/nuget/v/Wikiled.Text.Analysis.svg)
+
 Includes:
 
 * English Dictionary 
