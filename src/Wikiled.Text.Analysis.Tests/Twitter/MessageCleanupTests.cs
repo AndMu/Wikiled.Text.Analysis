@@ -30,6 +30,8 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
         [TestCase(@"⚖#⃣💪#⃣", "EMOTICON_scales EMOTICON_hash EMOTICON_muscle EMOTICON_hash")]
         [TestCase(@"#melaniatrump campaigning for anti-bullying", "#melaniatrump campaigning for anti-bullying")]
         [TestCase(@"���� Democracy inTRUMPtion ���� #trump #usa #notmypresident #urlo #munch @ Via Roma Cuneo https://t.co/DJ1K1TQnt4", "� democracy intrumption � #trump #usa #notmypresident #urlo #munch @ via roma cuneo URL_URL")]
+        [TestCase(@"ariela:(singing", "ariela EMOTICON_disappointed singing")]
+        
         public void Cleanup(string message, string expected)
         {
             var result = instance.Cleanup(message);

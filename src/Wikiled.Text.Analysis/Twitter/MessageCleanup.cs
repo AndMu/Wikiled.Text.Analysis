@@ -120,6 +120,12 @@ namespace Wikiled.Text.Analysis.Twitter
                 if (textEmojis.TryGetValue(block, out emoji))
                 {
                     index += i;
+                    if (index >= text.Length ||
+                        text[index] != ' ')
+                    {
+                        index -= 1;
+                    }
+
                     return emoji.AsShortcode();
                 }
             }
