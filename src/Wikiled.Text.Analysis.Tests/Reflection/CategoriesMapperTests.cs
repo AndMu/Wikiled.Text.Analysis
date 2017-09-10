@@ -46,9 +46,9 @@ namespace Wikiled.Text.Analysis.Tests.Reflection
             main.IsGood = true;
             main.Total = 2;
             main.SubCat.Weight = 4;
-            Assert.AreEqual(true, construction["IsGood"].GetValue<bool>(main));
-            Assert.AreEqual(4, construction["Weight"].GetValue<int>(main.SubCat));
-            Assert.AreEqual(2, construction["Total"].GetValue<int>(main));
+            Assert.AreEqual(true, construction["IsGood"].First().GetValue<bool>(main));
+            Assert.AreEqual(4, construction["Weight"].First().GetValue<int>(main.SubCat));
+            Assert.AreEqual(2, construction["Total"].First().GetValue<int>(main));
         }
 
         [Test]
@@ -57,9 +57,9 @@ namespace Wikiled.Text.Analysis.Tests.Reflection
             var mapper = new CategoriesMapper();
             IMapCategory construction = mapper.Construct<MainItem>();
             MainItem main = new MainItem();
-            construction["IsGood"].SetValue(main, true);
-            construction["Weight"].SetValue(main.SubCat, 10);
-            construction["Total"].SetValue(main, 20);
+            construction["IsGood"].First().SetValue(main, true);
+            construction["Weight"].First().SetValue(main.SubCat, 10);
+            construction["Total"].First().SetValue(main, 20);
             Assert.AreEqual(true, main.IsGood);
             Assert.AreEqual(20, main.Total);
             Assert.AreEqual(10, main.SubCat.Weight);
