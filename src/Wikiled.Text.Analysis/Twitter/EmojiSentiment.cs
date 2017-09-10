@@ -4,10 +4,8 @@
     {
         public static Emoji[] Positive =
         {
-            Emoji.FACE_WITH_TEARS_OF_JOY,
             Emoji.SMILING_FACE_WITH_HALO,
             Emoji.SMILING_FACE_WITH_OPEN_MOUTH,
-            Emoji.SMILING_FACE_WITH_OPEN_MOUTH_AND_COLD_SWEAT,
             Emoji.SMILING_FACE_WITH_OPEN_MOUTH_AND_SMILING_EYES,
             Emoji.SMILING_FACE_WITH_OPEN_MOUTH_AND_TIGHTLY_CLOSED_EYES,
             Emoji.SMILING_FACE_WITH_SMILING_EYES,
@@ -16,8 +14,6 @@
             Emoji.KISS,
             Emoji.KISSING_CAT_FACE_WITH_CLOSED_EYES,
             Emoji.KISSING_FACE,
-            Emoji.HEAVY_HEART_EXCLAMATION_MARK_ORNAMENT,
-            Emoji.HEAVY_BLACK_HEART,
             Emoji.COUPLE_WITH_HEART,
             Emoji.BEATING_HEART,
             Emoji.TWO_HEARTS,
@@ -25,23 +21,12 @@
             Emoji.HEART_WITH_ARROW,
             Emoji.BEATING_HEART,
             Emoji.REVOLVING_HEARTS,
-            Emoji.HEART_DECORATION,
             Emoji.BABY_ANGEL,
-            Emoji.FACE_WITH_LOOK_OF_TRIUMPH,
-            Emoji.SLIGHTLY_SMILING_FACE,
             Emoji.HAPPY_PERSON_RAISING_ONE_HAND,
             Emoji.PERSON_RAISING_BOTH_HANDS_IN_CELEBRATION,
-            Emoji.OK_HAND_SIGN,
-            Emoji.FACE_WITH_OK_GESTURE,
-            Emoji.CLAPPING_HANDS_SIGN,
-            Emoji.OPEN_HANDS_SIGN,
             Emoji.HUGGING_FACE,
-            Emoji.WINKING_FACE,
             Emoji.FACE_THROWING_A_KISS,
-            Emoji.WHITE_SMILING_FACE,
-            Emoji.SMIRKING_FACE,
-            Emoji.SMILING_FACE_WITH_HALO,
-            Emoji.VICTORY_HAND
+            Emoji.WHITE_SMILING_FACE
         };
 
         public static Emoji[] Negative =
@@ -53,10 +38,8 @@
             Emoji.SLIGHTLY_FROWNING_FACE,
             Emoji.LOUDLY_CRYING_FACE,
             Emoji.DISAPPOINTED_FACE,
-            Emoji.FACE_WITH_HEAD_BANDAGE,
             Emoji.WORRIED_FACE,
             Emoji.ANGRY_FACE,
-            Emoji.FACE_WITH_NO_GOOD_GESTURE,
             Emoji.REVERSED_HAND_WITH_MIDDLE_FINGER_EXTENDED,
             Emoji.UNAMUSED_FACE,
             Emoji.PILE_OF_POO,
