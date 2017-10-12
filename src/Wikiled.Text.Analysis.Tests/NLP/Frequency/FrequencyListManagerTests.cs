@@ -9,10 +9,11 @@ namespace Wikiled.Text.Analysis.Tests.NLP.Frequency
         [Test]
         public void Test()
         {
-            Assert.AreEqual(347, FrequencyListManager.Instance.BNC.GetIndex("mother"));
-            Assert.AreEqual(900, FrequencyListManager.Instance.Internet.GetIndex("mother"));
-            Assert.AreEqual(2129, FrequencyListManager.Instance.Reuters.GetIndex("mother"));
-            Assert.AreEqual(241, FrequencyListManager.Instance.Subtitles.GetIndex("mother"));
+            var instance = new FrequencyListManager();
+            Assert.AreEqual(347, instance.BNC.GetIndex("mother").Index);
+            Assert.AreEqual(900, instance.Internet.GetIndex("mother").Index);
+            Assert.AreEqual(2129, instance.Reuters.GetIndex("mother").Index);
+            Assert.AreEqual(241, instance.Subtitles.GetIndex("mother").Index);
         }
     }
 }

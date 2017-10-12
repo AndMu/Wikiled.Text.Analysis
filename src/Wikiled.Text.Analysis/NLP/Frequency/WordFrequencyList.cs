@@ -8,7 +8,7 @@ namespace Wikiled.Text.Analysis.NLP.Frequency
 {
     public class WordFrequencyList : IWordFrequencyList
     {
-        private readonly Dictionary<string, int> indexTable = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, FrequencyInformation> indexTable = new Dictionary<string, FrequencyInformation>(StringComparer.OrdinalIgnoreCase);
 
         public WordFrequencyList(string name, string fileName)
         {
@@ -20,21 +20,17 @@ namespace Wikiled.Text.Analysis.NLP.Frequency
             foreach (var item in dictionary.RawData.OrderByDescending(item => item.Value))
             {
                 index++;
-                indexTable[string.Intern(item.Key)] = index;
+                indexTable[item.Key] = new FrequencyInformation(item.Key, index, item.Value);
             }
         }
 
-        public int GetIndex(string word)
-        {
-            int index;
-            if (!indexTable.TryGetValue(word, out index))
-            {
-                return -1;
-            }
-
-            return index;
-        }
+        public IEnumerable<FrequencyInformation> All => indexTable.Values;
 
         public string Name { get; }
+
+        public FrequencyInformation GetIndex(string word)
+        {
+            return !indexTable.TryGetValue(word, out var index) ? null : index;
+        }
     }
 }

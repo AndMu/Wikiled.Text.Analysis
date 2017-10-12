@@ -1,23 +1,23 @@
-﻿namespace Wikiled.Text.Analysis.NLP.Frequency
+﻿using System;
+
+namespace Wikiled.Text.Analysis.NLP.Frequency
 {
     public class FrequencyListManager
     {
-        private FrequencyListManager()
-        {
-            Internet = new WordFrequencyList("BNC", @"Resources.Frequency.internet.dat");
-            Reuters = new WordFrequencyList("BNC", @"Resources.Frequency.Reuters.dat");
-            Subtitles = new WordFrequencyList("BNC", @"Resources.Frequency.subtitles.dat");
-            BNC = new BNCList();
-        }
+        private readonly Lazy<WordFrequencyList> internet = new Lazy<WordFrequencyList>(() => new WordFrequencyList("BNC", @"Resources.Frequency.internet.dat"));
 
-        public static FrequencyListManager Instance { get; } = new FrequencyListManager();
+        private readonly Lazy<WordFrequencyList> reuters = new Lazy<WordFrequencyList>(() => new WordFrequencyList("BNC", @"Resources.Frequency.Reuters.dat"));
 
-        public BNCList BNC { get; }
+        private readonly Lazy<WordFrequencyList> subtitles = new Lazy<WordFrequencyList>(() => new WordFrequencyList("BNC", @"Resources.Frequency.subtitles.dat"));
 
-        public WordFrequencyList Internet { get; }
+        private readonly Lazy<BNCList> bnc = new Lazy<BNCList>(() => new BNCList());
 
-        public WordFrequencyList Reuters { get; }
+        public BNCList BNC => bnc.Value;
 
-        public WordFrequencyList Subtitles { get; }
+        public WordFrequencyList Internet => internet.Value;
+
+        public WordFrequencyList Reuters => reuters.Value;
+
+        public WordFrequencyList Subtitles => subtitles.Value;
     }
 }
