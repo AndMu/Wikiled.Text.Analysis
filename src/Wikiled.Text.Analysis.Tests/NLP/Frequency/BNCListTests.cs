@@ -18,9 +18,9 @@ namespace Wikiled.Text.Analysis.Tests.NLP.Frequency
         [Test]
         public void GetIndex()
         {
-            Assert.AreEqual(10, instance.GetIndex("was"));
-            Assert.AreEqual(22, instance.GetIndex("have"));
-            Assert.AreEqual(32, instance.GetIndex("which"));
+            Assert.AreEqual(10, instance.GetIndex("was").Index);
+            Assert.AreEqual(22, instance.GetIndex("have").Index);
+            Assert.AreEqual(32, instance.GetIndex("which").Index);
         }
 
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Wikiled.Text.Analysis.SymSpell
 {
@@ -165,5 +166,54 @@ namespace Wikiled.Text.Analysis.SymSpell
 
             return (current <= maxDistance) ? current : -1;
         }
+
+        // Damerau–Levenshtein distance algorithm and code 
+        // from http://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance (as retrieved in June 2012)
+        public static Int32 DamerauLevenshteinDistance2(this string source, string target)
+        {
+            Int32 m = source.Length;
+            Int32 n = target.Length;
+            Int32[,] H = new Int32[m + 2, n + 2];
+
+            Int32 INF = m + n;
+            H[0, 0] = INF;
+            for (Int32 i = 0; i <= m; i++)
+            { H[i + 1, 1] = i; H[i + 1, 0] = INF; }
+            for (Int32 j = 0; j <= n; j++)
+            { H[1, j + 1] = j; H[0, j + 1] = INF; }
+
+            SortedDictionary<Char, Int32> sd = new SortedDictionary<Char, Int32>();
+            foreach (Char Letter in (source + target))
+            {
+                if (!sd.ContainsKey(Letter))
+                    sd.Add(Letter, 0);
+            }
+
+            for (Int32 i = 1; i <= m; i++)
+            {
+                Int32 DB = 0;
+                for (Int32 j = 1; j <= n; j++)
+                {
+                    Int32 i1 = sd[target[j - 1]];
+                    Int32 j1 = DB;
+
+                    if (source[i - 1] == target[j - 1])
+                    {
+                        H[i + 1, j + 1] = H[i, j];
+                        DB = j;
+                    }
+                    else
+                    {
+                        H[i + 1, j + 1] = Math.Min(H[i, j], Math.Min(H[i + 1, j], H[i, j + 1])) + 1;
+                    }
+
+                    H[i + 1, j + 1] = Math.Min(H[i + 1, j + 1], H[i1, j1] + (i - i1 - 1) + 1 + (j - j1 - 1));
+                }
+
+                sd[source[i - 1]] = i;
+            }
+            return H[m + 1, n + 1];
+        }
+
     }
 }

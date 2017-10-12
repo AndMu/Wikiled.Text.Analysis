@@ -232,7 +232,10 @@
     <Compile Include="SymSpell\DictionaryItem.cs" />
     <Compile Include="SymSpell\EditDistance.cs" />
     <Compile Include="SymSpell\ISymSpell.cs" />
+    <Compile Include="SymSpell\ISymSpellCompound.cs" />
+    <Compile Include="SymSpell\SuggestionType.cs" />
     <Compile Include="SymSpell\SuggestItem.cs" />
+    <Compile Include="SymSpell\SymSpellCompound.cs" />
     <Compile Include="SymSpell\SymSpellManager.cs" />
     <Compile Include="SymSpell\SymSpellFactory.cs" />
     <Compile Include="Tokenizer\ITreebankWordTokenizer.cs" />
