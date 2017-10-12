@@ -26,7 +26,7 @@ namespace Wikiled.Text.Analysis.Reflection
 
         IMapCategory Parent { get; }
 
-        IMapField this[string name] { get; }
+        IEnumerable<IMapField> this[string name] { get; }
 
         void AddCategory(IMapCategory category);
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Wikiled.Core.Utility.Arguments;
+using Wikiled.Core.Utility.Extensions;
 using Wikiled.Text.Analysis.Reflection.Data;
 
 namespace Wikiled.Text.Analysis.Reflection
@@ -14,9 +15,9 @@ namespace Wikiled.Text.Analysis.Reflection
 
         private Lazy<IMapField[]> allChildFields;
 
-        private Dictionary<string, IMapField> fieldMap;
+        private Dictionary<string, List<IMapField>> fieldMap;
 
-        private Lazy<Dictionary<string, IMapField>> map;
+        private Lazy<Dictionary<string, List<IMapField>>> map;
 
         private Lazy<IMapField[]> sortedFields;
 
@@ -34,15 +35,15 @@ namespace Wikiled.Text.Analysis.Reflection
         {
             get
             {
-                foreach(var mapCategory in categories)
+                foreach (var mapCategory in categories)
                 {
-                    if(!mapCategory.IsCollapsed)
+                    if (!mapCategory.IsCollapsed)
                     {
                         yield return mapCategory;
                     }
                     else
                     {
-                        foreach(var childCategory in mapCategory.Categories)
+                        foreach (var childCategory in mapCategory.Categories)
                         {
                             yield return childCategory;
                         }
@@ -69,9 +70,9 @@ namespace Wikiled.Text.Analysis.Reflection
 
         public Type OwnerType { get; }
 
-        private Dictionary<string, IMapField> FieldMap => map.Value;
+        private Dictionary<string, List<IMapField>> FieldMap => map.Value;
 
-        public IMapField this[string name] => FieldMap[name];
+        public IEnumerable<IMapField> this[string name] => FieldMap[name];
 
         public virtual IEnumerable<IDataItem> GetOtherLeafs(object instance)
         {
@@ -102,31 +103,27 @@ namespace Wikiled.Text.Analysis.Reflection
 
         protected virtual IEnumerable<IMapField> ConstructAllChildFields()
         {
-            foreach(var field in Fields)
+            foreach (var field in Fields)
             {
                 yield return field;
             }
 
-            foreach(var mapCategory in categories)
+            foreach (var mapCategory in categories)
             {
-                foreach(var field in mapCategory.AllChildFields)
+                foreach (var field in mapCategory.AllChildFields)
                 {
                     yield return field;
                 }
             }
         }
 
-        private Dictionary<string, IMapField> ConstructMap()
+        private Dictionary<string, List<IMapField>> ConstructMap()
         {
-            fieldMap = new Dictionary<string, IMapField>();
-            foreach(var field in AllChildFields)
+            fieldMap = new Dictionary<string, List<IMapField>>();
+            foreach (var field in AllChildFields)
             {
-                if(fieldMap.ContainsKey(field.Name))
-                {
-                    throw new ArgumentOutOfRangeException(field.Name + "name is not unique");
-                }
-
-                fieldMap[field.Name] = field;
+                fieldMap.GetSafeCreate(field.Name)
+                        .Add(field);
             }
 
             return fieldMap;
@@ -134,22 +131,26 @@ namespace Wikiled.Text.Analysis.Reflection
 
         private void Reset()
         {
-            if(map == null ||
-               map.IsValueCreated)
+            if (map == null ||
+                map.IsValueCreated)
             {
-                map = new Lazy<Dictionary<string, IMapField>>(ConstructMap);
+                map = new Lazy<Dictionary<string, List<IMapField>>>(ConstructMap);
             }
 
-            if(allChildFields == null ||
-               allChildFields.IsValueCreated)
+            if (allChildFields == null ||
+                allChildFields.IsValueCreated)
             {
-                allChildFields = new Lazy<IMapField[]>(() => ConstructAllChildFields().ToArray());
+                allChildFields = new Lazy<IMapField[]>(
+                    () => ConstructAllChildFields()
+                        .ToArray());
             }
 
-            if(sortedFields == null ||
-               sortedFields.IsValueCreated)
+            if (sortedFields == null ||
+                sortedFields.IsValueCreated)
             {
-                sortedFields = new Lazy<IMapField[]>(() => fields.OrderBy(item => item.Order).ToArray());
+                sortedFields = new Lazy<IMapField[]>(
+                    () => fields.OrderBy(item => item.Order)
+                                .ToArray());
             }
         }
     }
