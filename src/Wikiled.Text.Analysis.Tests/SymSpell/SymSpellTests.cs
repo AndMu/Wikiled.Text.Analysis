@@ -19,11 +19,11 @@ namespace Wikiled.Text.Analysis.Tests.SymSpell
         public async Task Setup()
         {
             manager = new FrequencyListManager();
-            var factory = new SymSpellFactory(manager.BNC, 5000);
+            var factory = new SymSpellFactory(manager.Common);
             List<Task> tasks = new List<Task>();
             tasks.Add(Task.Run(() => instance = factory.Construct()));
             tasks.Add(Task.Run(() => instanceCompound = factory.ConstructCompound()));
-            await Task.WhenAll(tasks);
+            await Task.WhenAll(tasks).ConfigureAwait(false);
         }
 
         [TestCase("goood", "good")]
@@ -32,14 +32,15 @@ namespace Wikiled.Text.Analysis.Tests.SymSpell
         [TestCase("Preace", "peace")]
         public void Construct(string word, string expected)
         {
-            var result = instance.Lookup(word, SuggestionType.All);
+            var result = instance.Lookup(word);
             Assert.AreEqual(expected, result[0].Term);
         }
 
-        [TestCase("whereis th elove hehad dated forImuch of thepast who couqdn'tread in sixthgrade and ins pired him", "where is the love head date for much of the past who could read in six trade and in red him")]
+        [TestCase("whereis th elove hehad dated forImuch of thepast who couqdn'tread in sixthgrade and ins pired him",
+            "where is the love he had dated for much of the past who couldn't read in sixth grade and inspired")]
         public void ConstructCompound(string word, string expected)
         {
-            var result = instanceCompound.LookupCompound(word, 2);
+            var result = instanceCompound.LookupCompound(word);
             Assert.AreEqual(expected, result[0].Term);
         }
     }

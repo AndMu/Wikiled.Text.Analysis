@@ -74,6 +74,8 @@
   <ItemGroup>
     <Compile Include="Cache\LocalDocumentsCacheTests.cs" />
     <Compile Include="Dictionary\BasicEnglishDictionaryTests.cs" />
+    <Compile Include="Dictionary\Streams\CompressedDictionaryStreamTests.cs" />
+    <Compile Include="Dictionary\Streams\DictionaryStreamTests.cs" />
     <Compile Include="Extensions\TextExtensionsTests.cs" />
     <Compile Include="Helpers\CalculatorTests.cs" />
     <Compile Include="NLP\EnglishSyllableCounterTests.cs" />

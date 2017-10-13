@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Wikiled.Text.Analysis.Dictionary.Streams;
 
 namespace Wikiled.Text.Analysis.Dictionary
 {
@@ -8,7 +9,7 @@ namespace Wikiled.Text.Analysis.Dictionary
 
         private BasicEnglishDictionary()
         {
-            words = WordsDictionary.ConstructFromInternalZippedStream(@"Resources.Dictionary.RawEnglish.dat");
+            words = WordsDictionary.Construct(new CompressedDictionaryStream(@"Resources.Dictionary.RawEnglish.dat", new InternalStreamSource()));
         }
 
         public static BasicEnglishDictionary Instance { get; } = new BasicEnglishDictionary();

@@ -9,13 +9,13 @@ namespace Wikiled.Text.Analysis.SymSpell
     {
         private readonly IWordFrequencyList frequency;
 
-        private readonly int minFrequency;
+        private readonly int? topWords;
 
-        public SymSpellFactory(IWordFrequencyList frequency, int minFrequency)
+        public SymSpellFactory(IWordFrequencyList frequency, int? topWords = null)
         {
             Guard.NotNull(() => frequency, frequency);
             this.frequency = frequency;
-            this.minFrequency = minFrequency;
+            this.topWords = topWords;
         }
 
         public ISymSpell Construct()
@@ -42,7 +42,7 @@ namespace Wikiled.Text.Analysis.SymSpell
 
         private IEnumerable<FrequencyInformation> GetItems()
         {
-            return frequency.All.Where(item => item.Frequency >= minFrequency);
+            return frequency.All.Where(item => !topWords.HasValue || item.Index <= topWords);
         }
     }
 }
