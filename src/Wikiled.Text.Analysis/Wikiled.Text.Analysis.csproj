@@ -104,7 +104,7 @@
     <Compile Include="Dictionary\Streams\FileStreamSource.cs" />
     <Compile Include="Dictionary\Streams\IDictionaryStream.cs" />
     <Compile Include="Dictionary\IWordsDictionary.cs" />
-    <Compile Include="Dictionary\Streams\InternalStreamSource.cs" />
+    <Compile Include="Dictionary\Streams\EmbeddedStreamSource.cs" />
     <Compile Include="Dictionary\Streams\IStreamSource.cs" />
     <Compile Include="Dictionary\WordsDictionary.cs" />
     <Compile Include="Extensions\TextExtensions.cs" />

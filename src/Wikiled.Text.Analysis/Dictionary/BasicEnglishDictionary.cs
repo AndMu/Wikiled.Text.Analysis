@@ -9,7 +9,7 @@ namespace Wikiled.Text.Analysis.Dictionary
 
         public BasicEnglishDictionary()
         {
-            words = WordsDictionary.Construct(new CompressedDictionaryStream(@"Resources.Dictionary.RawEnglish.dat", new InternalStreamSource()));
+            words = WordsDictionary.Construct(new CompressedDictionaryStream(@"Resources.Dictionary.RawEnglish.dat", new EmbeddedStreamSource<WordsDictionary>()));
         }
 
         public string[] GetWords()

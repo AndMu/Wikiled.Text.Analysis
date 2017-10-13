@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Wikiled.Core.Utility.Arguments;
+using Wikiled.Text.Analysis.Dictionary;
 using Wikiled.Text.Analysis.Dictionary.Streams;
 
 namespace Wikiled.Text.Analysis.NLP.NRC
@@ -21,7 +22,7 @@ namespace Wikiled.Text.Analysis.NLP.NRC
 
         public void Load()
         {
-            var stream = new CompressedDictionaryStream("Resources.Dictionary.NRC.dat", new InternalStreamSource());
+            var stream = new CompressedDictionaryStream("Resources.Dictionary.NRC.dat", new EmbeddedStreamSource<WordsDictionary>());
             Load(stream);
         }
 

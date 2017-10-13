@@ -16,7 +16,7 @@ namespace Wikiled.Text.Analysis.NLP.Frequency
             Guard.NotNullOrEmpty(() => name, name);
             Guard.NotNullOrEmpty(() => fileName, fileName);
             Name = name;
-            var dictionary = WordsDictionary.Construct(new CompressedDictionaryStream(fileName, new InternalStreamSource()));
+            var dictionary = WordsDictionary.Construct(new CompressedDictionaryStream(fileName, new EmbeddedStreamSource<WordsDictionary>()));
             int index = 0;
             foreach (var item in dictionary.RawData.OrderByDescending(item => item.Value))
             {
