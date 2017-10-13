@@ -7,12 +7,10 @@ namespace Wikiled.Text.Analysis.Dictionary
     {
         private readonly WordsDictionary words;
 
-        private BasicEnglishDictionary()
+        public BasicEnglishDictionary()
         {
             words = WordsDictionary.Construct(new CompressedDictionaryStream(@"Resources.Dictionary.RawEnglish.dat", new InternalStreamSource()));
         }
-
-        public static BasicEnglishDictionary Instance { get; } = new BasicEnglishDictionary();
 
         public string[] GetWords()
         {
