@@ -12,18 +12,18 @@ namespace Wikiled.Text.Analysis.SymSpell
         //To support two types with a Dictionary with fixed type (int), positive number point to one list of type 1 (string), and negative numbers point to a secondary list of type 2 (dictionaryEntry)
         private readonly Dictionary<string, int> dictionary = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase); //initialisierung
 
-        private readonly int editDistanceMaxConst = 2;
-
         private readonly List<DictionaryItem> itemlist = new List<DictionaryItem>();
 
         private readonly int lp = 7; //prefix length  5..7
-
-        private readonly int verbose = 0;
 
         //List of unique words. By using the suggestions (Int) as index for this list they are translated into the original string.
         private readonly List<string> wordlist = new List<string>();
 
         private int maxlength; //maximum dictionary term length
+
+        public int EditDistanceMax { get; set; } = 2;
+
+        public int Verbose { get; set; } = 0;
 
         //for every word there all deletes with an edit distance of 1..editDistanceMax created and added to the dictionary
         //every delete entry has a suggestions list, which points to the original term(s) it was created from
@@ -106,7 +106,7 @@ namespace Wikiled.Text.Analysis.SymSpell
         public HashSet<string> EditsPrefix(string key)
         {
             HashSet<string> hashSet = new HashSet<string>();
-            if (key.Length <= editDistanceMaxConst)
+            if (key.Length <= EditDistanceMax)
             {
                 hashSet.Add(""); //Fix: add ""-delete
             }
@@ -114,11 +114,10 @@ namespace Wikiled.Text.Analysis.SymSpell
             return Edits(key.Length <= lp ? key : key.Substring(0, lp), 0, hashSet);
         }
 
-        public List<SuggestItem> Lookup(string word, SuggestionType type = SuggestionType.Top)
+        public List<SuggestItem> Lookup(string word, int editDistance = 2)
         {
-            word = word.Trim()
-                       .ToLower();
-            var editDistanceMax = (int)type;
+            word = word.Trim().ToLower();
+            var editDistanceMax = editDistance;
 
             //save some time
             if (word.Length - editDistanceMax > maxlength)
@@ -148,7 +147,7 @@ namespace Wikiled.Text.Analysis.SymSpell
                 //early termination
                 //suggestion distance=candidate.distance... candidate.distance+editDistanceMax                
                 //if canddate distance is already higher than suggestion distance, than there are no better suggestions to be expected
-                if (verbose < 2 &&
+                if (Verbose < 2 &&
                     suggestions.Count > 0 &&
                     lengthDiff >
                     suggestions[0]
@@ -178,11 +177,7 @@ namespace Wikiled.Text.Analysis.SymSpell
                         //save some time
                         //do not process higher distances than those already found, if verbose<2      
                         if (distance <= editDistanceMax &&
-                            (verbose == 2 ||
-                             suggestions.Count == 0 ||
-                             distance <=
-                             suggestions[0]
-                                 .Distance) &&
+                            (Verbose == 2 || suggestions.Count == 0 || distance <= suggestions[0].Distance) &&
                             hashset2.Add(candidate))
                         {
                             //Fix: previously not allways all suggestons within editdistance (verbose=1) or the best suggestion (verbose=0) were returned : e.g. elove did not return love
@@ -191,7 +186,7 @@ namespace Wikiled.Text.Analysis.SymSpell
                             //All of them where deleted later once a suggestion with a lower distance than the first item in the list was later added in the other branch. 
                             //Therefore returned suggestions were not always complete for verbose<2.
                             //remove all existing suggestions of higher distance, if verbose<2
-                            if (verbose < 2 &&
+                            if (Verbose < 2 &&
                                 suggestions.Count > 0 &&
                                 suggestions[0]
                                     .Distance >
@@ -206,7 +201,7 @@ namespace Wikiled.Text.Analysis.SymSpell
                             suggestions.Add(si);
 
                             //early termination
-                            if (verbose < 2 &&
+                            if (Verbose < 2 &&
                                 distance == 0)
                             {
                                 return SortItems(suggestions);
@@ -303,7 +298,7 @@ namespace Wikiled.Text.Analysis.SymSpell
 
                         //save some time
                         //do not process higher distances than those already found, if verbose<2
-                        if (verbose < 2 &&
+                        if (Verbose < 2 &&
                             suggestions.Count > 0 &&
                             distance >
                             suggestions[0]
@@ -320,13 +315,13 @@ namespace Wikiled.Text.Analysis.SymSpell
                                     distance);
 
                                 //we will calculate DamLev distance only to the smallest found distance sof far
-                                if (verbose < 2)
+                                if (Verbose < 2)
                                 {
                                     editDistanceMax2 = distance;
                                 }
 
                                 //remove all existing suggestions of higher distance, if verbose<2
-                                if (verbose < 2 &&
+                                if (Verbose < 2 &&
                                     suggestions.Count > 0 &&
                                     suggestions[0]
                                         .Distance >
@@ -346,7 +341,7 @@ namespace Wikiled.Text.Analysis.SymSpell
                     //save some time
                     //do not create edits with edit distance smaller than suggestions already found
                     //if ((verbose < 2) && (suggestions.Count > 0) && (input.Length - candidate.Length >= suggestions[0].distance)) continue;
-                    if (verbose < 2 &&
+                    if (Verbose < 2 &&
                         suggestions.Count > 0 &&
                         lengthDiff >=
                         suggestions[0]
@@ -422,7 +417,7 @@ namespace Wikiled.Text.Analysis.SymSpell
                     if (deletes.Add(delete))
                     {
                         //recursion, if maximum edit distance not yet reached
-                        if (editDistance < editDistanceMaxConst)
+                        if (editDistance < EditDistanceMax)
                         {
                             Edits(delete, editDistance, deletes);
                         }
@@ -435,7 +430,7 @@ namespace Wikiled.Text.Analysis.SymSpell
 
         private List<SuggestItem> SortItems(List<SuggestItem> suggestions)
         {
-            if (verbose < 2)
+            if (Verbose < 2)
             {
                 suggestions.Sort((x, y) => -x.Count.CompareTo(y.Count));
             }
@@ -444,7 +439,7 @@ namespace Wikiled.Text.Analysis.SymSpell
                 suggestions.Sort((x, y) => 2 * x.Distance.CompareTo(y.Distance) - x.Count.CompareTo(y.Count));
             }
 
-            if (verbose == 0 &&
+            if (Verbose == 0 &&
                 suggestions.Count > 1)
             {
                 return suggestions.GetRange(0, 1);

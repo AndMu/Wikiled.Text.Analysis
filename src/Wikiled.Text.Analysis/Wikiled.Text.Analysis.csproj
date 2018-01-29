@@ -104,8 +104,14 @@
     <Compile Include="Cache\NullCachedDocumentsSource.cs" />
     <Compile Include="Cache\NullCacheFactory.cs" />
     <Compile Include="Dictionary\BasicEnglishDictionary.cs" />
+    <Compile Include="Dictionary\Streams\CompressedDictionaryStream.cs" />
+    <Compile Include="Dictionary\Streams\DictionaryStream.cs" />
+    <Compile Include="Dictionary\Streams\DictionaryStreamExtension.cs" />
+    <Compile Include="Dictionary\Streams\FileStreamSource.cs" />
+    <Compile Include="Dictionary\Streams\IDictionaryStream.cs" />
     <Compile Include="Dictionary\IWordsDictionary.cs" />
-    <Compile Include="Dictionary\EnglishDictionary.cs" />
+    <Compile Include="Dictionary\Streams\EmbeddedStreamSource.cs" />
+    <Compile Include="Dictionary\Streams\IStreamSource.cs" />
     <Compile Include="Dictionary\WordsDictionary.cs" />
     <Compile Include="Extensions\TextExtensions.cs" />
     <Compile Include="Helpers\Calculator.cs" />
@@ -149,7 +155,7 @@
     <Compile Include="Reflection\ItemProbabilityHolder.cs" />
     <Compile Include="Reflection\MapCategory.cs" />
     <Compile Include="Reflection\MapField.cs" />
-    <Compile Include="Resources\ReadTabResourceDataFile.cs" />
+    <Compile Include="Dictionary\Streams\ReadTabResourceDataFile.cs" />
     <Compile Include="Structure\ITextItem.cs" />
     <Compile Include="Structure\NamedEntities.cs" />
     <Compile Include="POS\IPOSTagger.cs" />
@@ -239,7 +245,6 @@
     <Compile Include="SymSpell\EditDistance.cs" />
     <Compile Include="SymSpell\ISymSpell.cs" />
     <Compile Include="SymSpell\ISymSpellCompound.cs" />
-    <Compile Include="SymSpell\SuggestionType.cs" />
     <Compile Include="SymSpell\SuggestItem.cs" />
     <Compile Include="SymSpell\SymSpellCompound.cs" />
     <Compile Include="SymSpell\SymSpellManager.cs" />
@@ -285,6 +290,8 @@
     <EmbeddedResource Include="Resources\Frequency\internet.dat" />
     <EmbeddedResource Include="Resources\Frequency\Reuters.dat" />
     <EmbeddedResource Include="Resources\Frequency\subtitles.dat" />
+    <EmbeddedResource Include="Resources\Dictionary\NRC.dat" />
+    <EmbeddedResource Include="Resources\Frequency\frequency.dat" />
     <None Include="Twitter\tld_lib.yml" />
     <None Include="Wikiled.Text.Analysis.nuspec" />
   </ItemGroup>
@@ -296,9 +303,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Dictionary\NRC.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

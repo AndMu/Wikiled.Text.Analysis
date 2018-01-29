@@ -4,8 +4,12 @@ namespace Wikiled.Text.Analysis.SymSpell
 {
     public interface ISymSpellCompound
     {
-        List<SuggestItem> Lookup(string input, int editDistanceMax);
+        int Verbose { get; set; }
 
-        List<SuggestItem> LookupCompound(string input, int editDistanceMax);
+        int EditDistanceMax { get; set; }
+
+        List<SuggestItem> Lookup(string input, int editDistanceMax = 2);
+
+        List<SuggestItem> LookupCompound(string input, int editDistanceMax = 2);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Wikiled.Core.Utility.Arguments;
 using Wikiled.Text.Analysis.Dictionary;
+using Wikiled.Text.Analysis.Dictionary.Streams;
 
 namespace Wikiled.Text.Analysis.NLP.Frequency
 {
@@ -15,7 +16,7 @@ namespace Wikiled.Text.Analysis.NLP.Frequency
             Guard.NotNullOrEmpty(() => name, name);
             Guard.NotNullOrEmpty(() => fileName, fileName);
             Name = name;
-            var dictionary = WordsDictionary.ConstructFromInternalZippedStream(fileName);
+            var dictionary = WordsDictionary.Construct(new CompressedDictionaryStream(fileName, new EmbeddedStreamSource<WordsDictionary>()));
             int index = 0;
             foreach (var item in dictionary.RawData.OrderByDescending(item => item.Value))
             {

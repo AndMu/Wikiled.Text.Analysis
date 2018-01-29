@@ -13,7 +13,7 @@ namespace Wikiled.Text.Analysis.Tests.NLP
         [SetUp]
         public void Setup()
         {
-            instance = new RawWordExtractor(BasicEnglishDictionary.Instance, new MemoryCache("Test"));
+            instance = new RawWordExtractor(new BasicEnglishDictionary(), new MemoryCache("Test"));
         }
 
         [TestCase("program's", "program")]
