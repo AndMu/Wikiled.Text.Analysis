@@ -284,7 +284,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <EmbeddedResource Include="Resources\Dictionary\RawEnglish.dat" />
     <EmbeddedResource Include="Resources\Frequency\bnc.dat" />
     <EmbeddedResource Include="Resources\Frequency\internet.dat" />

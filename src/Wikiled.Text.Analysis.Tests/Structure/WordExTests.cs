@@ -1,6 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using Newtonsoft.Json;
 using NUnit.Framework;
-using Wikiled.Core.Utility.Serialization;
 using Wikiled.Text.Analysis.Structure;
 
 namespace Wikiled.Text.Analysis.Tests.Structure
@@ -14,8 +13,8 @@ namespace Wikiled.Text.Analysis.Tests.Structure
             WordEx word = new WordEx(new SimpleWord("Test"));
             word.Value = 11.11;
             word.Theta = 2;
-            XDocument doc = word.XmlSerialize();
-            WordEx deserialized = doc.XmlDeserialize<WordEx>();
+            var json = JsonConvert.SerializeObject(word);
+            WordEx deserialized = JsonConvert.DeserializeObject<WordEx>(json);
             Assert.AreEqual(word.UnderlyingWord.Text, deserialized.UnderlyingWord.Text);
             Assert.AreEqual(11.11, deserialized.Value);
             Assert.AreEqual(2, deserialized.Theta);
