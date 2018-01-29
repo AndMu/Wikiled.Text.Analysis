@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using Wikiled.Core.Utility.Arguments;
 
 namespace Wikiled.Text.Analysis.Structure
@@ -20,35 +21,27 @@ namespace Wikiled.Text.Analysis.Structure
             Text = text;
         }
 
-        [XmlElement]
         public string Author { get; set; }
 
-        [XmlElement(IsNullable = true)]
         public DateTime? DocumentTime { get; set; }
 
-        [XmlElement]
         public string Title { get; set; }
 
-        [XmlAttribute]
         public string Id { get; set; }
 
-        [XmlElement]
         public string Text { get; set; }
 
-        [XmlElement]
         public double? Stars { get; set; }
      
-        [XmlArray]
-        [XmlArrayItem("Sentence")]
         public List<SentenceItem> Sentences { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         public int TotalWords
         {
             get { return Sentences.Sum(item => item.Words.Count); }
         }
 
-        [XmlIgnore]
+        [JsonIgnore]
         public IEnumerable<WordEx> Words
         {
             get { return Sentences.SelectMany(sentenceItem => sentenceItem.Words); }

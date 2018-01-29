@@ -13,7 +13,7 @@ namespace Wikiled.Text.Analysis.NLP.NRC
         private Dictionary<string, NRCRecord> table = new Dictionary<string, NRCRecord>(StringComparer.OrdinalIgnoreCase);
 
         public IEnumerable<WordNRCRecord> AllRecords => table.Select(item => new WordNRCRecord(item.Key, item.Value));
-
+       
         public void Load()
         {
             table = new Dictionary<string, NRCRecord>(StringComparer.OrdinalIgnoreCase);

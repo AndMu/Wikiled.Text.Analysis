@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using Wikiled.Core.Utility.Arguments;
 
 namespace Wikiled.Text.Analysis.Structure
@@ -20,6 +21,27 @@ namespace Wikiled.Text.Analysis.Structure
             Text = text;
         }
 
+        public int Index { get; set; }
+
+        public string Text { get; set; }
+
+        public List<WordEx> Words { get; set; }
+
+        [JsonIgnore]
+        public int this[WordEx word]
+        {
+            get
+            {
+                Guard.NotNull(() => word, word);
+                return Words.IndexOf(word);
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"[{Words.Count}]: {Text}";
+        }
+
         public void Add(string word)
         {
             Add(new WordEx(new SimpleWord(word)));
@@ -30,34 +52,9 @@ namespace Wikiled.Text.Analysis.Structure
             Words.Add(word);
         }
 
-        [XmlIgnore]
-        public int this[WordEx word]
-        {
-            get
-            {
-                Guard.NotNull(() => word, word);
-                return Words.IndexOf(word);
-            }
-        }
-
-        [XmlElement]
-        public int Index { get; set; }
-
-        [XmlElement]
-        public string Text { get; set; }
-
-        [XmlArray]
-        [XmlArrayItem("Word")]
-        public List<WordEx> Words { get; set; }
-
         public double CalculateSentiment()
         {
             return Words.Sum(x => x.CalculatedValue);
-        }
-
-        public override string ToString()
-        {
-            return $"[{Words.Count}]: {Text}";
         }
     }
 }
