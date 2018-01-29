@@ -20,7 +20,8 @@ namespace Wikiled.Text.Analysis.Structure
             UnderlyingWord = item;
             Text = item.Text;
         }
-        
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Phrase { get; set; }
 
         [DefaultValue(5)]
@@ -44,6 +45,7 @@ namespace Wikiled.Text.Analysis.Structure
             set => UnderlyingWord = new SimpleWord(value);
         }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string NormalizedEntity { get; set; }
         
         public string Text { get; set; }

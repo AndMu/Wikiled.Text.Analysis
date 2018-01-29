@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Serialization;
 using Newtonsoft.Json;
 using Wikiled.Core.Utility.Arguments;
 
@@ -21,16 +20,20 @@ namespace Wikiled.Text.Analysis.Structure
             Text = text;
         }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Author { get; set; }
 
         public DateTime? DocumentTime { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Title { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
 
         public string Text { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public double? Stars { get; set; }
      
         public List<SentenceItem> Sentences { get; set; }
