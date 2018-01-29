@@ -24,10 +24,12 @@ namespace Wikiled.Text.Analysis.Structure
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Phrase { get; set; }
 
-        [DefaultValue(5)]
+        [DefaultValue(0)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double CalculatedValue { get; set; }
 
         [DefaultValue(NamedEntities.None)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public NamedEntities EntityType { get; set; }
 
         [JsonIgnore]
@@ -51,6 +53,7 @@ namespace Wikiled.Text.Analysis.Structure
         public string Text { get; set; }
 
         [DefaultValue(0)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double Theta { get; set; }
 
         public string Type
@@ -66,6 +69,7 @@ namespace Wikiled.Text.Analysis.Structure
         public IItem UnderlyingWord { get; private set; }
         
         [DefaultValue(0)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double Value { get; set; }
 
         public override string ToString()
