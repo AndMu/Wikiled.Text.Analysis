@@ -24,7 +24,6 @@ namespace Wikiled.Text.Analysis.Structure
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Phrase { get; set; }
 
-        [DefaultValue(0)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double CalculatedValue { get; set; }
 
@@ -34,11 +33,11 @@ namespace Wikiled.Text.Analysis.Structure
 
         [JsonIgnore]
         public int Id { get; set; }
-        
-        [DefaultValue(false)]
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public bool IsAspect { get; set; }
 
-        [DefaultValue(false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public bool IsStop { get; set; }
 
         public string ItemText
@@ -52,7 +51,6 @@ namespace Wikiled.Text.Analysis.Structure
         
         public string Text { get; set; }
 
-        [DefaultValue(0)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double Theta { get; set; }
 
@@ -68,7 +66,6 @@ namespace Wikiled.Text.Analysis.Structure
         [JsonIgnore]
         public IItem UnderlyingWord { get; private set; }
         
-        [DefaultValue(0)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double Value { get; set; }
 
