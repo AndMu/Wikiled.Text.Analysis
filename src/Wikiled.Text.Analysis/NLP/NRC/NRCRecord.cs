@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace Wikiled.Text.Analysis.NLP.NRC
 {
@@ -16,6 +17,7 @@ namespace Wikiled.Text.Analysis.NLP.NRC
 
         public string Word { get; set; }
 
+        [JsonIgnore]
         public bool HasAnyValue => IsAnger ||
                                    IsAnticipation ||
                                    IsDisgust ||
@@ -29,18 +31,22 @@ namespace Wikiled.Text.Analysis.NLP.NRC
 
         [XmlAttribute("Anger")]
         [DefaultValue(false)]
+        [JsonProperty("Anger")]
         public bool IsAnger { get; set; }
 
         [XmlAttribute("Anticipation")]
         [DefaultValue(false)]
+        [JsonProperty("Anticipation")]
         public bool IsAnticipation { get; set; }
 
         [XmlAttribute("Disgust")]
         [DefaultValue(false)]
+        [JsonProperty("Disgust")]
         public bool IsDisgust { get; set; }
 
         [XmlAttribute("Fear")]
         [DefaultValue(false)]
+        [JsonProperty("Fear")]
         public bool IsFear { get; set; }
 
         [XmlAttribute("Joy")]
@@ -48,22 +54,27 @@ namespace Wikiled.Text.Analysis.NLP.NRC
         public bool IsJoy { get; set; }
 
         [XmlAttribute("Negative")]
+        [JsonProperty("Negative")]
         [DefaultValue(false)]
         public bool IsNegative { get; set; }
 
         [XmlAttribute("Positive")]
+        [JsonProperty("Positive")]
         [DefaultValue(false)]
         public bool IsPositive { get; set; }
 
         [XmlAttribute("Sadness")]
+        [JsonProperty("Sadness")]
         [DefaultValue(false)]
         public bool IsSadness { get; set; }
 
         [XmlAttribute("Surprise")]
+        [JsonProperty("Surprise")]
         [DefaultValue(false)]
         public bool IsSurprise { get; set; }
 
         [XmlAttribute("Trust")]
+        [JsonProperty("Trust")]
         [DefaultValue(false)]
         public bool IsTrust { get; set; }
 
