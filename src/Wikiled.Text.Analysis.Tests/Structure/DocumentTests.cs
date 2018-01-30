@@ -56,6 +56,11 @@ namespace Wikiled.Text.Analysis.Tests.Structure
             Document documentDeserialized = JsonConvert.DeserializeObject<Document>(json);
             Assert.AreEqual(2, documentDeserialized.Sentences.Count);
             Assert.AreEqual("Test", documentDeserialized.Text);
+
+            XDocument xDocument = document.XmlSerialize();
+            documentDeserialized = xDocument.XmlDeserialize<Document>();
+            Assert.AreEqual(2, documentDeserialized.Sentences.Count);
+            Assert.AreEqual("Test", documentDeserialized.Text);
         }
     }
 }

@@ -21,13 +21,18 @@ namespace Wikiled.Text.Analysis.Structure
             Text = text;
         }
 
+        [XmlElement]
         public int Index { get; set; }
 
+        [XmlElement]
         public string Text { get; set; }
 
+        [XmlArray]
+        [XmlArrayItem("Word")]
         public List<WordEx> Words { get; set; }
 
         [JsonIgnore]
+        [XmlIgnore]
         public int this[WordEx word]
         {
             get

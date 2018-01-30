@@ -22,24 +22,34 @@ namespace Wikiled.Text.Analysis.Structure
         }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [XmlElement]
         public string Phrase { get; set; }
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [XmlElement]
+        [DefaultValue(0)]
         public double CalculatedValue { get; set; }
 
+        [XmlElement]
         [DefaultValue(NamedEntities.None)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public NamedEntities EntityType { get; set; }
 
         [JsonIgnore]
+        [XmlIgnore]
         public int Id { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [XmlElement]
+        [DefaultValue(false)]
         public bool IsAspect { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [XmlElement]
+        [DefaultValue(false)]
         public bool IsStop { get; set; }
 
+        [XmlElement]
         public string ItemText
         {
             get => UnderlyingWord.Text;
@@ -47,13 +57,18 @@ namespace Wikiled.Text.Analysis.Structure
         }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [XmlElement]
         public string NormalizedEntity { get; set; }
-        
+
+        [XmlElement]
         public string Text { get; set; }
 
+        [XmlElement]
+        [DefaultValue(0)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double Theta { get; set; }
 
+        [XmlElement]
         public string Type
         {
             get => Tag.Tag;
@@ -61,12 +76,16 @@ namespace Wikiled.Text.Analysis.Structure
         }
 
         [JsonIgnore]
+        [XmlIgnore]
         public BasePOSType Tag => tag ?? POSTags.Instance.UnknownWord;
 
         [JsonIgnore]
+        [XmlIgnore]
         public IItem UnderlyingWord { get; private set; }
         
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [XmlElement]
+        [DefaultValue(0)]
         public double Value { get; set; }
 
         public override string ToString()

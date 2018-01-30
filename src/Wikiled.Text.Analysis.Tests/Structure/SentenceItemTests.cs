@@ -38,6 +38,11 @@ namespace Wikiled.Text.Analysis.Tests.Structure
             var itemDeserialized = JsonConvert.DeserializeObject<SentenceItem>(json);
             Assert.AreEqual(2, itemDeserialized.Words.Count);
             Assert.AreEqual("Test", itemDeserialized.Text);
+
+            XDocument document = item.XmlSerialize();
+            itemDeserialized = document.XmlDeserialize<SentenceItem>();
+            Assert.AreEqual(2, itemDeserialized.Words.Count);
+            Assert.AreEqual("Test", itemDeserialized.Text);
         }
     }
 }
