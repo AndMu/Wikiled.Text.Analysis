@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using Wikiled.Text.Analysis.POS;
 using Wikiled.Text.Analysis.POS.Tags;
 
@@ -20,24 +21,30 @@ namespace Wikiled.Text.Analysis.Structure
             Text = item.Text;
         }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [XmlElement]
         public string Phrase { get; set; }
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         [XmlElement]
         [DefaultValue(0)]
         public double CalculatedValue { get; set; }
 
         [XmlElement]
         [DefaultValue(NamedEntities.None)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public NamedEntities EntityType { get; set; }
 
+        [JsonIgnore]
         [XmlIgnore]
         public int Id { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [XmlElement]
         [DefaultValue(false)]
         public bool IsAspect { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [XmlElement]
         [DefaultValue(false)]
         public bool IsStop { get; set; }
@@ -49,15 +56,16 @@ namespace Wikiled.Text.Analysis.Structure
             set => UnderlyingWord = new SimpleWord(value);
         }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [XmlElement]
         public string NormalizedEntity { get; set; }
-        
 
         [XmlElement]
         public string Text { get; set; }
 
         [XmlElement]
         [DefaultValue(0)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double Theta { get; set; }
 
         [XmlElement]
@@ -67,11 +75,15 @@ namespace Wikiled.Text.Analysis.Structure
             set => tag = POSTags.Instance.FindType(value);
         }
 
+        [JsonIgnore]
+        [XmlIgnore]
         public BasePOSType Tag => tag ?? POSTags.Instance.UnknownWord;
 
+        [JsonIgnore]
         [XmlIgnore]
         public IItem UnderlyingWord { get; private set; }
-
+        
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         [XmlElement]
         [DefaultValue(0)]
         public double Value { get; set; }

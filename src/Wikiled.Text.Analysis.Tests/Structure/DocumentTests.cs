@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Xml.Linq;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using Wikiled.Core.Utility.Serialization;
 using Wikiled.Text.Analysis.Structure;
@@ -51,8 +52,13 @@ namespace Wikiled.Text.Analysis.Tests.Structure
             document.Add(new SentenceItem());
             document.Sentences[0].Add("Test Word");
             document.Add(new SentenceItem());
+            var json = JsonConvert.SerializeObject(document);
+            Document documentDeserialized = JsonConvert.DeserializeObject<Document>(json);
+            Assert.AreEqual(2, documentDeserialized.Sentences.Count);
+            Assert.AreEqual("Test", documentDeserialized.Text);
+
             XDocument xDocument = document.XmlSerialize();
-            Document documentDeserialized = xDocument.XmlDeserialize<Document>();
+            documentDeserialized = xDocument.XmlDeserialize<Document>();
             Assert.AreEqual(2, documentDeserialized.Sentences.Count);
             Assert.AreEqual("Test", documentDeserialized.Text);
         }
