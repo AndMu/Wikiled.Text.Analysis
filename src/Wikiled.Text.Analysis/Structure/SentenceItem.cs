@@ -60,7 +60,7 @@ namespace Wikiled.Text.Analysis.Structure
 
         public double CalculateSentiment()
         {
-            return Words.Sum(x => x.CalculatedValue);
+            return Words.Sum(x => x.CalculatedValue ?? 0);
         }
     }
 }
