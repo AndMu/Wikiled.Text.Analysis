@@ -15,6 +15,7 @@ namespace Wikiled.Text.Analysis.NLP.NRC
             Word = word;
         }
 
+        [JsonIgnore]
         public string Word { get; set; }
 
         [JsonIgnore]

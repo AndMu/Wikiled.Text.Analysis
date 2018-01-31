@@ -27,8 +27,7 @@ namespace Wikiled.Text.Analysis.Structure
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         [XmlElement]
-        [DefaultValue(0)]
-        public double CalculatedValue { get; set; }
+        public double? CalculatedValue { get; set; }
 
         [XmlElement]
         [DefaultValue(NamedEntities.None)]
@@ -41,12 +40,10 @@ namespace Wikiled.Text.Analysis.Structure
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [XmlElement]
-        [DefaultValue(false)]
         public bool IsAspect { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [XmlElement]
-        [DefaultValue(false)]
         public bool IsStop { get; set; }
 
         [XmlElement]
@@ -64,9 +61,8 @@ namespace Wikiled.Text.Analysis.Structure
         public string Text { get; set; }
 
         [XmlElement]
-        [DefaultValue(0)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public double Theta { get; set; }
+        public double? Theta { get; set; }
 
         [XmlElement]
         public string Type
@@ -85,8 +81,7 @@ namespace Wikiled.Text.Analysis.Structure
         
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         [XmlElement]
-        [DefaultValue(0)]
-        public double Value { get; set; }
+        public double? Value { get; set; }
 
         public override string ToString()
         {

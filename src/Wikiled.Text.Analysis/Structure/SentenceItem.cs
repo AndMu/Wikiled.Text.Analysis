@@ -25,6 +25,7 @@ namespace Wikiled.Text.Analysis.Structure
         public int Index { get; set; }
 
         [XmlElement]
+        [JsonIgnore]
         public string Text { get; set; }
 
         [XmlArray]
