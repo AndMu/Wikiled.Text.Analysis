@@ -28,10 +28,11 @@ namespace Wikiled.Text.Analysis.Structure
         [XmlElement(IsNullable = true)]
         public DateTime? DocumentTime { get; set; }
 
+        [XmlElement]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Title { get; set; }
 
-        [XmlElement]
+        [XmlAttribute]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
 
