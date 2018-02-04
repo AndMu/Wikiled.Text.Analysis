@@ -47,6 +47,7 @@ namespace Wikiled.Text.Analysis.Twitter
         {
             Guard.NotNull(() => message, message);
             var text = Replace(message.ToLower(), extractor.ExtractUrlsWithIndices(message), "URL_URL");
+            text = Replace(text, extractor.ExtractCashtagsWithIndices(text), "INDEX_INDEX");
             StringBuilder builder = new StringBuilder();
             char? previous = null;
             char? previousToPrevious = null;
