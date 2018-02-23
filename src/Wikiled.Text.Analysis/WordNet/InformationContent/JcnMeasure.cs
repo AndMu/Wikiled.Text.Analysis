@@ -1,6 +1,6 @@
 ﻿using System;
-using Wikiled.Core.Utility.Arguments;
-using Wikiled.Core.Utility.Cache;
+using Microsoft.Extensions.Caching.Memory;
+using Wikiled.Common.Arguments;
 using Wikiled.Text.Analysis.POS;
 using Wikiled.Text.Analysis.WordNet.Engine;
 
@@ -8,13 +8,13 @@ namespace Wikiled.Text.Analysis.WordNet.InformationContent
 {
     public class JcnMeasure : IRelatednessMesaure
     {
-        private readonly ICacheHandler cache;
+        private readonly IMemoryCache cache;
 
         private readonly IWordNetEngine engine;
 
         private readonly IInformationContentResnik resnik;
 
-        public JcnMeasure(ICacheHandler cache, IInformationContentResnik resnik, IWordNetEngine engine)
+        public JcnMeasure(IMemoryCache cache, IInformationContentResnik resnik, IWordNetEngine engine)
         {
             Guard.NotNull(() => cache, cache);
             Guard.NotNull(() => resnik, resnik);
@@ -83,33 +83,31 @@ namespace Wikiled.Text.Analysis.WordNet.InformationContent
             Guard.NotNull(() => synSet1, synSet1);
             Guard.NotNull(() => synSet2, synSet2);
             var tag = GenerateTag(synSet1, synSet2);
-            double value;
-            if (!cache.TryGetItem(tag, out value))
-            {
-                SynSetRelation[] vlist = new SynSetRelation[1];
-                vlist[0] = SynSetRelation.Hypernym;
-                var common = synSet1.GetClosestMutuallyReachableSynset(synSet2, vlist);
-                double distance = 0;
-                if (common != null)
-                {
-                    distance = resnik.GetIC(synSet1) + resnik.GetIC(synSet2) - 2 * resnik.GetIC(common);
-                }
+            return cache.GetOrCreate(
+                tag,
+                entry =>
+                    {
+                        SynSetRelation[] vlist = new SynSetRelation[1];
+                        vlist[0] = SynSetRelation.Hypernym;
+                        var common = synSet1.GetClosestMutuallyReachableSynset(synSet2, vlist);
+                        double distance = 0;
+                        if (common != null)
+                        {
+                            distance = resnik.GetIC(synSet1) + resnik.GetIC(synSet2) - 2 * resnik.GetIC(common);
+                        }
 
-                if (distance == 0)
-                {
-                    return 0;
-                }
+                        if (distance == 0)
+                        {
+                            return 0;
+                        }
 
-                if (distance < MinDistance)
-                {
-                    distance = MinDistance;
-                }
+                        if (distance < MinDistance)
+                        {
+                            distance = MinDistance;
+                        }
 
-                value = 1 / distance;
-            }
-
-            cache.SetItem(tag, value);
-            return value;
+                        return 1 / distance;
+                    });
         }
 
         private string GenerateTag(SynSet synSet1, SynSet synSet2)

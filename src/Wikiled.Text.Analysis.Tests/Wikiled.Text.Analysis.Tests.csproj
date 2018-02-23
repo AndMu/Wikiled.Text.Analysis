@@ -1,142 +1,24 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{997A63D0-0576-4F45-9479-4611644A5F40}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wikiled.Text.Analysis.Tests</RootNamespace>
-    <AssemblyName>Wikiled.Text.Analysis.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFramework>NET471</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
+
   <ItemGroup>
-    <Reference Include="Crc32C.NET, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Crc32C.NET.1.0.5.0\lib\net20\Crc32C.NET.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="protobuf-net, Version=2.3.6.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
-      <HintPath>..\packages\protobuf-net.2.3.6\lib\net40\protobuf-net.dll</HintPath>
-    </Reference>
-    <Reference Include="Snappy.NET, Version=1.1.1.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Snappy.NET.1.1.1.8\lib\net45\Snappy.NET.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Wikiled.Core.Utility, Version=2.1.18.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Wikiled.Core.Utility.2.1.18\lib\net462\Wikiled.Core.Utility.dll</HintPath>
-    </Reference>
-    <Reference Include="YamlDotNet, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\YamlDotNet.4.3.0\lib\net45\YamlDotNet.dll</HintPath>
-    </Reference>
+    <PackageReference Include="NLog" Version="4.5.0-rc05" />
+    <PackageReference Include="NUnit" Version="3.9.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.9.0" />    
+    <PackageReference Include="Wikiled.Arff" Version="2.0.7" />
+    <PackageReference Include="Wikiled.Common" Version="1.0.8" />
+    <PackageReference Include="YamlDotNet" Version="4.3.1" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Cache\LocalDocumentsCacheTests.cs" />
-    <Compile Include="Dictionary\BasicEnglishDictionaryTests.cs" />
-    <Compile Include="Dictionary\Streams\CompressedDictionaryStreamTests.cs" />
-    <Compile Include="Dictionary\Streams\DictionaryStreamTests.cs" />
-    <Compile Include="Extensions\TextExtensionsTests.cs" />
-    <Compile Include="Helpers\CalculatorTests.cs" />
-    <Compile Include="NLP\EnglishSyllableCounterTests.cs" />
-    <Compile Include="NLP\Frequency\BNCListTests.cs" />
-    <Compile Include="NLP\Frequency\FrequencyListManagerTests.cs" />
-    <Compile Include="NLP\NRC\NRCDictionaryTests.cs" />
-    <Compile Include="NLP\NRC\SentimentVectorTests.cs" />
-    <Compile Include="NLP\RawWordExtractorTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reflection\CategoriesMapperTests.cs" />
-    <Compile Include="Reflection\DataTreeTests.cs" />
-    <Compile Include="Reflection\TestData\AnotherMainItem.cs" />
-    <Compile Include="Reflection\TestData\MainItem.cs" />
-    <Compile Include="Reflection\TestData\ThirdMainItem.cs" />
-    <Compile Include="Structure\DocumentTests.cs" />
-    <Compile Include="Structure\SentenceItemTests.cs" />
-    <Compile Include="Structure\SimpleWordTests.cs" />
-    <Compile Include="Structure\WordExTests.cs" />
-    <Compile Include="SymSpell\SymSpellTests.cs" />
-    <Compile Include="Tokenizer\TreebankWordTokenizerTests.cs" />
-    <Compile Include="Twitter\AutolinkTests.cs" />
-    <Compile Include="Twitter\ConformanceTests.cs" />
-    <Compile Include="Twitter\EmojiSentimentTests.cs" />
-    <Compile Include="Twitter\ExtractorTests.cs" />
-    <Compile Include="Twitter\MessageCleanupTests.cs" />
-    <Compile Include="Twitter\RegexTests.cs" />
-    <Compile Include="Twitter\StringExtensionsTest.cs" />
-    <Compile Include="Twitter\Test.cs" />
-    <Compile Include="Twitter\ValidatorTests.cs" />
-    <Compile Include="Wordnet\InformationContent\InformationContentResnikTests.cs" />
+    <ProjectReference Include="..\Wikiled.Text.Analysis\Wikiled.Text.Analysis.csproj" />
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-    <None Include="Twitter\Conformance\autolink.yml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Twitter\Conformance\extract.yml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Twitter\Conformance\hit_highlighting.yml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Twitter\Conformance\tlds.yml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Twitter\Conformance\validate.yml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Folder Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Wikiled.Text.Analysis\Wikiled.Text.Analysis.csproj">
-      <Project>{B51A4819-9B3F-48EC-B898-BF66844936B7}</Project>
-      <Name>Wikiled.Text.Analysis</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

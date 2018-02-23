@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Wikiled.Core.Utility.Arguments;
-using Wikiled.Core.Utility.Resources.Wikiled.Core.Definitions;
+using Wikiled.Common.Arguments;
+using Wikiled.Common.Resources;
 
 namespace Wikiled.Text.Analysis.Dictionary.Streams
 {

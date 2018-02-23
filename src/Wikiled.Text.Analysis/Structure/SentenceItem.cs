@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
-using Wikiled.Core.Utility.Arguments;
+using Wikiled.Common.Arguments;
 
 namespace Wikiled.Text.Analysis.Structure
 {

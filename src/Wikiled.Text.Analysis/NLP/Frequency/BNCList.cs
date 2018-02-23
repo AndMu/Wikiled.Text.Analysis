@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Wikiled.Core.Utility.Helpers;
-using Wikiled.Core.Utility.Resources;
-using Wikiled.Core.Utility.Resources.Wikiled.Core.Definitions;
+using Wikiled.Common.Helpers;
+using Wikiled.Common.Resources;
 using Wikiled.Text.Analysis.POS;
 using Wikiled.Text.Analysis.POS.Tags;
 

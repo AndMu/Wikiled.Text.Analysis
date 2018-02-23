@@ -1,6 +1,6 @@
 ﻿using System.IO;
-using Wikiled.Core.Utility.Arguments;
-using Wikiled.Core.Utility.Resources;
+using Wikiled.Common.Arguments;
+using Wikiled.Common.Resources;
 
 namespace Wikiled.Text.Analysis.Dictionary.Streams
 {

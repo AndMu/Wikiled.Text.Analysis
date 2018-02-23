@@ -1,310 +1,33 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B51A4819-9B3F-48EC-B898-BF66844936B7}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wikiled.Text.Analysis</RootNamespace>
+    <TargetFramework>NETSTANDARD2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <AssemblyName>Wikiled.Text.Analysis</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <Authors>Wikiled</Authors>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <description>Text Analysis Library</description>    
+	<tags>data-mining, machine-learning; text analysis, nlp</tags>
+    <projectUrl>https://github.com/AndMu/Wikiled.Text.Analysis</projectUrl>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);IncludeP2PAssets</TargetsForTfmSpecificBuildOutput>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
+  <Target Name="IncludeP2PAssets">
+    <ItemGroup>
+      <BuildOutputInPackage Include="$(OutputPath)Wikiled.Text.Analysis.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)Wikiled.Text.Analysis.pdb" />      
+    </ItemGroup>
+  </Target>
+
   <ItemGroup>
-    <Reference Include="Crc32C.NET, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Crc32C.NET.1.0.5.0\lib\net20\Crc32C.NET.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
-    </Reference>
-    <Reference Include="Polly, Version=5.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Polly.5.8.0\lib\net45\Polly.dll</HintPath>
-    </Reference>
-    <Reference Include="protobuf-net, Version=2.3.6.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
-      <HintPath>..\packages\protobuf-net.2.3.6\lib\net40\protobuf-net.dll</HintPath>
-    </Reference>
-    <Reference Include="Snappy.NET, Version=1.1.1.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Snappy.NET.1.1.1.8\lib\net45\Snappy.NET.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity.Design" />
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Reactive.Core, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reactive.Core.3.1.1\lib\net46\System.Reactive.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Interfaces, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reactive.Interfaces.3.1.1\lib\net45\System.Reactive.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Linq, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reactive.Linq.3.1.1\lib\net46\System.Reactive.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.PlatformServices, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reactive.PlatformServices.3.1.1\lib\net46\System.Reactive.PlatformServices.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Windows.Threading, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reactive.Windows.Threading.3.1.1\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Windows" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Wikiled.Arff, Version=1.0.20.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Wikiled.Arff.1.0.20\lib\net462\Wikiled.Arff.dll</HintPath>
-    </Reference>
-    <Reference Include="Wikiled.Core.Utility, Version=2.1.18.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Wikiled.Core.Utility.2.1.18\lib\net462\Wikiled.Core.Utility.dll</HintPath>
-    </Reference>
-    <Reference Include="WindowsBase" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="NLog" Version="4.5.0-rc05" />
+    <PackageReference Include="PluralizeService.Core" Version="1.0.0.5" />    
+    <PackageReference Include="Wikiled.Arff" Version="2.0.7" />
+    <PackageReference Include="Wikiled.Common" Version="1.0.8" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\GlobalAssemblyInfo.cs">
-      <Link>GlobalAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="Cache\ICachedDocumentsSource.cs" />
-    <Compile Include="Cache\ICacheFactory.cs" />
-    <Compile Include="Cache\LocalCacheFactory.cs" />
-    <Compile Include="Cache\LocalDocumentsCache.cs" />
-    <Compile Include="Cache\NullCachedDocumentsSource.cs" />
-    <Compile Include="Cache\NullCacheFactory.cs" />
-    <Compile Include="Dictionary\BasicEnglishDictionary.cs" />
-    <Compile Include="Dictionary\Streams\CompressedDictionaryStream.cs" />
-    <Compile Include="Dictionary\Streams\DictionaryStream.cs" />
-    <Compile Include="Dictionary\Streams\DictionaryStreamExtension.cs" />
-    <Compile Include="Dictionary\Streams\FileStreamSource.cs" />
-    <Compile Include="Dictionary\Streams\IDictionaryStream.cs" />
-    <Compile Include="Dictionary\IWordsDictionary.cs" />
-    <Compile Include="Dictionary\Streams\EmbeddedStreamSource.cs" />
-    <Compile Include="Dictionary\Streams\IStreamSource.cs" />
-    <Compile Include="Dictionary\WordsDictionary.cs" />
-    <Compile Include="Extensions\TextExtensions.cs" />
-    <Compile Include="Helpers\Calculator.cs" />
-    <Compile Include="NLP\EnglishSyllableCounter.cs" />
-    <Compile Include="NLP\Frequency\BNCList.cs" />
-    <Compile Include="NLP\Frequency\FrequencyInformation.cs" />
-    <Compile Include="NLP\Frequency\FrequencyListManager.cs" />
-    <Compile Include="NLP\Frequency\IWordFrequencyList.cs" />
-    <Compile Include="NLP\Frequency\WordFrequencyList.cs" />
-    <Compile Include="NLP\IRawTextExtractor.cs" />
-    <Compile Include="NLP\NRC\INRCDictionary.cs" />
-    <Compile Include="NLP\NRC\ISentimentDimension.cs" />
-    <Compile Include="NLP\NRC\NRCDictionary.cs" />
-    <Compile Include="NLP\NRC\NRCRecord.cs" />
-    <Compile Include="NLP\NRC\SentimentCategory.cs" />
-    <Compile Include="NLP\NRC\SentimentVector.cs" />
-    <Compile Include="NLP\NRC\SentimentVectorExtension.cs" />
-    <Compile Include="NLP\NRC\WordNRCRecord.cs" />
-    <Compile Include="NLP\RawWordExtractor.cs" />
-    <Compile Include="POS\Converter.cs" />
-    <Compile Include="Reflection\CategoriesMapper.cs" />
-    <Compile Include="Reflection\ChildMapCategory.cs" />
-    <Compile Include="Reflection\CollectionMapCategory.cs" />
-    <Compile Include="Reflection\Data\DataItem.cs" />
-    <Compile Include="Reflection\Data\DataTree.cs" />
-    <Compile Include="Reflection\Data\DictionaryDataItemFactory.cs" />
-    <Compile Include="Reflection\Data\IDataItem.cs" />
-    <Compile Include="Reflection\Data\IDataItemFactory.cs" />
-    <Compile Include="Reflection\Data\IDataTree.cs" />
-    <Compile Include="Reflection\Data\IItemProbability.cs" />
-    <Compile Include="Reflection\Data\ItemProbability.cs" />
-    <Compile Include="Reflection\Data\MapFieldDataItem.cs" />
-    <Compile Include="Reflection\Data\MapFieldDataItemFactory.cs" />
-    <Compile Include="Reflection\EnumerableMapCategory.cs" />
-    <Compile Include="Reflection\IgnoreAttribute.cs" />
-    <Compile Include="Reflection\IMapCategory.cs" />
-    <Compile Include="Reflection\IMapField.cs" />
-    <Compile Include="Reflection\InfoArrayCategoryAttribute.cs" />
-    <Compile Include="Reflection\InfoCategoryAttribute.cs" />
-    <Compile Include="Reflection\InfoFieldAttribute.cs" />
-    <Compile Include="Reflection\ItemProbabilityHolder.cs" />
-    <Compile Include="Reflection\MapCategory.cs" />
-    <Compile Include="Reflection\MapField.cs" />
-    <Compile Include="Dictionary\Streams\ReadTabResourceDataFile.cs" />
-    <Compile Include="Structure\ITextItem.cs" />
-    <Compile Include="Structure\NamedEntities.cs" />
-    <Compile Include="POS\IPOSTagger.cs" />
-    <Compile Include="POS\IPosTagResolver.cs" />
-    <Compile Include="POS\NaivePOSTagger.cs" />
-    <Compile Include="POS\POSTaggerType.cs" />
-    <Compile Include="POS\POSTags.cs" />
-    <Compile Include="POS\Tags\Adjective.cs" />
-    <Compile Include="POS\Tags\AdjectiveComparative.cs" />
-    <Compile Include="POS\Tags\AdjectivePhrase.cs" />
-    <Compile Include="POS\Tags\AdjectiveSuperlative.cs" />
-    <Compile Include="POS\Tags\Adverb.cs" />
-    <Compile Include="POS\Tags\AdverbComparative.cs" />
-    <Compile Include="POS\Tags\AdverbPhrase.cs" />
-    <Compile Include="POS\Tags\AdverbSuperlative.cs" />
-    <Compile Include="POS\Tags\BasePOSType.cs" />
-    <Compile Include="POS\Tags\CardinalNumber.cs" />
-    <Compile Include="POS\Tags\ClauseIntroducedByASubordinatingConjunction.cs" />
-    <Compile Include="POS\Tags\Colon.cs" />
-    <Compile Include="POS\Tags\Comma.cs" />
-    <Compile Include="POS\Tags\ConjunctionPhrase.cs" />
-    <Compile Include="POS\Tags\CoordinatingConjunction.cs" />
-    <Compile Include="POS\Tags\DeclarativeSentence.cs" />
-    <Compile Include="POS\Tags\Determiner.cs" />
-    <Compile Include="POS\Tags\DollarSign.cs" />
-    <Compile Include="POS\Tags\ExistentialThere.cs" />
-    <Compile Include="POS\Tags\ForeignWord.cs" />
-    <Compile Include="POS\Tags\FrangmentPhrase.cs" />
-    <Compile Include="POS\Tags\Interjection.cs" />
-    <Compile Include="POS\Tags\InterjectionPhrase.cs" />
-    <Compile Include="POS\Tags\LeftOpenDoubleQuote.cs" />
-    <Compile Include="POS\Tags\LeftParenthesis.cs" />
-    <Compile Include="POS\Tags\ListItemMarker.cs" />
-    <Compile Include="POS\Tags\ListMarker.cs" />
-    <Compile Include="POS\Tags\Modal.cs" />
-    <Compile Include="POS\Tags\Noun.cs" />
-    <Compile Include="POS\Tags\NounPhrase.cs" />
-    <Compile Include="POS\Tags\NounPlural.cs" />
-    <Compile Include="POS\Tags\NounProper.cs" />
-    <Compile Include="POS\Tags\NounProperPlural.cs" />
-    <Compile Include="POS\Tags\NounXPhrase.cs" />
-    <Compile Include="POS\Tags\Parenthetical.cs" />
-    <Compile Include="POS\Tags\Particle.cs" />
-    <Compile Include="POS\Tags\ParticlePhrase.cs" />
-    <Compile Include="POS\Tags\PhraseUnknown.cs" />
-    <Compile Include="POS\Tags\PossessiveEnding.cs" />
-    <Compile Include="POS\Tags\PossessivePronoun.cs" />
-    <Compile Include="POS\Tags\PossessiveWhPronoun.cs" />
-    <Compile Include="POS\Tags\PoundSign.cs" />
-    <Compile Include="POS\Tags\Predeterminer.cs" />
-    <Compile Include="POS\Tags\PrepositionalPhrase.cs" />
-    <Compile Include="POS\Tags\PrepositionSubordinateConjunction.cs" />
-    <Compile Include="POS\Tags\PronounPersonal.cs" />
-    <Compile Include="POS\Tags\QuestionPhrase.cs" />
-    <Compile Include="POS\Tags\RightCloseDoubleQuote.cs" />
-    <Compile Include="POS\Tags\RightParenthesis.cs" />
-    <Compile Include="POS\Tags\SBARQ.cs" />
-    <Compile Include="POS\Tags\SentenceFinalPunctuation.cs" />
-    <Compile Include="POS\Tags\SINV.cs" />
-    <Compile Include="POS\Tags\SQClause.cs" />
-    <Compile Include="POS\Tags\Symbol.cs" />
-    <Compile Include="POS\Tags\To.cs" />
-    <Compile Include="POS\Tags\UnlikeCoordinatedPhrase.cs" />
-    <Compile Include="POS\Tags\Verb3rdPsSingPresent.cs" />
-    <Compile Include="POS\Tags\VerbBaseForm.cs" />
-    <Compile Include="POS\Tags\VerbGerundPresentParticiple.cs" />
-    <Compile Include="POS\Tags\VerbNon3rdPsSingPresent.cs" />
-    <Compile Include="POS\Tags\VerbPastParticiple.cs" />
-    <Compile Include="POS\Tags\VerbPastTense.cs" />
-    <Compile Include="POS\Tags\VerbPhrase.cs" />
-    <Compile Include="POS\Tags\WhAdjectival.cs" />
-    <Compile Include="POS\Tags\WhAdverb.cs" />
-    <Compile Include="POS\Tags\WhAdverbial.cs" />
-    <Compile Include="POS\Tags\WhDeterminer.cs" />
-    <Compile Include="POS\Tags\WHNounPhrase.cs" />
-    <Compile Include="POS\Tags\WhPronoun.cs" />
-    <Compile Include="POS\Tags\WordUnknown.cs" />
-    <Compile Include="POS\Tags\XSPhrase.cs" />
-    <Compile Include="POS\WordType.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Structure\Document.cs" />
-    <Compile Include="Structure\IItem.cs" />
-    <Compile Include="Structure\SentenceItem.cs" />
-    <Compile Include="Structure\SimpleWord.cs" />
-    <Compile Include="Structure\WordEx.cs" />
-    <Compile Include="SymSpell\DictionaryItem.cs" />
-    <Compile Include="SymSpell\EditDistance.cs" />
-    <Compile Include="SymSpell\ISymSpell.cs" />
-    <Compile Include="SymSpell\ISymSpellCompound.cs" />
-    <Compile Include="SymSpell\SuggestItem.cs" />
-    <Compile Include="SymSpell\SymSpellCompound.cs" />
-    <Compile Include="SymSpell\SymSpellManager.cs" />
-    <Compile Include="SymSpell\SymSpellFactory.cs" />
-    <Compile Include="Tokenizer\ITreebankWordTokenizer.cs" />
-    <Compile Include="Tokenizer\IWordsTokenizer.cs" />
-    <Compile Include="Tokenizer\NullWordsTokenizer.cs" />
-    <Compile Include="Tokenizer\RegexSplitter.cs" />
-    <Compile Include="Tokenizer\TreebankWordTokenizer.cs" />
-    <Compile Include="Twitter\Autolink.cs" />
-    <Compile Include="Twitter\Emoji.cs" />
-    <Compile Include="Twitter\EmojiSentiment.cs" />
-    <Compile Include="Twitter\Extractor.cs" />
-    <Compile Include="Twitter\HitHighlighter.cs" />
-    <Compile Include="Twitter\MessageCleanup.cs" />
-    <Compile Include="Twitter\StartIndexComparer.cs" />
-    <Compile Include="Twitter\StringExtensions.cs" />
-    <Compile Include="Twitter\TldLib.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TldLib.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Twitter\TweetEntity.cs" />
-    <Compile Include="Twitter\TweetEntityType.cs" />
-    <Compile Include="Twitter\TwitterRegex.cs" />
-    <Compile Include="Twitter\Validator.cs" />
-    <Compile Include="WordNet\Engine\IWordNetEngine.cs" />
-    <Compile Include="WordNet\Engine\LexicographerFileName.cs" />
-    <Compile Include="WordNet\Engine\SynSet.cs" />
-    <Compile Include="WordNet\Engine\SynSetRelation.cs" />
-    <Compile Include="WordNet\Engine\WordNetEngine.cs" />
-    <Compile Include="WordNet\InformationContent\IInformationContentResnik.cs" />
-    <Compile Include="WordNet\InformationContent\InformationContentResnik.cs" />
-    <Compile Include="WordNet\InformationContent\IRelatednessMesaure.cs" />
-    <Compile Include="WordNet\InformationContent\JcnMeasure.cs" />
-    <Compile Include="Words\IWordTypeResolver.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-    <EmbeddedResource Include="Resources\Dictionary\RawEnglish.dat" />
-    <EmbeddedResource Include="Resources\Frequency\bnc.dat" />
-    <EmbeddedResource Include="Resources\Frequency\internet.dat" />
-    <EmbeddedResource Include="Resources\Frequency\Reuters.dat" />
-    <EmbeddedResource Include="Resources\Frequency\subtitles.dat" />
-    <EmbeddedResource Include="Resources\Dictionary\NRC.dat" />
-    <EmbeddedResource Include="Resources\Frequency\frequency.dat" />
-    <None Include="Twitter\tld_lib.yml" />
-    <None Include="Wikiled.Text.Analysis.nuspec" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Twitter\TldLib.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TldLib.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

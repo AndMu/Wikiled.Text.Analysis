@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Data.Entity.Design.PluralizationServices;
-using System.Globalization;
-using System.Runtime.Caching;
-using Wikiled.Core.Utility.Arguments;
-using Wikiled.Core.Utility.Extensions;
+using Microsoft.Extensions.Caching.Memory;
+using Wikiled.Common.Arguments;
+using Wikiled.Common.Extensions;
 using Wikiled.Text.Analysis.Dictionary;
 using Wikiled.Text.Analysis.Extensions;
 
@@ -11,18 +9,17 @@ namespace Wikiled.Text.Analysis.NLP
 {
     public class RawWordExtractor : IRawTextExtractor
     {
+        private readonly PluralizationServiceInstance service;
 
-        private readonly PluralizationService service;
+        private readonly IMemoryCache cache;
 
-        private readonly ObjectCache cache;
-
-        public RawWordExtractor(IWordsDictionary dictionary, ObjectCache cache)
+        public RawWordExtractor(IWordsDictionary dictionary, IMemoryCache cache)
         {
             Guard.NotNull(() => dictionary, dictionary);
             Guard.NotNull(() => cache, cache);
             Dictionary = dictionary;
             this.cache = cache;
-            service = PluralizationService.CreateService(new CultureInfo("en-US"));
+            service = new PluralizationServiceInstance();
         }
 
         public IWordsDictionary Dictionary { get; }
@@ -35,11 +32,13 @@ namespace Wikiled.Text.Analysis.NLP
                 return string.Empty;
             }
 
-            var newLazy = new Lazy<string>(() => GetWordInternal(word));
-            CacheItemPolicy policy = new CacheItemPolicy();
-            policy.SlidingExpiration = TimeSpan.FromMinutes(1);
-            var lazyFromCache = (Lazy<string>) cache.AddOrGetExisting(word, newLazy, policy);
-            return (lazyFromCache ?? newLazy).Value;
+            return cache.GetOrCreate(
+                word,
+                entry =>
+                    {
+                        entry.SlidingExpiration = TimeSpan.FromMinutes(1);
+                        return GetWordInternal(word);
+                    });
         }
 
         private string GetWordInternal(string word)

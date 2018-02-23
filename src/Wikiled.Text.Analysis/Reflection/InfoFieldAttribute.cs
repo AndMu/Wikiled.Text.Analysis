@@ -1,5 +1,5 @@
 ﻿using System;
-using Wikiled.Core.Utility.Arguments;
+using Wikiled.Common.Arguments;
 
 namespace Wikiled.Text.Analysis.Reflection
 {

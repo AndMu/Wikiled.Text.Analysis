@@ -1,12 +1,11 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.Caching;
+using Microsoft.Extensions.Caching.Memory;
 using NUnit.Framework;
-using Wikiled.Core.Utility.Cache;
-using Wikiled.Core.Utility.Resources;
 using Wikiled.Text.Analysis.POS;
 using Wikiled.Text.Analysis.WordNet.Engine;
 using Wikiled.Text.Analysis.WordNet.InformationContent;
+using ConfigurationManager = System.Configuration.ConfigurationManager;
 
 namespace Wikiled.Text.Analysis.Tests.Wordnet.InformationContent
 {
@@ -22,13 +21,13 @@ namespace Wikiled.Text.Analysis.Tests.Wordnet.InformationContent
         [SetUp]
         public void Setup()
         {
-            instance = new JcnMeasure(new RuntimeCache(new MemoryCache("Test"), TimeSpan.FromDays(1)), resnik, engine);
+            instance = new JcnMeasure(new MemoryCache(new MemoryCacheOptions()), resnik, engine);
         }
 
         [OneTimeSetUp]
         public void SetupGlobal()
         {
-            var path = new ConfigurationHandler().GetConfiguration("resources");
+            var path = ConfigurationManager.AppSettings["resources"];
             resnik = InformationContentResnik.Load(Path.Combine(TestContext.CurrentContext.TestDirectory, path, @"WordNet-InfoContent-3.0\ic-brown-resnik-add1.dat"));
             engine = new WordNetEngine(Path.Combine(TestContext.CurrentContext.TestDirectory, path, @"Wordnet 3.0"));
         }

@@ -1,7 +1,6 @@
 ﻿using System.IO;
-using ICSharpCode.SharpZipLib.GZip;
-using Wikiled.Core.Utility.Arguments;
-using Wikiled.Core.Utility.Helpers;
+using Wikiled.Common.Arguments;
+using Wikiled.Common.Helpers;
 
 namespace Wikiled.Text.Analysis.Dictionary.Streams
 {

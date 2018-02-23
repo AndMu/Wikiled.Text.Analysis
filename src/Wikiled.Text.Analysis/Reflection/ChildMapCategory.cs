@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Wikiled.Core.Utility.Arguments;
+using Wikiled.Common.Arguments;
 
 namespace Wikiled.Text.Analysis.Reflection
 {
@@ -16,13 +16,13 @@ namespace Wikiled.Text.Analysis.Reflection
             this.propertyInfo = propertyInfo;
         }
 
+        public override string FullName => Parent.FullName + " " + base.FullName;
+
+        public override IMapCategory Parent { get; }
+
         public override object ResolveInstance(object parent)
         {
             return propertyInfo.GetValue(parent, null);
         }
-
-        public override IMapCategory Parent { get; }
-
-        public override string FullName => Parent.FullName + " " + base.FullName;
     }
 }

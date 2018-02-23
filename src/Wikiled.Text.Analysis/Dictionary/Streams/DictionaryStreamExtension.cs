@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using ICSharpCode.SharpZipLib.GZip;
-using Wikiled.Core.Utility.Helpers;
+using Wikiled.Common.Helpers;
 
 namespace Wikiled.Text.Analysis.Dictionary.Streams
 {

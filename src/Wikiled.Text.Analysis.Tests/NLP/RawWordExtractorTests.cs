@@ -1,4 +1,4 @@
-﻿using System.Runtime.Caching;
+﻿using Microsoft.Extensions.Caching.Memory;
 using NUnit.Framework;
 using Wikiled.Text.Analysis.Dictionary;
 using Wikiled.Text.Analysis.NLP;
@@ -13,7 +13,7 @@ namespace Wikiled.Text.Analysis.Tests.NLP
         [SetUp]
         public void Setup()
         {
-            instance = new RawWordExtractor(new BasicEnglishDictionary(), new MemoryCache("Test"));
+            instance = new RawWordExtractor(new BasicEnglishDictionary(), new MemoryCache(new MemoryCacheOptions()));
         }
 
         [TestCase("program's", "program")]

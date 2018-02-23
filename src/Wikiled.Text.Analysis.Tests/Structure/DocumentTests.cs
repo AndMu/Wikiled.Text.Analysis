@@ -2,7 +2,7 @@
 using System.Xml.Linq;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using Wikiled.Core.Utility.Serialization;
+using Wikiled.Common.Serialization;
 using Wikiled.Text.Analysis.Structure;
 
 namespace Wikiled.Text.Analysis.Tests.Structure

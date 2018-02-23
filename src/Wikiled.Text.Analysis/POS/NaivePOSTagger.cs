@@ -1,5 +1,5 @@
-﻿using Wikiled.Core.Utility.Arguments;
-using Wikiled.Core.Utility.Extensions;
+﻿using Wikiled.Common.Arguments;
+using Wikiled.Common.Extensions;
 using Wikiled.Text.Analysis.POS.Tags;
 using Wikiled.Text.Analysis.Words;
 
