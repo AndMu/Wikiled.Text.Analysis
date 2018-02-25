@@ -23,6 +23,26 @@
   </Target>
 
   <ItemGroup>
+    <None Remove="Resources\Dictionary\NRC.dat" />
+    <None Remove="Resources\Dictionary\RawEnglish.dat" />
+    <None Remove="Resources\Frequency\bnc.dat" />
+    <None Remove="Resources\Frequency\frequency.dat" />
+    <None Remove="Resources\Frequency\internet.dat" />
+    <None Remove="Resources\Frequency\Reuters.dat" />
+    <None Remove="Resources\Frequency\subtitles.dat" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Dictionary\NRC.dat" />
+    <EmbeddedResource Include="Resources\Dictionary\RawEnglish.dat" />
+    <EmbeddedResource Include="Resources\Frequency\bnc.dat" />
+    <EmbeddedResource Include="Resources\Frequency\frequency.dat" />
+    <EmbeddedResource Include="Resources\Frequency\internet.dat" />
+    <EmbeddedResource Include="Resources\Frequency\Reuters.dat" />
+    <EmbeddedResource Include="Resources\Frequency\subtitles.dat" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="NLog" Version="4.5.0-rc05" />
