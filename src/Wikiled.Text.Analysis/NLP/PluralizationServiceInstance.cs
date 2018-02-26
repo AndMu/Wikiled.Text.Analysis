@@ -21,7 +21,7 @@ namespace Wikiled.Text.Analysis.NLP
 
         public bool IsPlural(string text)
         {
-            return api.IsPlural(text);
+            return api.IsPlural(text, cultureInfo);
         }
 
         public string Pluralize(string text)
