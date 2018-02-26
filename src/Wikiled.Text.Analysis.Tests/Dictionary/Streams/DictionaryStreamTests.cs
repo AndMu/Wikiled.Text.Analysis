@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,8 @@ namespace Wikiled.Text.Analysis.Tests.Dictionary.Streams
         [Test]
         public void Construct()
         {
-            var file = Path.Combine(TestContext.CurrentContext.TestDirectory, @"..\..\..\Resources\Embedded\Dictionary\NRC.txt");
+            var path = ConfigurationManager.AppSettings["resources"];
+            var file = Path.Combine(TestContext.CurrentContext.TestDirectory, path, @"Embedded\Dictionary\NRC.txt");
             var stream = new DictionaryStream(file, new FileStreamSource());
             var table = stream.ReadDataFromStream(double.Parse).ToArray();
             Assert.AreEqual(141820, table.Length);
