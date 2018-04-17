@@ -15,6 +15,14 @@ namespace Wikiled.Text.Analysis.Tests.Tokenizer
         }
 
         [Test]
+        public void DoubleEnd()
+        {
+            var text = "By default, the application is set to search for new virus definitions daily, but you always can use the scheduling tool to change this..";
+            var result = instance.Tokenize(text);
+            Assert.AreEqual(27, result.Length);
+        }
+
+        [Test]
         public void BasicTokenize()
         {
             var text = "''Good muffins cost $3.88\nin New York.  Please buy me\ntwo of them.\nThanks.''";

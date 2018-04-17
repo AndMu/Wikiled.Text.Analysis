@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Wikiled.Common.Extensions;
-using Wikiled.Core.Utility.Extensions;
 using Wikiled.Text.Analysis.POS;
 
 namespace Wikiled.Text.Analysis.WordNet.Engine

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Wikiled.Common.Reflection;
-using Wikiled.Core.Utility.Extensions;
 using Wikiled.Text.Analysis.Helpers;
 using Wikiled.Text.Analysis.Reflection.Data;
 
