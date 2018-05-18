@@ -102,8 +102,7 @@ namespace Wikiled.Text.Analysis.POS
 
         public static BasePOSType ParseBNCType(this string value)
         {
-            BasePOSType baseType;
-            if (typeMap.TryGetValue(value, out baseType))
+            if (typeMap.TryGetValue(value, out BasePOSType baseType))
             {
                 return baseType;
             }

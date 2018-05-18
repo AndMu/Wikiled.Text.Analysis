@@ -45,8 +45,7 @@ namespace Wikiled.Text.Analysis.SymSpell
             long countPrevious = 0;
             bool result = false;
             DictionaryItem value = null;
-            int valueo;
-            if (dictionary.TryGetValue(key, out valueo))
+            if (dictionary.TryGetValue(key, out int valueo))
             {
                 //new word, but identical single delete existed before
                 //+ = single delete = index auf worlist 
@@ -101,9 +100,8 @@ namespace Wikiled.Text.Analysis.SymSpell
                 //create deletes
                 foreach (string delete in Edits(key, 0, new HashSet<string>()))
                 {
-                    int value2;
                     DictionaryItem di;
-                    if (dictionary.TryGetValue(delete, out value2))
+                    if (dictionary.TryGetValue(delete, out int value2))
                     {
                         //already exists:
                         //1. word1==deletes(word2) 
@@ -156,7 +154,6 @@ namespace Wikiled.Text.Analysis.SymSpell
             List<SuggestItem> suggestions = new List<SuggestItem>();
             HashSet<string> hashset2 = new HashSet<string>();
 
-            int valueo;
 
             //add original term
             candidates.Add(input);
@@ -178,7 +175,7 @@ namespace Wikiled.Text.Analysis.SymSpell
                 }
 
                 //read candidate entry from dictionary
-                if (dictionary.TryGetValue(candidate, out valueo))
+                if (dictionary.TryGetValue(candidate, out int valueo))
                 {
                     DictionaryItem value = new DictionaryItem();
                     if (valueo >= 0)
@@ -229,7 +226,6 @@ namespace Wikiled.Text.Analysis.SymSpell
                     }
 
                     //iterate through suggestions (to other correct dictionary items) of delete item and add them to suggestion list
-                    int value2;
                     foreach (int suggestionint in value.Suggestions)
                     {
                         //save some time 
@@ -298,7 +294,7 @@ namespace Wikiled.Text.Analysis.SymSpell
 
                             if (distance <= editDistanceMax)
                             {
-                                if (dictionary.TryGetValue(suggestion, out value2))
+                                if (dictionary.TryGetValue(suggestion, out int value2))
                                 {
                                     SuggestItem si = new SuggestItem(suggestion, itemlist[-value2 - 1].Count, distance);
 

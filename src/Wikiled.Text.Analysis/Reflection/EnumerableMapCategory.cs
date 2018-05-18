@@ -69,17 +69,15 @@ namespace Wikiled.Text.Analysis.Reflection
 
             foreach (var leaf in tree.Leafs)
             {
-                Tuple<DataItem, int> dataItem;
                 var type = leaf.Value.GetType();
-                bool canUse;
-                if (!typeMap.TryGetValue(type, out canUse))
+                if (!typeMap.TryGetValue(type, out bool canUse))
                 {
                     canUse = type.IsPrimitive && type.IsNumericType();
                     typeMap[type] = canUse;
                 }
 
                 if (!canUse ||
-                    !table.TryGetValue(leaf.FullName, out dataItem))
+                    !table.TryGetValue(leaf.FullName, out Tuple<DataItem, int> dataItem))
                 {
                     dataItem = new Tuple<DataItem, int>(
                         new DataItem(tree.FullName, leaf.Name, leaf.Description, leaf.Value),

@@ -80,8 +80,7 @@ namespace Wikiled.Text.Analysis.WordNet.InformationContent
                     if (blocks.Length == 3)
                     {
                         var pos = id.Substring(id.Length - 1);
-                        double totalOut;
-                        contentResnik.frequencies.TryGetValue(pos, out totalOut);
+                        contentResnik.frequencies.TryGetValue(pos, out double totalOut);
                         contentResnik.frequencies[pos] = totalOut + total;
                     }
                 }

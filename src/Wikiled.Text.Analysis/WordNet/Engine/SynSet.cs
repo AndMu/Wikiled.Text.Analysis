@@ -405,8 +405,7 @@ namespace Wikiled.Text.Analysis.WordNet.Engine
             LexicographerFileName = (LexicographerFileName)lexicographerFileNumber;
 
             // get number of words in the synset and the start character of the word list
-            int wordStart;
-            int numWords = int.Parse(GetField(definition, 3, out wordStart), NumberStyles.HexNumber);
+            int numWords = int.Parse(GetField(definition, 3, out int wordStart), NumberStyles.HexNumber);
             wordStart = definition.IndexOf(' ', wordStart) + 1;
 
             // get words in synset
@@ -432,8 +431,7 @@ namespace Wikiled.Text.Analysis.WordNet.Engine
 
             // get number and start of relations
             int relationCountField = 3 + Words.Count * 2 + 1;
-            int relationFieldStart;
-            int numRelations = int.Parse(GetField(definition, relationCountField, out relationFieldStart));
+            int numRelations = int.Parse(GetField(definition, relationCountField, out int relationFieldStart));
             relationFieldStart = definition.IndexOf(' ', relationFieldStart) + 1;
 
             // grab each related synset
@@ -586,8 +584,7 @@ namespace Wikiled.Text.Analysis.WordNet.Engine
         /// <returns>Field value</returns>
         private string GetField(string line, int fieldNum)
         {
-            int dummy;
-            return GetField(line, fieldNum, out dummy);
+            return GetField(line, fieldNum, out int dummy);
         }
 
         /// <summary>

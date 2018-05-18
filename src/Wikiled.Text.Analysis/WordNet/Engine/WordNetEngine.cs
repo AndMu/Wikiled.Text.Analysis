@@ -407,8 +407,7 @@ namespace Wikiled.Text.Analysis.WordNet.Engine
                         {
                             // grab word and synset shells, along with the most common synset
                             string word = line.Substring(0, firstSpace);
-                            SynSet mostCommonSynSet;
-                            List<SynSet> synsets = GetSynSetShells(line, pos, out mostCommonSynSet);
+                            List<SynSet> synsets = GetSynSetShells(line, pos, out SynSet mostCommonSynSet);
 
                             // set flag on most common synset if it's ambiguous
                             if (synsets.Count > 1)
@@ -513,8 +512,7 @@ namespace Wikiled.Text.Analysis.WordNet.Engine
             foreach (WordType pos in posSet)
             {
                 // read instantiated synsets from memory
-                List<SynSet> synsets;
-                if (posWordSynSets[pos].TryGetValue(word, out synsets))
+                if (posWordSynSets[pos].TryGetValue(word, out List<SynSet> synsets))
                 {
                     // optimization:  if there are no more parts of speech to check, we have all the synsets - so set the return collection and make it read-only. this is faster than calling AddRange on a set.
                     if (posSet.Count == 1)

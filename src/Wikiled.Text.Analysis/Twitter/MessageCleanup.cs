@@ -117,8 +117,7 @@ namespace Wikiled.Text.Analysis.Twitter
             for (int i = left; i >= minTextEmoji; i--)
             {
                 var block = text.Substring(index, i);
-                Emoji emoji;
-                if (textEmojis.TryGetValue(block, out emoji))
+                if (textEmojis.TryGetValue(block, out Emoji emoji))
                 {
                     index += i;
                     if (index >= text.Length ||

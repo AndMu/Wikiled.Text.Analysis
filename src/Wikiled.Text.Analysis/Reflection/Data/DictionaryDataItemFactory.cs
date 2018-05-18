@@ -18,8 +18,7 @@ namespace Wikiled.Text.Analysis.Reflection.Data
 
         public IDataItem Create(IDataTree tree, IMapField field)
         {
-            double value;
-            if (!map.TryGetValue(field.Name, out value))
+            if (!map.TryGetValue(field.Name, out double value))
             {
                 if (!field.IsOptional)
                 {

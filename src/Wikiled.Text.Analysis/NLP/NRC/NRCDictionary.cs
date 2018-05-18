@@ -29,8 +29,7 @@ namespace Wikiled.Text.Analysis.NLP.NRC
         public NRCRecord FindRecord(string word)
         {
             Guard.NotNullOrEmpty(() => word, word);
-            NRCRecord nrcRecord;
-            table.TryGetValue(word, out nrcRecord);
+            table.TryGetValue(word, out NRCRecord nrcRecord);
             return (NRCRecord)nrcRecord?.Clone();
         }
 

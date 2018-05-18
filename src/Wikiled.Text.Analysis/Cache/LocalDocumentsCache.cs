@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
 using Wikiled.Common.Arguments;
 using Wikiled.Text.Analysis.Structure;
 
@@ -8,13 +8,18 @@ namespace Wikiled.Text.Analysis.Cache
 {
     public class LocalDocumentsCache : ICachedDocumentsSource
     {
-        private readonly ConcurrentDictionary<string, Document> documentTable = new ConcurrentDictionary<string, Document>(StringComparer.OrdinalIgnoreCase);
+        private readonly IMemoryCache cache;
+
+        public LocalDocumentsCache(IMemoryCache cache)
+        {
+            Guard.NotNull(() => cache, cache);
+            this.cache = cache;
+        }
 
         public Task<Document> GetById(string id)
         {
             Guard.NotNullOrEmpty(() => id, id);
-            Document document;
-            documentTable.TryGetValue(id, out document);
+            cache.TryGetValue(id, out Document document);
             return Task.FromResult(document);
         }
 
@@ -32,7 +37,11 @@ namespace Wikiled.Text.Analysis.Cache
         public Task<bool> Save(Document document)
         {
             Guard.NotNull(() => document, document);
-            documentTable[document.Id] = document;
+            var cacheEntryOptions = new MemoryCacheEntryOptions()
+                .SetSlidingExpiration(TimeSpan.FromMinutes(1));
+
+            // Save data in cache.
+            cache.Set(document.Id, document, cacheEntryOptions);
             return Task.FromResult(true);
         }
     }
