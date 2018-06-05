@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
 using NUnit.Framework;
 using Wikiled.Text.Analysis.Cache;
 using Wikiled.Text.Analysis.Structure;
@@ -14,7 +15,7 @@ namespace Wikiled.Text.Analysis.Tests.Cache
         [SetUp]
         public void Setup()
         {
-            instance = new LocalDocumentsCache();
+            instance = new LocalDocumentsCache(new MemoryCache(new MemoryCacheOptions()));
         }
 
         [Test]
