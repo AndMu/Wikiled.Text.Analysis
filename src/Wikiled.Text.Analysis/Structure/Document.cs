@@ -25,6 +25,10 @@ namespace Wikiled.Text.Analysis.Structure
         [XmlElement]
         public string Author { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [XmlElement]
+        public string Domain { get; set; }
+
         [XmlElement(IsNullable = true)]
         public DateTime? DocumentTime { get; set; }
 
