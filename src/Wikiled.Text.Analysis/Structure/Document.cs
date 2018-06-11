@@ -67,12 +67,5 @@ namespace Wikiled.Text.Analysis.Structure
             sentence.Index = Sentences.Count;
             Sentences.Add(sentence);
         }
-
-        public void Init(Document document)
-        {
-            Stars = document.Stars;
-            Author = document.Author;
-            Id = document.Id;
-        }
     }
 }
