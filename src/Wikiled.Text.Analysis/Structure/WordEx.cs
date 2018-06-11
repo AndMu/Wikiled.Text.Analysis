@@ -61,10 +61,6 @@ namespace Wikiled.Text.Analysis.Structure
         public string Text { get; set; }
 
         [XmlElement]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public double? Theta { get; set; }
-
-        [XmlElement]
         public string Type
         {
             get => Tag.Tag;
