@@ -39,7 +39,7 @@ namespace Wikiled.Text.Analysis.Structure
         [XmlElement]
         public string Text { get; set; }
 
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [XmlElement(IsNullable = true)]
         [XmlElement]
         public double? Stars { get; set; }
 
