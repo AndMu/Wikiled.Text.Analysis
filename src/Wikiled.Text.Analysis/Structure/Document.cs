@@ -40,7 +40,6 @@ namespace Wikiled.Text.Analysis.Structure
         public string Text { get; set; }
 
         [XmlElement(IsNullable = true)]
-        [XmlElement]
         public double? Stars { get; set; }
 
         [XmlArray]
