@@ -106,6 +106,13 @@ namespace Wikiled.Text.Analysis.Twitter
 
         private string GetTextEmoji(string text, ref int index)
         {
+            // if this is not the start or there is no space before
+            if (index > 0 &&
+                text[index - 1] != ' ')
+            {
+                return null;
+            }
+
             int left = text.Length - index;
             if (left < minTextEmoji)
             {

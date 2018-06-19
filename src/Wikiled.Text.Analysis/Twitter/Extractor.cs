@@ -264,8 +264,7 @@ namespace Wikiled.Text.Analysis.Twitter
         /// <returns>List of URLs referenced.</returns>
         public TweetEntity[] ExtractUrlsWithIndices(string text)
         {
-            if (string.IsNullOrWhiteSpace(text)
-               || (ExtractUrlWithoutProtocol ? text.IndexOf('.') : text.IndexOf(':')) == -1)
+            if (string.IsNullOrWhiteSpace(text) || (ExtractUrlWithoutProtocol ? text.IndexOf('.') : text.IndexOf(':')) == -1)
             {
                 // Performance optimization.
                 // If text doesn't contain '.' or ':' at all, text doesn't contain URL,
