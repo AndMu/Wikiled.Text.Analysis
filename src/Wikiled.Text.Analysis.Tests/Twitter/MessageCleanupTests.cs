@@ -17,7 +17,6 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
         [TestCase(@"#CD #Musics Ariana Grande Sweet Like Candy 3.4 oz 100 ML Sealed In Box 100% Authenic New https://t.co/oFmp0bOvZy… https://t.co/WIHLch9KtK", "#cd #musics ariana grande sweet like candy 3.4 oz 100 ml sealed in box 100% authenic new URL_URL")]
         [TestCase(@"Hi http://www.wikiled.com trump", "hi URL_URL trump")]
         [TestCase(@"asd:/xx", "asd:/xx")]
-        [TestCase(@"Test Message http://dadaczxczxs", "Test Message URL_URL")]
         [TestCase(@"Hi @mister trump", "hi @mister trump")]
         [TestCase(@"Hi @mister!!! trump????", "hi @mister! trump?")]
         [TestCase(@"Hi :)", "hi EMOTICON_slightly_smiling_face")]
