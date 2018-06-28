@@ -49,7 +49,7 @@ namespace Wikiled.Text.Analysis.Tests.Tokenizer
 
         private TreebankWordTokenizer CreateTreebankWordTokenizer()
         {
-            return new TreebankWordTokenizer();
+            return TreebankWordTokenizer.Tokenizer;
         }
     }
 }

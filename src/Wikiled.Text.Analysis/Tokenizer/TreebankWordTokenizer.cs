@@ -22,7 +22,7 @@ namespace Wikiled.Text.Analysis.Tokenizer
 
         private readonly List<(Regex Regex, string Replacement)> startingQuotes;
 
-        public TreebankWordTokenizer()
+        private TreebankWordTokenizer()
         {
             startingQuotes = new List<(Regex, string)> { (GetRegex("^\\\""), "``"), (GetRegex("^''"), @"``"), (GetRegex("(``)"), @" $1 "), (GetRegex("([ (\\[{<])\""), @"$1 `` ") };
             punctuation = new List<(Regex, string)>
@@ -63,6 +63,8 @@ namespace Wikiled.Text.Analysis.Tokenizer
 
             contraction3 = new List<Regex> { GetRegex("(?i) ('t)(is)\b"), GetRegex("(?i) ('t)(was)\b") };
         }
+
+        public static TreebankWordTokenizer Tokenizer { get; } = new TreebankWordTokenizer();
 
         public string[] Tokenize(string text)
         {
