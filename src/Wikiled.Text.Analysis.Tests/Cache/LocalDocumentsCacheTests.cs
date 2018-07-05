@@ -21,7 +21,7 @@ namespace Wikiled.Text.Analysis.Tests.Cache
         [Test]
         public async Task Test()
         {
-            Assert.Throws<ArgumentNullException>(() => instance.GetById(null));
+            Assert.Throws<ArgumentException>(() => instance.GetById(null));
             Assert.Throws<ArgumentNullException>(() => instance.GetCached((Document)null));
             var result = await instance.GetById("Test").ConfigureAwait(false);
             Assert.IsNull(result);
