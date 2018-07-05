@@ -123,7 +123,7 @@ namespace Wikiled.Text.Analysis.NLP.NRC
                 case SentimentCategory.None:
                     return !HasAnyValue;
                 default:
-                    throw new ArgumentOutOfRangeException("category");
+                    throw new ArgumentOutOfRangeException(nameof(category));
             }
         }
 

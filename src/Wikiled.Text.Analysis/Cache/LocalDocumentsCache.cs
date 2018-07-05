@@ -12,20 +12,27 @@ namespace Wikiled.Text.Analysis.Cache
 
         public LocalDocumentsCache(IMemoryCache cache)
         {
-            Guard.NotNull(() => cache, cache);
-            this.cache = cache;
+            this.cache = cache ?? throw new ArgumentNullException(nameof(cache));
         }
 
         public Task<Document> GetById(string id)
         {
-            Guard.NotNullOrEmpty(() => id, id);
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                throw new ArgumentException("message", nameof(id));
+            }
+
             cache.TryGetValue(id, out Document document);
             return Task.FromResult(document);
         }
 
         public Task<Document> GetCached(Document original)
         {
-            Guard.NotNull(() => original, original);
+            if (original == null)
+            {
+                throw new ArgumentNullException(nameof(original));
+            }
+
             return GetById(original.Id);
         }
 
@@ -36,7 +43,11 @@ namespace Wikiled.Text.Analysis.Cache
 
         public Task<bool> Save(Document document)
         {
-            Guard.NotNull(() => document, document);
+            if (document == null)
+            {
+                throw new ArgumentNullException(nameof(document));
+            }
+
             var cacheEntryOptions = new MemoryCacheEntryOptions()
                 .SetSlidingExpiration(TimeSpan.FromMinutes(1));
 

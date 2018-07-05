@@ -33,17 +33,17 @@ namespace Wikiled.Text.Analysis.WordNet.InformationContent
             if (type != WordType.Noun &&
                 type != WordType.Verb)
             {
-                throw new ArgumentOutOfRangeException("type");
+                throw new ArgumentOutOfRangeException(nameof(type));
             }
 
             if (string.IsNullOrWhiteSpace(word1))
             {
-                throw new ArgumentNullException("word1");
+                throw new ArgumentNullException(nameof(word1));
             }
 
             if (string.IsNullOrWhiteSpace(word2))
             {
-                throw new ArgumentNullException("word2");
+                throw new ArgumentNullException(nameof(word2));
             }
 
             if (string.Compare(word1, word2, StringComparison.OrdinalIgnoreCase) == 0)

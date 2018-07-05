@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Wikiled.Common.Arguments;
 using Wikiled.Common.Helpers;
 
@@ -10,10 +11,13 @@ namespace Wikiled.Text.Analysis.Dictionary.Streams
 
         public CompressedDictionaryStream(string name, IStreamSource streamSource)
         {
-            Guard.NotNullOrEmpty(() => name, name);
-            Guard.NotNull(() => streamSource, streamSource);
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("message", nameof(name));
+            }
+
             Name = name;
-            this.streamSource = streamSource;
+            this.streamSource = streamSource ?? throw new ArgumentNullException(nameof(streamSource));
         }
 
         public string Name { get; }

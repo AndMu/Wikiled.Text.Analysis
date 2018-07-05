@@ -10,8 +10,7 @@ namespace Wikiled.Text.Analysis.Cache
 
         public LocalCacheFactory(IMemoryCache cache)
         {
-            Guard.NotNull(() => cache, cache);
-            this.cache = cache;
+            this.cache = cache ?? throw new System.ArgumentNullException(nameof(cache));
         }
 
         public ICachedDocumentsSource Create(POSTaggerType tagger)

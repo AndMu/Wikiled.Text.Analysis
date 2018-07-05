@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
@@ -37,7 +38,11 @@ namespace Wikiled.Text.Analysis.Structure
         {
             get
             {
-                Guard.NotNull(() => word, word);
+                if (word is null)
+                {
+                    throw new ArgumentNullException(nameof(word));
+                }
+
                 return Words.IndexOf(word);
             }
         }

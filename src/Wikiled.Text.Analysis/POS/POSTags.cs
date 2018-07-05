@@ -184,7 +184,7 @@ namespace Wikiled.Text.Analysis.POS
 
             if (!typesMap.ContainsKey(tag))
             {
-                throw new ArgumentNullException("tag", tag);
+                throw new ArgumentNullException(nameof(tag), tag);
             }
 
             return typesMap[tag];

@@ -45,7 +45,11 @@ namespace Wikiled.Text.Analysis.Twitter
 
         public string Cleanup(string message)
         {
-            Guard.NotNull(() => message, message);
+            if (string.IsNullOrEmpty(message))
+            {
+                throw new ArgumentException("message", nameof(message));
+            }
+
             var text = Replace(message.ToLower(), extractor.ExtractUrlsWithIndices(message), "URL_URL");
             text = Replace(text, extractor.ExtractCashtagsWithIndices(text), "INDEX_INDEX");
             StringBuilder builder = new StringBuilder();

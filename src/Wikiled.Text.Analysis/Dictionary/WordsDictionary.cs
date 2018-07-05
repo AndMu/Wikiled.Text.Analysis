@@ -10,8 +10,7 @@ namespace Wikiled.Text.Analysis.Dictionary
     {
         private WordsDictionary(Dictionary<string, double> table)
         {
-            Guard.NotNull(() => table, table);
-            RawData = table;
+            RawData = table ?? throw new ArgumentNullException(nameof(table));
         }
 
         public Dictionary<string, double> RawData { get; }
@@ -24,7 +23,11 @@ namespace Wikiled.Text.Analysis.Dictionary
 
         public bool Contains(string word)
         {
-            Guard.NotNullOrEmpty(() => word, word);
+            if (string.IsNullOrEmpty(word))
+            {
+                throw new ArgumentException("message", nameof(word));
+            }
+
             return RawData.ContainsKey(word);
         }
     }

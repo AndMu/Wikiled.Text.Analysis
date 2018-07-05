@@ -25,7 +25,7 @@ namespace Wikiled.Text.Analysis.WordNet.InformationContent
         {
             if (synSet == null)
             {
-                throw new ArgumentNullException("synSet");
+                throw new ArgumentNullException(nameof(synSet));
             }
 
             return frequencies[synSet.Offset + MapPos(synSet.POS)];
@@ -40,7 +40,7 @@ namespace Wikiled.Text.Analysis.WordNet.InformationContent
                 case WordType.Noun:
                     return "n";
                 default:
-                    throw new ArgumentOutOfRangeException("pos", string.Format("Synset for POS {0} not supported", pos));
+                    throw new ArgumentOutOfRangeException(nameof(pos), string.Format("Synset for POS {0} not supported", pos));
             }
         }
 
@@ -48,7 +48,7 @@ namespace Wikiled.Text.Analysis.WordNet.InformationContent
         {
             if (string.IsNullOrEmpty(path))
             {
-                throw new ArgumentNullException("path");
+                throw new ArgumentNullException(nameof(path));
             }
             if (!File.Exists(path))
             {
@@ -71,7 +71,7 @@ namespace Wikiled.Text.Analysis.WordNet.InformationContent
                     var blocks = line.Split(' ');
                     if (blocks.Length < 2)
                     {
-                        throw new ArgumentOutOfRangeException("path", "Can't parse line: " + line);
+                        throw new ArgumentOutOfRangeException(nameof(path), "Can't parse line: " + line);
                     }
 
                     var id = blocks[0];

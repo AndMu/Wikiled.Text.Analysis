@@ -15,10 +15,8 @@ namespace Wikiled.Text.Analysis.NLP
 
         public RawWordExtractor(IWordsDictionary dictionary, IMemoryCache cache)
         {
-            Guard.NotNull(() => dictionary, dictionary);
-            Guard.NotNull(() => cache, cache);
-            Dictionary = dictionary;
-            this.cache = cache;
+            Dictionary = dictionary ?? throw new ArgumentNullException(nameof(dictionary));
+            this.cache = cache ?? throw new ArgumentNullException(nameof(cache));
             service = new PluralizationServiceInstance();
         }
 
@@ -26,7 +24,6 @@ namespace Wikiled.Text.Analysis.NLP
 
         public string GetWord(string word)
         {
-            Guard.NotNull(() => word, word);
             if (string.IsNullOrEmpty(word))
             {
                 return string.Empty;
@@ -44,7 +41,6 @@ namespace Wikiled.Text.Analysis.NLP
         private string GetWordInternal(string word)
         {
             word = word.ToLower().Trim();
-
             if (word.Length <= 3 ||
                 word == "thing")
             {

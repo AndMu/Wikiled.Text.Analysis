@@ -9,10 +9,13 @@ namespace Wikiled.Text.Analysis.Dictionary.Streams
 
         public DictionaryStream(string name, IStreamSource streamSource)
         {
-            Guard.NotNullOrEmpty(() => name, name);
-            Guard.NotNull(() => streamSource, streamSource);
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new System.ArgumentException("message", nameof(name));
+            }
+
             Name = name;
-            this.streamSource = streamSource;
+            this.streamSource = streamSource ?? throw new System.ArgumentNullException(nameof(streamSource));
         }
 
         public string Name { get; }

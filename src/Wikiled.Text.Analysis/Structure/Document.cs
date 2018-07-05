@@ -62,7 +62,11 @@ namespace Wikiled.Text.Analysis.Structure
 
         public void Add(SentenceItem sentence)
         {
-            Guard.NotNull(() => sentence, sentence);
+            if (sentence == null)
+            {
+                throw new ArgumentNullException(nameof(sentence));
+            }
+
             sentence.Index = Sentences.Count;
             Sentences.Add(sentence);
         }
