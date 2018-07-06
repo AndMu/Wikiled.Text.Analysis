@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Wikiled.Common.Arguments;
 using Wikiled.Text.Analysis.NLP.Frequency;
 
 namespace Wikiled.Text.Analysis.SymSpell
@@ -13,8 +13,7 @@ namespace Wikiled.Text.Analysis.SymSpell
 
         public SymSpellFactory(IWordFrequencyList frequency, int? topWords = null)
         {
-            Guard.NotNull(() => frequency, frequency);
-            this.frequency = frequency;
+            this.frequency = frequency ?? throw new ArgumentNullException(nameof(frequency));
             this.topWords = topWords;
         }
 

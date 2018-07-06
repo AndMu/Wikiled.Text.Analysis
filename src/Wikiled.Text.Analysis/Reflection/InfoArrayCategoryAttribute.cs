@@ -1,5 +1,4 @@
 ﻿using System;
-using Wikiled.Common.Arguments;
 
 namespace Wikiled.Text.Analysis.Reflection
 {
@@ -8,9 +7,21 @@ namespace Wikiled.Text.Analysis.Reflection
     {
         public InfoArrayCategoryAttribute(string name, string textField, string valueField)
         {
-            Guard.NotNullOrEmpty(() => name, name);
-            Guard.NotNullOrEmpty(() => textField, textField);
-            Guard.NotNullOrEmpty(() => valueField, valueField);
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(name));
+            }
+
+            if (string.IsNullOrEmpty(textField))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(textField));
+            }
+
+            if (string.IsNullOrEmpty(valueField))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(valueField));
+            }
+
             Name = name;
             TextField = textField;
             ValueField = valueField;

@@ -1,4 +1,5 @@
-﻿using Wikiled.Common.Arguments;
+﻿
+using System;
 
 namespace Wikiled.Text.Analysis.Reflection.Data
 {
@@ -6,7 +7,11 @@ namespace Wikiled.Text.Analysis.Reflection.Data
     {
         public DataItem(string category, string name, string description, object value)
         {
-            Guard.NotNullOrEmpty(() => name, name);
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(name));
+            }
+
             Category = category;
             Value = value;
             Name = name;

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Wikiled.Common.Arguments;
 
 namespace Wikiled.Text.Analysis.Reflection
 {
@@ -16,7 +15,11 @@ namespace Wikiled.Text.Analysis.Reflection
 
         public IMapCategory Construct(Type type, bool isPropertyName = false)
         {
-            Guard.NotNull(() => type, type);
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             InfoCategoryAttribute rootAttribute = (InfoCategoryAttribute)
                         type.GetCustomAttributes(typeof(InfoCategoryAttribute), false).FirstOrDefault();
             if (rootAttribute == null)

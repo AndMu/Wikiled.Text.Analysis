@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
-using Wikiled.Common.Arguments;
 using Wikiled.Text.Analysis.Structure;
 
 namespace Wikiled.Text.Analysis.Cache

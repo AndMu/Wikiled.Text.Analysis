@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Wikiled.Common.Arguments;
 
 namespace Wikiled.Text.Analysis.Tokenizer
 {
@@ -11,7 +11,11 @@ namespace Wikiled.Text.Analysis.Tokenizer
 
         public RegexSplitter(string pattern)
         {
-            Guard.NotNullOrEmpty(() => pattern, pattern);
+            if (string.IsNullOrEmpty(pattern))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(pattern));
+            }
+
             regex = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
         }
 

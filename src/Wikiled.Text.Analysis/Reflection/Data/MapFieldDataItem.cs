@@ -1,4 +1,5 @@
-﻿using Wikiled.Common.Arguments;
+﻿
+using System;
 
 namespace Wikiled.Text.Analysis.Reflection.Data
 {
@@ -14,12 +15,9 @@ namespace Wikiled.Text.Analysis.Reflection.Data
 
         public MapFieldDataItem(IDataTree parent, IMapField field)
         {
-            Guard.NotNull(() => field, field);
-            Guard.NotNull(() => parent, parent);
-            Guard.NotNull(() => parent.Instance, parent.Instance);
-            this.field = field;
-            this.parent = parent;
-            instance = parent.Instance;
+            this.field = field ?? throw new ArgumentNullException(nameof(field));
+            this.parent = parent ?? throw new ArgumentNullException(nameof(parent));
+            instance = parent.Instance ?? throw new ArgumentNullException(nameof(parent.Instance));
             currentValue = field.GetValue<object>(instance);
         }
 

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
-using Wikiled.Common.Arguments;
 
 namespace Wikiled.Text.Analysis.Structure
 {
@@ -18,7 +17,11 @@ namespace Wikiled.Text.Analysis.Structure
         public SentenceItem(string text)
             : this()
         {
-            Guard.NotNullOrEmpty(() => text, text);
+            if (string.IsNullOrEmpty(text))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(text));
+            }
+
             Text = text;
         }
 

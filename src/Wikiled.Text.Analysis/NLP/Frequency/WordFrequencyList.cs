@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Wikiled.Common.Arguments;
 using Wikiled.Text.Analysis.Dictionary;
 using Wikiled.Text.Analysis.Dictionary.Streams;
 
@@ -13,8 +12,16 @@ namespace Wikiled.Text.Analysis.NLP.Frequency
 
         public WordFrequencyList(string name, string fileName)
         {
-            Guard.NotNullOrEmpty(() => name, name);
-            Guard.NotNullOrEmpty(() => fileName, fileName);
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(name));
+            }
+
+            if (string.IsNullOrEmpty(fileName))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(fileName));
+            }
+
             Name = name;
             var dictionary = WordsDictionary.Construct(new CompressedDictionaryStream(fileName, new EmbeddedStreamSource<WordsDictionary>()));
             int index = 0;

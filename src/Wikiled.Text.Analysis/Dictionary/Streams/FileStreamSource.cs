@@ -1,5 +1,5 @@
-﻿using System.IO;
-using Wikiled.Common.Arguments;
+﻿using System;
+using System.IO;
 
 namespace Wikiled.Text.Analysis.Dictionary.Streams
 {
@@ -7,7 +7,11 @@ namespace Wikiled.Text.Analysis.Dictionary.Streams
     {
         public Stream ConstructReader(string name)
         {
-            Guard.NotNullOrEmpty(() => name, name);
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(name));
+            }
+
             return new FileStream(name, FileMode.Open);
         }
     }

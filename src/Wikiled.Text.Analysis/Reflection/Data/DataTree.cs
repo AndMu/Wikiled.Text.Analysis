@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Wikiled.Common.Arguments;
 
 namespace Wikiled.Text.Analysis.Reflection.Data
 {
@@ -21,11 +21,9 @@ namespace Wikiled.Text.Analysis.Reflection.Data
 
         public DataTree(object instance, IMapCategory category, IDataItemFactory dataItemFactory)
         {
-            Guard.NotNull(() => category, category);
-            Guard.NotNull(() => dataItemFactory, dataItemFactory);
             Instance = instance;
-            currentCategory = category;
-            this.dataItemFactory = dataItemFactory;
+            currentCategory = category ?? throw new ArgumentNullException(nameof(category));
+            this.dataItemFactory = dataItemFactory ?? throw new ArgumentNullException(nameof(dataItemFactory));
             Build();
         }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Extensions.Caching.Memory;
-using Wikiled.Common.Arguments;
 using Wikiled.Text.Analysis.POS;
 using Wikiled.Text.Analysis.WordNet.Engine;
 
@@ -16,12 +15,9 @@ namespace Wikiled.Text.Analysis.WordNet.InformationContent
 
         public JcnMeasure(IMemoryCache cache, IInformationContentResnik resnik, IWordNetEngine engine)
         {
-            Guard.NotNull(() => cache, cache);
-            Guard.NotNull(() => resnik, resnik);
-            Guard.NotNull(() => engine, engine);
-            this.resnik = resnik;
-            this.engine = engine;
-            this.cache = cache;
+            this.resnik = resnik ?? throw new ArgumentNullException(nameof(resnik));
+            this.engine = engine ?? throw new ArgumentNullException(nameof(engine));
+            this.cache = cache ?? throw new ArgumentNullException(nameof(cache));
         }
 
         public static double MaxSimilarity => 1 / MinDistance;
@@ -80,8 +76,16 @@ namespace Wikiled.Text.Analysis.WordNet.InformationContent
 
         public double Measure(SynSet synSet1, SynSet synSet2)
         {
-            Guard.NotNull(() => synSet1, synSet1);
-            Guard.NotNull(() => synSet2, synSet2);
+            if (synSet1 == null)
+            {
+                throw new ArgumentNullException(nameof(synSet1));
+            }
+
+            if (synSet2 == null)
+            {
+                throw new ArgumentNullException(nameof(synSet2));
+            }
+
             var tag = GenerateTag(synSet1, synSet2);
             return cache.GetOrCreate(
                 tag,

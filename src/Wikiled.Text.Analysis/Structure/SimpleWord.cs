@@ -1,4 +1,5 @@
-﻿using Wikiled.Common.Arguments;
+﻿
+using System;
 
 namespace Wikiled.Text.Analysis.Structure
 {
@@ -6,7 +7,11 @@ namespace Wikiled.Text.Analysis.Structure
     {
         public SimpleWord(string text)
         {
-            Guard.NotNullOrEmpty(() => text, text);
+            if (string.IsNullOrEmpty(text))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(text));
+            }
+
             Text = text;
         }
         

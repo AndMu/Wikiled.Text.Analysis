@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Wikiled.Common.Arguments;
 using Wikiled.Common.Resources;
 
 namespace Wikiled.Text.Analysis.Dictionary.Streams
@@ -14,8 +13,7 @@ namespace Wikiled.Text.Analysis.Dictionary.Streams
 
         public ReadTabResourceDataFile(string name, TextReader stream)
         {
-            Guard.NotNull(() => stream, stream);
-            reader = stream;
+            reader = stream ?? throw new ArgumentNullException(nameof(stream));
             this.name = name;
         }
 

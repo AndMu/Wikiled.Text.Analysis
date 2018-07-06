@@ -1,18 +1,17 @@
 ﻿using System.Reflection;
-using Wikiled.Common.Arguments;
 
 namespace Wikiled.Text.Analysis.Reflection
 {
     public class ChildMapCategory : MapCategory
     {
+        private readonly string name;
         private readonly PropertyInfo propertyInfo;
 
         public ChildMapCategory(IMapCategory parent, string name, PropertyInfo propertyInfo)
             : base(parent.IsPropertyName, name, propertyInfo.PropertyType)
         {
-            Guard.NotNull(() => parent, parent);
-            Guard.NotNull(() => propertyInfo, propertyInfo);
             Parent = parent;
+            this.name = name;
             this.propertyInfo = propertyInfo;
         }
 

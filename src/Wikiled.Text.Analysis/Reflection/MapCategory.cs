@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Wikiled.Common.Arguments;
 using Wikiled.Common.Extensions;
 using Wikiled.Text.Analysis.Reflection.Data;
 
@@ -23,11 +22,14 @@ namespace Wikiled.Text.Analysis.Reflection
 
         public MapCategory(bool isPropertyName, string name, Type type)
         {
-            Guard.NotNullOrEmpty(() => name, name);
-            Guard.NotNull(() => type, type);
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(name));
+            }
+
             IsPropertyName = isPropertyName;
             Name = name;
-            OwnerType = type;
+            OwnerType = type ?? throw new ArgumentNullException(nameof(type));
             Reset();
         }
 

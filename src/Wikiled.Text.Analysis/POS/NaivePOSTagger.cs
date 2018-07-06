@@ -1,4 +1,4 @@
-﻿using Wikiled.Common.Arguments;
+﻿using System;
 using Wikiled.Common.Extensions;
 using Wikiled.Text.Analysis.POS.Tags;
 using Wikiled.Text.Analysis.Words;
@@ -19,7 +19,11 @@ namespace Wikiled.Text.Analysis.POS
 
         public BasePOSType GetTag(string word)
         {
-            Guard.NotNullOrEmpty(() => word, word);
+            if (string.IsNullOrEmpty(word))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(word));
+            }
+
             BasePOSType wordPosType = POSTags.Instance.UnknownWord;
             if(!word.HasLetters() &&
                 POSTags.Instance.Contains(word))

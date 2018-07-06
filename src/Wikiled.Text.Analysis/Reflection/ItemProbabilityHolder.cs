@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Wikiled.Common.Arguments;
+﻿using System;
+using System.Collections.Generic;
 using Wikiled.Text.Analysis.Reflection.Data;
 
 namespace Wikiled.Text.Analysis.Reflection
@@ -9,8 +9,7 @@ namespace Wikiled.Text.Analysis.Reflection
     {
         public ItemProbabilityHolder(IList<IItemProbability<string>> probabilities)
         {
-            Guard.NotNull(() => probabilities, probabilities);
-            Probabilities = probabilities;
+            Probabilities = probabilities ?? throw new ArgumentNullException(nameof(probabilities));
         }
 
         [InfoArrayCategory("List", "Data", "Probability")]

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
-using Wikiled.Common.Arguments;
 using Wikiled.Text.Analysis.POS;
 
 namespace Wikiled.Text.Analysis.Cache

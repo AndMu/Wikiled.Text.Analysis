@@ -18,7 +18,7 @@ namespace Wikiled.Text.Analysis.Tests.Structure
         [Test]
         public void Construct()
         {
-            Assert.Throws<ArgumentNullException>(() => new SimpleWord(null));
+            Assert.Throws<ArgumentException>(() => new SimpleWord(null));
             
         }
 

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NLog;
-using Wikiled.Common.Arguments;
 
 namespace Wikiled.Text.Analysis.Reflection.Data
 {
@@ -12,8 +12,7 @@ namespace Wikiled.Text.Analysis.Reflection.Data
 
         public DictionaryDataItemFactory(Dictionary<string, double> map)
         {
-            Guard.NotNull(() => map, map);
-            this.map = map;
+            this.map = map ?? throw new ArgumentNullException(nameof(map));
         }
 
         public IDataItem Create(IDataTree tree, IMapField field)

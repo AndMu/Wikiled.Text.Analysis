@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Extensions.Caching.Memory;
-using Wikiled.Common.Arguments;
 using Wikiled.Common.Extensions;
 using Wikiled.Text.Analysis.Dictionary;
 using Wikiled.Text.Analysis.Extensions;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Wikiled.Common.Arguments;
 using Wikiled.Text.Analysis.Dictionary.Streams;
 
 namespace Wikiled.Text.Analysis.Dictionary
@@ -17,7 +16,11 @@ namespace Wikiled.Text.Analysis.Dictionary
 
         public static WordsDictionary Construct(IDictionaryStream stream)
         {
-            Guard.NotNull(() => stream, stream);
+            if (stream == null)
+            {
+                throw new ArgumentNullException(nameof(stream));
+            }
+
             return new WordsDictionary(stream.ReadDataFromStream(double.Parse).ToDictionary(item => item.Word, item => item.Value, StringComparer.OrdinalIgnoreCase));
         }
 

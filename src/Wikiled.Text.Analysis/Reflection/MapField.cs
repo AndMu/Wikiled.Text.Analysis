@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using Wikiled.Common.Arguments;
 
 namespace Wikiled.Text.Analysis.Reflection
 {
@@ -12,12 +11,9 @@ namespace Wikiled.Text.Analysis.Reflection
 
         public MapField(IMapCategory category, InfoFieldAttribute attribute, PropertyInfo propertyInfo)
         {
-            Guard.NotNull(() => category, category);
-            Guard.NotNull(() => attribute, attribute);
-            Guard.NotNull(() => propertyInfo, propertyInfo);
-            Category = category;
-            this.attribute = attribute;
-            this.propertyInfo = propertyInfo;
+            Category = category ?? throw new ArgumentNullException(nameof(category));
+            this.attribute = attribute ?? throw new ArgumentNullException(nameof(attribute));
+            this.propertyInfo = propertyInfo ?? throw new ArgumentNullException(nameof(propertyInfo));
         }
 
         public IMapCategory Category { get; }

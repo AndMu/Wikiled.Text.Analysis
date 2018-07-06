@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Wikiled.Common.Arguments;
 using Wikiled.Text.Analysis.Dictionary;
 using Wikiled.Text.Analysis.Dictionary.Streams;
 
@@ -15,7 +14,11 @@ namespace Wikiled.Text.Analysis.NLP.NRC
 
         public void Load(IDictionaryStream stream)
         {
-            Guard.NotNull(() => stream, stream);
+            if (stream == null)
+            {
+                throw new ArgumentNullException(nameof(stream));
+            }
+
             table = new Dictionary<string, NRCRecord>(StringComparer.OrdinalIgnoreCase);
             ReadDataFromInternalStream(stream);
         }
@@ -28,7 +31,11 @@ namespace Wikiled.Text.Analysis.NLP.NRC
 
         public NRCRecord FindRecord(string word)
         {
-            Guard.NotNullOrEmpty(() => word, word);
+            if (string.IsNullOrEmpty(word))
+            {
+                throw new ArgumentException("Value cannot be null or empty.", nameof(word));
+            }
+
             table.TryGetValue(word, out NRCRecord nrcRecord);
             return (NRCRecord)nrcRecord?.Clone();
         }

@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using Wikiled.Common.Arguments;
 using Wikiled.Text.Analysis.Reflection.Data;
 
 namespace Wikiled.Text.Analysis.Reflection
@@ -31,8 +30,15 @@ namespace Wikiled.Text.Analysis.Reflection
                     Type itemType = item.GetType();
                     textProperty = itemType.GetProperty(Attribute.TextField);
                     valueProperty = itemType.GetProperty(Attribute.ValueField);
-                    Guard.NotNull(() => textProperty, textProperty);
-                    Guard.NotNull(() => valueProperty, valueProperty);
+                    if (textProperty == null)
+                    {
+                        throw new ArgumentNullException(nameof(textProperty));
+                    }
+
+                    if (valueProperty == null)
+                    {
+                        throw new ArgumentNullException(nameof(valueProperty));
+                    }
                 }
 
                 string name = (string)textProperty.GetValue(item, null);
