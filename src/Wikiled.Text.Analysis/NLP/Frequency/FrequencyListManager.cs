@@ -2,7 +2,7 @@
 
 namespace Wikiled.Text.Analysis.NLP.Frequency
 {
-    public class FrequencyListManager
+    public class FrequencyListManager : IFrequencyListManager
     {
         private readonly Lazy<WordFrequencyList> common = new Lazy<WordFrequencyList>(() => new WordFrequencyList("BNC", @"Resources.Frequency.frequency.dat"));
 

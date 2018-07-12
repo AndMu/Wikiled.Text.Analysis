@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Wikiled.Text.Analysis.Dictionary;
 using Wikiled.Text.Analysis.Dictionary.Streams;
+using Wikiled.Text.Analysis.Structure;
 
 namespace Wikiled.Text.Analysis.NLP.NRC
 {
@@ -38,6 +39,32 @@ namespace Wikiled.Text.Analysis.NLP.NRC
 
             table.TryGetValue(word, out NRCRecord nrcRecord);
             return (NRCRecord)nrcRecord?.Clone();
+        }
+
+        public NRCRecord FindRecord(WordEx word)
+        {
+            NRCRecord nrcRecord = null;
+            foreach (var text in word.GetPossibleText())
+            {
+                nrcRecord = FindRecord(text);
+                if (nrcRecord != null)
+                {
+                    break;
+                }
+            }
+
+            if (nrcRecord == null)
+            {
+                return null;
+            }
+
+            nrcRecord = (NRCRecord)nrcRecord.Clone();
+            if (word.IsInverted)
+            {
+                nrcRecord.Invert();
+            }
+
+            return nrcRecord;
         }
 
         private void ReadDataFromInternalStream(IDictionaryStream stream)

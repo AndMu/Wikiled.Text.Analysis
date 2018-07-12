@@ -44,6 +44,10 @@ namespace Wikiled.Text.Analysis.Structure
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [XmlElement]
+        public bool IsInverted { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [XmlElement]
         public bool IsStop { get; set; }
 
         [XmlElement]
@@ -59,6 +63,9 @@ namespace Wikiled.Text.Analysis.Structure
 
         [XmlElement]
         public string Text { get; set; }
+
+        [XmlElement]
+        public string Raw { get; set; }
 
         [XmlElement]
         public string Type
