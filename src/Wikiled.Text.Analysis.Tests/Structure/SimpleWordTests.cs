@@ -19,7 +19,6 @@ namespace Wikiled.Text.Analysis.Tests.Structure
         public void Construct()
         {
             Assert.Throws<ArgumentException>(() => new SimpleWord(null));
-            
         }
 
         private SimpleWord CreateSimpleWord()
