@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 using Wikiled.Text.Analysis.POS;
@@ -7,11 +8,16 @@ using Wikiled.Text.Analysis.POS.Tags;
 namespace Wikiled.Text.Analysis.Structure
 {
     [XmlRoot("Word")]
-    public class WordEx
+    public class WordEx : ICloneable
     {
         private BasePOSType tag;
 
         public WordEx()
+        {
+        }
+
+        public WordEx(string text)
+        : this(new SimpleWord(text))
         {
         }
 
@@ -81,7 +87,7 @@ namespace Wikiled.Text.Analysis.Structure
         [JsonIgnore]
         [XmlIgnore]
         public IItem UnderlyingWord { get; private set; }
-        
+
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         [XmlElement]
         public double? Value { get; set; }
@@ -89,6 +95,11 @@ namespace Wikiled.Text.Analysis.Structure
         public override string ToString()
         {
             return $"{Text}:{Tag.Tag}";
+        }
+
+        public object Clone()
+        {
+            return (WordEx)MemberwiseClone();
         }
     }
 }

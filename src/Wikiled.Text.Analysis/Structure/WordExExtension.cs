@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Wikiled.Text.Analysis.POS;
+using Wikiled.Text.Analysis.Words;
 
 namespace Wikiled.Text.Analysis.Structure
 {
@@ -19,6 +21,15 @@ namespace Wikiled.Text.Analysis.Structure
             {
                 yield return word.Text.Substring(1);
             }
+        }
+
+        public static bool IsConjunction(this WordEx word)
+        {
+            return word.Tag.WordType == WordType.Conjunction ||
+                   WordTypeResolver.Instance.IsInvertingConjunction(word.Text) ||
+                   WordTypeResolver.Instance.IsSpecialEndSymbol(word.Text) ||
+                   WordTypeResolver.Instance.IsRegularConjunction(word.Text) ||
+                   WordTypeResolver.Instance.IsSubordinateConjunction(word.Text);
         }
     }
 }
