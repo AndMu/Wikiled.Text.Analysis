@@ -29,6 +29,8 @@ namespace Wikiled.Text.Analysis.Words
 
         private readonly WordsDictionary verb;
 
+        private readonly WordsDictionary question;
+
         private WordTypeResolver()
         {
             conjunctiveAdverbs = WordsDictionary.Construct(new DictionaryStream(@"Resources.POS.Conjunctions.ConjunctiveAdverb.txt", new EmbeddedStreamSource<WordTypeResolver>()));
@@ -43,6 +45,7 @@ namespace Wikiled.Text.Analysis.Words
             preposition = WordsDictionary.Construct(new DictionaryStream(@"Resources.POS.Preposition.txt", new EmbeddedStreamSource<WordTypeResolver>()));
             pronoun = WordsDictionary.Construct(new DictionaryStream(@"Resources.POS.Pronoun.txt", new EmbeddedStreamSource<WordTypeResolver>()));
             verb = WordsDictionary.Construct(new DictionaryStream(@"Resources.POS.Verb.txt", new EmbeddedStreamSource<WordTypeResolver>()));
+            question = WordsDictionary.Construct(new DictionaryStream(@"Resources.POS.Questions.txt", new EmbeddedStreamSource<WordTypeResolver>()));
         }
 
         public static IWordTypeResolver Instance { get; } = new WordTypeResolver();
@@ -50,6 +53,11 @@ namespace Wikiled.Text.Analysis.Words
         public bool IsAdverb(string text)
         {
             return adverbs.Contains(text);
+        }
+
+        public bool IsQuestion(string text)
+        {
+            return question.Contains(text);
         }
 
         public bool IsVerb(string text)

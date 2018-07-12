@@ -2,6 +2,8 @@
 {
     public interface IWordTypeResolver
     {
+        bool IsQuestion(string text);
+
         bool IsVerb(string text);
 
         bool IsAdverb(string text);

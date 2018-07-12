@@ -23,6 +23,11 @@ namespace Wikiled.Text.Analysis.Structure
             }
         }
 
+        public static bool IsQuestion(this WordEx word)
+        {
+            return WordTypeResolver.Instance.IsQuestion(word.Text);
+        }
+
         public static bool IsConjunction(this WordEx word)
         {
             return word.Tag.WordType == WordType.Conjunction ||
