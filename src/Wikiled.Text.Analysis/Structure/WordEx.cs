@@ -50,6 +50,10 @@ namespace Wikiled.Text.Analysis.Structure
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [XmlElement]
+        public bool IsInvertor { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [XmlElement]
         public bool IsInverted { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
