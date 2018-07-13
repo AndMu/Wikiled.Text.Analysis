@@ -8,17 +8,18 @@
     <AssemblyName>Wikiled.Text.Analysis</AssemblyName>
     <Authors>Wikiled</Authors>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <description>Text Analysis Library</description>    
-	<tags>data-mining, machine-learning; text analysis, nlp</tags>
+    <description>Text Analysis Library</description>
+    <tags>data-mining, machine-learning; text analysis, nlp</tags>
     <projectUrl>https://github.com/AndMu/Wikiled.Text.Analysis</projectUrl>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);IncludeP2PAssets</TargetsForTfmSpecificBuildOutput>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <Target Name="IncludeP2PAssets">
     <ItemGroup>
       <BuildOutputInPackage Include="$(OutputPath)Wikiled.Text.Analysis.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)Wikiled.Text.Analysis.pdb" />      
+      <BuildOutputInPackage Include="$(OutputPath)Wikiled.Text.Analysis.pdb" />
     </ItemGroup>
   </Target>
 
@@ -76,7 +77,7 @@
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="NLog" Version="4.5.6" />
-    <PackageReference Include="PluralizeService.Core" Version="1.0.0.5" />    
+    <PackageReference Include="PluralizeService.Core" Version="1.0.0.5" />
     <PackageReference Include="Wikiled.Arff" Version="2.2.0" />
     <PackageReference Include="Wikiled.Common" Version="1.1.0" />
   </ItemGroup>
