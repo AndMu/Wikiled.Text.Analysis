@@ -2,10 +2,9 @@
 using NUnit.Framework;
 using Wikiled.Text.Analysis.POS.Tags;
 using Wikiled.Text.Analysis.Structure;
-using Wikiled.Text.Analysis.Tokenizer;
 using Wikiled.Text.Analysis.Tokenizer.Pipelined;
 
-namespace Wikiled.Text.Analysis.Tests.Tokenizer
+namespace Wikiled.Text.Analysis.Tests.Tokenizer.Pipelined
 {
     [TestFixture]
     public class InvertorPipelineTests
@@ -16,7 +15,7 @@ namespace Wikiled.Text.Analysis.Tests.Tokenizer
             WordEx[] data =
             {
                 new WordEx("One"),
-                new WordEx("Two") {IsInverted = true},
+                new WordEx("Two") {IsInvertor = true},
                 new WordEx("Three"),
                 new WordEx("Four"),
                 new WordEx("X") {Type = CoordinatingConjunction.Instance.Tag},
