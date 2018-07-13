@@ -43,28 +43,13 @@ namespace Wikiled.Text.Analysis.NLP.NRC
 
         public NRCRecord FindRecord(WordEx word)
         {
-            NRCRecord nrcRecord = null;
-            foreach (var text in word.GetPossibleText())
-            {
-                nrcRecord = FindRecord(text);
-                if (nrcRecord != null)
+            return word.GetPossibleVariation(FindRecord,
+                invert =>
                 {
-                    break;
-                }
-            }
-
-            if (nrcRecord == null)
-            {
-                return null;
-            }
-
-            nrcRecord = (NRCRecord)nrcRecord.Clone();
-            if (word.IsInverted)
-            {
-                nrcRecord.Invert();
-            }
-
-            return nrcRecord;
+                    invert = (NRCRecord) invert.Clone();
+                    invert.Invert();
+                    return invert;
+                });
         }
 
         private void ReadDataFromInternalStream(IDictionaryStream stream)
