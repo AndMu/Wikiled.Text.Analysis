@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using Wikiled.Text.Analysis.Tokenizer;
+using Wikiled.Text.Analysis.Tokenizer.Pipelined;
 
 namespace Wikiled.Text.Analysis.Tests.Tokenizer
 {

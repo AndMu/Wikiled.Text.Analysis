@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Wikiled.Text.Analysis.NLP.Frequency;
 using Wikiled.Text.Analysis.POS;
 using Wikiled.Text.Analysis.Tokenizer;
+using Wikiled.Text.Analysis.Tokenizer.Pipelined;
 using Wikiled.Text.Analysis.Words;
 
 namespace Wikiled.Text.Analysis.Tests.Tokenizer

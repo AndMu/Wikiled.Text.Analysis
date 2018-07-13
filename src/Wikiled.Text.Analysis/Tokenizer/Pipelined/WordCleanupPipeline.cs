@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Wikiled.Text.Analysis.Tokenizer
+namespace Wikiled.Text.Analysis.Tokenizer.Pipelined
 {
     public class WordCleanupPipeline : IPipeline<string>
     {

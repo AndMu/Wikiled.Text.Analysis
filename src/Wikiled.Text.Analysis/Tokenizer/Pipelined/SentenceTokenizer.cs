@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Wikiled.Text.Analysis.POS;
+using Wikiled.Text.Analysis.POS.Tags;
 using Wikiled.Text.Analysis.Structure;
 
-namespace Wikiled.Text.Analysis.Tokenizer
+namespace Wikiled.Text.Analysis.Tokenizer.Pipelined
 {
     public class SentenceTokenizer : ISentenceTokenizer
     {
@@ -15,7 +16,7 @@ namespace Wikiled.Text.Analysis.Tokenizer
         private SentenceTokenizer(string pattern, IWordsTokenizerFactory wordPipelineFactory)
         {
             splitter = new RegexSplitter(pattern);
-            TokenizerFactory = wordPipelineFactory ?? throw new System.ArgumentNullException(nameof(wordPipelineFactory));
+            TokenizerFactory = wordPipelineFactory ?? throw new ArgumentNullException(nameof(wordPipelineFactory));
         }
 
         private SentenceTokenizer(IWordsTokenizerFactory wordPipelineFactory)
@@ -41,8 +42,11 @@ namespace Wikiled.Text.Analysis.Tokenizer
             if (removeStopWords)
             {
                 pipelines.Add(new StopWordItemPipeline());
+                pipelines.Add(new WordItemFilterOutPipeline(item => item.Tag.WordType == WordType.SeparationSymbol));
                 pipelines.Add(new WordItemFilterOutPipeline(item => item.IsConjunction()));
             }
+
+            pipelines.Add(new WordItemFilterOutPipeline(item => item.Tag == SentenceFinalPunctuation.Instance));
 
             WordsTokenizerFactory factory = new WordsTokenizerFactory(
                 wordPattern,

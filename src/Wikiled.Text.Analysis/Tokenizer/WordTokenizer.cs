@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Wikiled.Text.Analysis.Structure;
+using Wikiled.Text.Analysis.Tokenizer.Pipelined;
 
 namespace Wikiled.Text.Analysis.Tokenizer
 {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Wikiled.Text.Analysis.Tokenizer.Pipelined;
 
 namespace Wikiled.Text.Analysis.Tokenizer
 {

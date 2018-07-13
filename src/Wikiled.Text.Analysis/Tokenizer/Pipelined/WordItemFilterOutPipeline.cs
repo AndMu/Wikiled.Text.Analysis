@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Wikiled.Text.Analysis.Structure;
 
-namespace Wikiled.Text.Analysis.Tokenizer
+namespace Wikiled.Text.Analysis.Tokenizer.Pipelined
 {
     public class WordItemFilterOutPipeline : IPipeline<WordEx>
     {

@@ -2,6 +2,10 @@
 {
     public interface IWordTypeResolver
     {
+        bool IsInvertor(string text);
+
+        bool IsStop(string text);
+
         bool IsQuestion(string text);
 
         bool IsVerb(string text);

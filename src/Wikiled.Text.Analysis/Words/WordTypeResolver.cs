@@ -31,6 +31,10 @@ namespace Wikiled.Text.Analysis.Words
 
         private readonly WordsDictionary question;
 
+        private readonly WordsDictionary stop;
+
+        private readonly WordsDictionary invertor;
+
         private WordTypeResolver()
         {
             conjunctiveAdverbs = WordsDictionary.Construct(new DictionaryStream(@"Resources.POS.Conjunctions.ConjunctiveAdverb.txt", new EmbeddedStreamSource<WordTypeResolver>()));
@@ -46,9 +50,21 @@ namespace Wikiled.Text.Analysis.Words
             pronoun = WordsDictionary.Construct(new DictionaryStream(@"Resources.POS.Pronoun.txt", new EmbeddedStreamSource<WordTypeResolver>()));
             verb = WordsDictionary.Construct(new DictionaryStream(@"Resources.POS.Verb.txt", new EmbeddedStreamSource<WordTypeResolver>()));
             question = WordsDictionary.Construct(new DictionaryStream(@"Resources.POS.Questions.txt", new EmbeddedStreamSource<WordTypeResolver>()));
+            stop = WordsDictionary.Construct(new DictionaryStream(@"Resources.POS.Stop.txt", new EmbeddedStreamSource<WordTypeResolver>()));
+            invertor = WordsDictionary.Construct(new DictionaryStream(@"Resources.POS.negating.txt", new EmbeddedStreamSource<WordTypeResolver>()));
         }
 
         public static IWordTypeResolver Instance { get; } = new WordTypeResolver();
+
+        public bool IsInvertor(string text)
+        {
+            return invertor.Contains(text);
+        }
+
+        public bool IsStop(string text)
+        {
+            return stop.Contains(text);
+        }
 
         public bool IsAdverb(string text)
         {

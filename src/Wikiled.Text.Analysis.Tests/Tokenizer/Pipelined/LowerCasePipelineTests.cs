@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Wikiled.Text.Analysis.Tokenizer;
 
-namespace Wikiled.Text.Analysis.Tests.Tokenizer
+namespace Wikiled.Text.Analysis.Tests.Tokenizer.Pipelined
 {
     [TestFixture]
     public class LowerCasePipelineTests

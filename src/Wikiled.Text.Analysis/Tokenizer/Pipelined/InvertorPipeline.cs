@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Wikiled.Text.Analysis.Structure;
 
-namespace Wikiled.Text.Analysis.Tokenizer
+namespace Wikiled.Text.Analysis.Tokenizer.Pipelined
 {
     public class InvertorPipeline : IPipeline<WordEx>
     {
@@ -19,7 +19,7 @@ namespace Wikiled.Text.Analysis.Tokenizer
                     invertor = false;
                 }
 
-                if (word.IsInverted)
+                if (word.IsInvertor)
                 {
                     total = 0;
                     invertor = true;
@@ -30,6 +30,7 @@ namespace Wikiled.Text.Analysis.Tokenizer
                 {
                     var newResult = (WordEx)word.Clone();
                     newResult.Text = "not_" + newResult.Text;
+                    newResult.IsInverted = true;
                     yield return newResult;
                 }
                 else

@@ -38,10 +38,12 @@
     <None Remove="Resources\POS\Conjunctions\InvertingConjunction.txt" />
     <None Remove="Resources\POS\Conjunctions\RegularConjunction.txt" />
     <None Remove="Resources\POS\Conjunctions\SubordinateConjunction.txt" />
+    <None Remove="Resources\POS\negating.txt" />
     <None Remove="Resources\POS\Noun.txt" />
     <None Remove="Resources\POS\Preposition.txt" />
     <None Remove="Resources\POS\Pronoun.txt" />
     <None Remove="Resources\POS\Questions.txt" />
+    <None Remove="Resources\POS\Stop.txt" />
     <None Remove="Resources\POS\Verb.txt" />
   </ItemGroup>
 
@@ -65,6 +67,8 @@
     <EmbeddedResource Include="Resources\POS\Preposition.txt" />
     <EmbeddedResource Include="Resources\POS\Pronoun.txt" />
     <EmbeddedResource Include="Resources\POS\Questions.txt" />
+    <EmbeddedResource Include="Resources\POS\negating.txt" />
+    <EmbeddedResource Include="Resources\POS\Stop.txt" />
     <EmbeddedResource Include="Resources\POS\Verb.txt" />
   </ItemGroup>
 

@@ -2,7 +2,7 @@
 using Wikiled.Text.Analysis.POS;
 using Wikiled.Text.Analysis.Structure;
 
-namespace Wikiled.Text.Analysis.Tokenizer
+namespace Wikiled.Text.Analysis.Tokenizer.Pipelined
 {
     public class SimpleWordItemFactory : IWordItemFactory
     {
@@ -20,8 +20,10 @@ namespace Wikiled.Text.Analysis.Tokenizer
                 throw new ArgumentException("Value cannot be null or empty.", nameof(word));
             }
 
-            var wordEx = new WordEx(new SimpleWord(word));
+            var wordEx = new WordEx(word);
             wordEx.Type = tagger.GetTag(word).Tag;
+            wordEx.IsStop = Words.WordTypeResolver.Instance.IsStop(word);
+            wordEx.IsInvertor = Words.WordTypeResolver.Instance.IsInvertor(word);
             return wordEx;
         }
     }
