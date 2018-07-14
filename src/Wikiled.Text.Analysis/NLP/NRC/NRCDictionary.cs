@@ -30,6 +30,22 @@ namespace Wikiled.Text.Analysis.NLP.NRC
             Load(stream);
         }
 
+        public SentimentVector Extract(IEnumerable<WordEx> words)
+        {
+            if (words is null)
+            {
+                throw new ArgumentNullException(nameof(words));
+            }
+
+            var vector = new SentimentVector();
+            foreach (var word in words)
+            {
+                vector.ExtractData(FindRecord(word));
+            }
+
+            return vector;
+        }
+
         public NRCRecord FindRecord(string word)
         {
             if (string.IsNullOrEmpty(word))

@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Wikiled.Text.Analysis.NLP.NRC;
+using Wikiled.Text.Analysis.Structure;
 
 namespace Wikiled.Text.Analysis.Tests.NLP.NRC
 {
@@ -13,7 +14,35 @@ namespace Wikiled.Text.Analysis.Tests.NLP.NRC
             dictionary = new NRCDictionary();
             dictionary.Load();
         }
-        
+
+        [Test]
+        public void Extract()
+        {
+            var vector = dictionary.Extract(new[] { new WordEx("kill") });
+            Assert.AreEqual(0, vector.Anger);
+            Assert.AreEqual(0, vector.Anticipation);
+            Assert.AreEqual(0, vector.Disgust);
+            Assert.AreEqual(1, vector.Fear);
+            Assert.AreEqual(0, vector.Joy);
+            Assert.AreEqual(0, vector.Trust);
+            Assert.AreEqual(1, vector.Sadness);
+            Assert.AreEqual(0, vector.Surprise);
+            Assert.AreEqual(1, vector.Total);
+            Assert.AreEqual(2, vector.TotalSum);
+
+            vector = dictionary.Extract(new[] { new WordEx(("love")) });
+            Assert.AreEqual(0, vector.Anger);
+            Assert.AreEqual(0, vector.Anticipation);
+            Assert.AreEqual(0, vector.Disgust);
+            Assert.AreEqual(0, vector.Fear);
+            Assert.AreEqual(1, vector.Joy);
+            Assert.AreEqual(0, vector.Sadness);
+            Assert.AreEqual(0, vector.Surprise);
+            Assert.AreEqual(0, vector.Trust);
+            Assert.AreEqual(1, vector.Total);
+            Assert.AreEqual(1, vector.TotalSum);
+        }
+
         [Test]
         public void FindRecord()
         {
