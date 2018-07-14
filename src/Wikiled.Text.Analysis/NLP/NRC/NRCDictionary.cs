@@ -9,6 +9,8 @@ namespace Wikiled.Text.Analysis.NLP.NRC
 {
     public class NRCDictionary : INRCDictionary
     {
+        private bool loaded;
+
         private Dictionary<string, NRCRecord> table = new Dictionary<string, NRCRecord>(StringComparer.OrdinalIgnoreCase);
 
         public IEnumerable<WordNRCRecord> AllRecords => table.Select(item => new WordNRCRecord(item.Key, item.Value));
@@ -26,6 +28,7 @@ namespace Wikiled.Text.Analysis.NLP.NRC
 
         public void Load()
         {
+            loaded = true;
             var stream = new CompressedDictionaryStream("Resources.Dictionary.NRC.dat", new EmbeddedStreamSource<WordsDictionary>());
             Load(stream);
         }
@@ -35,6 +38,11 @@ namespace Wikiled.Text.Analysis.NLP.NRC
             if (words is null)
             {
                 throw new ArgumentNullException(nameof(words));
+            }
+
+            if (!loaded)
+            {
+                throw new InvalidOperationException("Not loaded");
             }
 
             var vector = new SentimentVector();
@@ -53,12 +61,22 @@ namespace Wikiled.Text.Analysis.NLP.NRC
                 throw new ArgumentException("Value cannot be null or empty.", nameof(word));
             }
 
+            if (!loaded)
+            {
+                throw new InvalidOperationException("Not loaded");
+            }
+
             table.TryGetValue(word, out NRCRecord nrcRecord);
             return (NRCRecord)nrcRecord?.Clone();
         }
 
         public NRCRecord FindRecord(WordEx word)
         {
+            if (!loaded)
+            {
+                throw new InvalidOperationException("Not loaded");
+            }
+
             NRCRecord nrcRecord = null;
             foreach (var text in word.GetPossibleText())
             {

@@ -9,6 +9,8 @@ namespace Wikiled.Text.Analysis.NLP.NRC
 
         void Load();
 
+        SentimentVector Extract(IEnumerable<WordEx> words);
+
         NRCRecord FindRecord(string word);
 
         NRCRecord FindRecord(WordEx word);
