@@ -1,28 +1,16 @@
 ﻿using NUnit.Framework;
-using Wikiled.Text.Analysis.NLP.Frequency;
-using Wikiled.Text.Analysis.POS;
 using Wikiled.Text.Analysis.Structure;
 using Wikiled.Text.Analysis.Tokenizer;
-using Wikiled.Text.Analysis.Tokenizer.Pipelined;
-using Wikiled.Text.Analysis.Words;
 
 namespace Wikiled.Text.Analysis.Tests.Tokenizer
 {
     [TestFixture]
     public class SimpleWordsExtractionTests
     {
-        private NaivePOSTagger instance;
-
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            instance = new NaivePOSTagger(new BNCList(), WordTypeResolver.Instance);
-        }
-
         [Test]
         public void GetDocument1Simple()
         {
-            SimpleWordsExtraction extraction = new SimpleWordsExtraction(SentenceTokenizer.Create(instance, true, false));
+            SimpleWordsExtraction extraction = new SimpleWordsExtraction(Global.Factory.Create(true, false));
             Document document = extraction.GetDocument("I went to forest and don't know what I thought. But that is ok and not so bad and ok");
             Assert.AreEqual(20, document.TotalWords);
             Assert.AreEqual(2, document.Sentences.Count);
@@ -56,7 +44,7 @@ namespace Wikiled.Text.Analysis.Tests.Tokenizer
         [Test]
         public void GetDocument1()
         {
-            SimpleWordsExtraction extraction = new SimpleWordsExtraction(SentenceTokenizer.Create(instance, false, false));
+            SimpleWordsExtraction extraction = new SimpleWordsExtraction(Global.Factory.Create(false, false));
             Document document = extraction.GetDocument("I went to forest and don't know what I thought. But that is ok and not so bad and ok");
             Assert.AreEqual(18, document.TotalWords);
             Assert.AreEqual(2, document.Sentences.Count);
@@ -89,7 +77,7 @@ namespace Wikiled.Text.Analysis.Tests.Tokenizer
         [Test]
         public void GetDocument1WithoutStop()
         {
-            SimpleWordsExtraction extraction = new SimpleWordsExtraction(SentenceTokenizer.Create(instance, false, true));
+            SimpleWordsExtraction extraction = new SimpleWordsExtraction(Global.Factory.Create(false, true));
             Document document = extraction.GetDocument("I went to forest and don't know what I thought. But that is ok and not so bad and ok");
             Assert.AreEqual(7, document.TotalWords);
             Assert.AreEqual(2, document.Sentences.Count);
@@ -110,7 +98,7 @@ namespace Wikiled.Text.Analysis.Tests.Tokenizer
         [Test]
         public void GetDocumentFromLDA()
         {
-            SimpleWordsExtraction extraction = new SimpleWordsExtraction(SentenceTokenizer.Create(instance, true, false));
+            SimpleWordsExtraction extraction = new SimpleWordsExtraction(Global.Factory.Create(true, false));
             Document document =
                 extraction.GetDocument(
                     "Elizabeth Needham (died 3 May 1731), also known as Mother Needham");
@@ -132,7 +120,7 @@ namespace Wikiled.Text.Analysis.Tests.Tokenizer
         [Test]
         public void GetDocument2()
         {
-            SimpleWordsExtraction extraction = new SimpleWordsExtraction(SentenceTokenizer.Create(instance, false, false));
+            SimpleWordsExtraction extraction = new SimpleWordsExtraction(Global.Factory.Create(false, false));
             Document document = extraction.GetDocument("Not bad Not bad and defintle again will do that. For you my king. I spent that road.");
             Assert.AreEqual(16, document.TotalWords);
             Assert.AreEqual(3, document.Sentences.Count);

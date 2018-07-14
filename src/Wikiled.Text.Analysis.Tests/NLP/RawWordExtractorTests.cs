@@ -1,21 +1,10 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using NUnit.Framework;
-using Wikiled.Text.Analysis.Dictionary;
-using Wikiled.Text.Analysis.NLP;
+﻿using NUnit.Framework;
 
 namespace Wikiled.Text.Analysis.Tests.NLP
 {
     [TestFixture]
     public class RawWordExtractorTests
     {
-        private RawWordExtractor instance;
-
-        [SetUp]
-        public void Setup()
-        {
-            instance = new RawWordExtractor(new BasicEnglishDictionary(), new MemoryCache(new MemoryCacheOptions()));
-        }
-
         [TestCase("program's", "program")]
         [TestCase("ringtones", "ringtone")]
 
@@ -51,7 +40,7 @@ namespace Wikiled.Text.Analysis.Tests.NLP
         [TestCase("anti-virus", "anti-virus")]
         public void GetSpecialSymbols(string word, string extected)
         {
-            var result = instance.GetWord(word);
+            var result = Global.Raw.GetWord(word);
             Assert.AreEqual(extected, result);
         }
     }
