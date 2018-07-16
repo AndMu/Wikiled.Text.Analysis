@@ -23,5 +23,23 @@ namespace Wikiled.Text.Analysis.Tests.Structure
             deserialized = doc.XmlDeserialize<WordEx>();
             Assert.AreEqual(11.11, deserialized.Value);
         }
+
+        [Test]
+        public void Clone()
+        {
+            WordEx word = new WordEx("Test");
+            word.Value = 11.11;
+            word.CalculatedValue = 2;
+            word.Id = 1;
+            word.IsInvertor = true;
+            word.EntityType = NamedEntities.Date;
+
+            var wordClone = (WordEx)word.Clone();
+            Assert.AreEqual(11.11, wordClone.Value);
+            Assert.AreEqual(2, wordClone.CalculatedValue);
+            Assert.AreEqual(true, wordClone.IsInvertor);
+            Assert.AreEqual(1, wordClone.Id);
+            Assert.AreEqual(NamedEntities.Date, wordClone.EntityType);
+        }
     }
 }
