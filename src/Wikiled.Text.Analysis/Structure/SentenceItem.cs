@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using Wikiled.MachineLearning.Mathematics;
 
 namespace Wikiled.Text.Analysis.Structure
 {
@@ -70,9 +70,22 @@ namespace Wikiled.Text.Analysis.Structure
             Words.Add(word);
         }
 
-        public double CalculateSentiment()
+        public RatingData CalculateSentiment()
         {
-            return Words.Sum(x => x.CalculatedValue ?? 0);
+            RatingData data = new RatingData();
+            foreach (var wordEx in Words)
+            {
+                if (wordEx.CalculatedValue.HasValue)
+                {
+                    data.AddSetiment(wordEx.CalculatedValue.Value);
+                }
+                else if (wordEx.Value.HasValue)
+                {
+                    data.AddSetiment(wordEx.Value.Value);
+                }
+            }
+
+            return data;
         }
     }
 }
