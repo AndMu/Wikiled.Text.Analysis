@@ -1,30 +1,19 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using Wikiled.Text.Analysis.NLP.Frequency;
-using Wikiled.Text.Analysis.POS;
 using Wikiled.Text.Analysis.Tokenizer;
 using Wikiled.Text.Analysis.Tokenizer.Pipelined;
-using Wikiled.Text.Analysis.Words;
 
 namespace Wikiled.Text.Analysis.Tests.Tokenizer
 {
     [TestFixture]
     public class WordTokenizerTests
     {
-        private NaivePOSTagger instance;
-
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            instance = new NaivePOSTagger(new BNCList(), WordTypeResolver.Instance);
-        }
-
         [Test]
         public void GetWords()
         {
             WordTokenizer tokenizer = new WordTokenizer(
                 "Test", 
-                new SimpleWordItemFactory(instance), 
+                new SimpleWordItemFactory(Global.PosTagger, Global.Raw), 
                 NullSimpleWordPipeline.Instance, 
                 NullWordItemPipeline.Instance, 
                 new[] { "test", "one" });
@@ -40,7 +29,7 @@ namespace Wikiled.Text.Analysis.Tests.Tokenizer
         {
             WordTokenizer tokenizer = new WordTokenizer(
                 "Test",
-                new SimpleWordItemFactory(instance), 
+                new SimpleWordItemFactory(Global.PosTagger, Global.Raw), 
                 NullSimpleWordPipeline.Instance, 
                 NullWordItemPipeline.Instance, 
                 new[] { "", "one" });

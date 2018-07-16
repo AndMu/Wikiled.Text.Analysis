@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Wikiled.Text.Analysis.Tokenizer;
 using Wikiled.Text.Analysis.Tokenizer.Pipelined;
 
-namespace Wikiled.Text.Analysis.Tests.Tokenizer
+namespace Wikiled.Text.Analysis.Tests.Tokenizer.Pipelined
 {
     [TestFixture]
     public class CombinedSimpleWordPipelineTests

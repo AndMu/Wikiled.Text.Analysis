@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Wikiled.Text.Analysis.POS;
-using Wikiled.Text.Analysis.POS.Tags;
-using Wikiled.Text.Analysis.Structure;
 
 namespace Wikiled.Text.Analysis.Tokenizer.Pipelined
 {
@@ -13,48 +10,13 @@ namespace Wikiled.Text.Analysis.Tokenizer.Pipelined
 
         private readonly RegexSplitter splitter;
 
-        private SentenceTokenizer(string pattern, IWordsTokenizerFactory wordPipelineFactory)
+        public SentenceTokenizer(IWordsTokenizerFactory wordPipelineFactory)
         {
-            splitter = new RegexSplitter(pattern);
+            splitter = new RegexSplitter(SentencePattern);
             TokenizerFactory = wordPipelineFactory ?? throw new ArgumentNullException(nameof(wordPipelineFactory));
         }
 
-        private SentenceTokenizer(IWordsTokenizerFactory wordPipelineFactory)
-            : this(SentencePattern, wordPipelineFactory)
-        {
-        }
-
         public IWordsTokenizerFactory TokenizerFactory { get; }
-
-        public static ISentenceTokenizer Create(IPOSTagger tagger, bool simple, bool removeStopWords)
-        {
-            return Create(tagger, WordsTokenizerFactory.NotWhiteSpace, simple, removeStopWords);
-        }
-
-        public static ISentenceTokenizer Create(IPOSTagger tagger, string wordPattern, bool simple, bool removeStopWords)
-        {
-            List<IPipeline<WordEx>> pipelines = new List<IPipeline<WordEx>>();
-            if (!simple)
-            {
-                pipelines.Add(new InvertorPipeline());
-            }
-
-            if (removeStopWords)
-            {
-                pipelines.Add(new StopWordItemPipeline());
-                pipelines.Add(new WordItemFilterOutPipeline(item => item.Tag.WordType == WordType.SeparationSymbol));
-                pipelines.Add(new WordItemFilterOutPipeline(item => item.IsConjunction()));
-            }
-
-            pipelines.Add(new WordItemFilterOutPipeline(item => item.Tag == SentenceFinalPunctuation.Instance));
-
-            WordsTokenizerFactory factory = new WordsTokenizerFactory(
-                wordPattern,
-                new SimpleWordItemFactory(tagger),
-                new CombinedPipeline<string>(new LowerCasePipeline(), new WordCleanupPipeline(), new PunctuationPipeline()),
-                new CombinedPipeline<WordEx>(pipelines.ToArray()));
-            return new SentenceTokenizer(factory);
-        }
 
         public IEnumerable<IWordsTokenizer> Parse(string text)
         {
