@@ -79,6 +79,7 @@ namespace Wikiled.Text.Analysis.Structure
             }
 
             Text += sentence.Text;
+            Text = Text.Trim();
         }
     }
 }

@@ -45,7 +45,6 @@ namespace Wikiled.Text.Analysis.Tests.Structure
             var sentence = (SentenceItem)item.Clone();
             Assert.AreEqual(3, sentence.Words.Count);
             Assert.AreEqual(item.CalculateSentiment().RawRating, sentence.CalculateSentiment().RawRating);
-            Assert.AreNotSame(word, sentence.Words[2]);
             Assert.AreEqual("One", sentence.Words[0].Text);
             Assert.AreEqual("Two", sentence.Words[1].Text);
             Assert.AreEqual("T", sentence.Words[2].Text);
