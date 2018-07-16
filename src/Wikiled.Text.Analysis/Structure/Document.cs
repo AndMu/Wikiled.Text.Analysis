@@ -72,6 +72,12 @@ namespace Wikiled.Text.Analysis.Structure
 
             sentence.Index = Sentences.Count;
             Sentences.Add(sentence);
+            if (!string.IsNullOrEmpty(Text))
+            {
+                Text += " ";
+            }
+
+            Text += sentence.Text;
         }
     }
 }
