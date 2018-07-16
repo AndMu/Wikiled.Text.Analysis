@@ -11,6 +11,7 @@ namespace Wikiled.Text.Analysis.Structure
         public Document()
         {
             Sentences = new List<SentenceItem>();
+            Text = String.Empty;
         }
 
         public Document(string text)
