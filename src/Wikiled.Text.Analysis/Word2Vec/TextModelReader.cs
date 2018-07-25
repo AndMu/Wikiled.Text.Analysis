@@ -15,7 +15,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
             this.stream = stream;
         }
 
-        public Model Open()
+        public WordModel Open()
         {
             using (var reader = new StreamReader(stream, Encoding.UTF8, true, 4 * 1024))
             {
@@ -30,7 +30,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
                     vectors.Add(vector);
                 }
 
-                return new Model(words == 0 ? vectors.Count : words, size == 0 ? (int)stream.Length : size, vectors);
+                return new WordModel(words == 0 ? vectors.Count : words, size == 0 ? (int)stream.Length : size, vectors);
             }
         }
 

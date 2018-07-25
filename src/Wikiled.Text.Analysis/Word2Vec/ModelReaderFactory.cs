@@ -32,7 +32,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
             }
         }
 
-        public Model Manufacture(string filePath)
+        public WordModel Manufacture(string filePath)
         {
             using (var fileStream = OpenStream(filePath))
             {

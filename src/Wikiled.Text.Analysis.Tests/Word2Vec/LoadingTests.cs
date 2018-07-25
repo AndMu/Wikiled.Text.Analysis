@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using NUnit.Framework;
+using Wikiled.Text.Analysis.Structure;
 using Wikiled.Text.Analysis.Word2Vec;
 
 namespace Wikiled.Text.Analysis.Tests.Word2Vec
@@ -10,11 +11,10 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
     [TestFixture]
     public class LoadingTests
     {
-
         [Test]
         public void TestLoadingText()
         {
-            var model = Model.Load(GetPath("model.txt"));
+            var model = WordModel.Load(GetPath("model.txt"));
             TestLoadedModel(model);
         }
 
@@ -22,22 +22,22 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
         public void TestLoadingTextInAnotherCulture()
         {
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CreateSpecificCulture("fr-FR");
-            var model = Model.Load(GetPath("model.txt"));
+            var model = WordModel.Load(GetPath("model.txt"));
             TestLoadedModel(model);
         }
 
         [Test]
         public void TestLoadingCompressedText()
         {
-            var model = Model.Load(GetPath("model.txt.gz"));
+            var model = WordModel.Load(GetPath("model.txt.gz"));
             TestLoadedModel(model);
         }
 
         [Test]
         public void TestReLoadingText()
         {
-            var model = Model.Load(GetPath("model.txt"));
-            Model m2;
+            var model = WordModel.Load(GetPath("model.txt"));
+            WordModel m2;
             using (var s = new MemoryStream())
             {
                 using (var writer = new TextModelWriter(s, true))
@@ -47,9 +47,10 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
                 s.Seek(0, SeekOrigin.Begin);
                 var tmr = new TextModelReader(s);
                 {
-                    m2 = Model.Load(tmr);
+                    m2 = WordModel.Load(tmr);
                 }
             }
+
             Assert.AreEqual(model.Words, m2.Words);
             Assert.AreEqual(model.Size, m2.Size);
         }
@@ -57,30 +58,29 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
         [Test]
         public void TestLoadingBinary()
         {
-            var model = Model.Load(GetPath(@"model.bin"));
+            var model = WordModel.Load(GetPath(@"model.bin"));
             TestLoadedModel(model);
         }
 
         [Test]
         public void TestLoadingCompressedBinary()
         {
-            var model = Model.Load(GetPath(@"model.bin.gz"));
+            var model = WordModel.Load(GetPath(@"model.bin.gz"));
             TestLoadedModel(model);
         }
 
         [Test]
         public void TestLoadingTextFileWithNoHeader()
         {
-            var model = Model.Load(GetPath("modelWithNoHeader.txt"));
+            var model = WordModel.Load(GetPath("modelWithNoHeader.txt"));
             Assert.AreEqual(2, model.Words);
         }
-
 
         [Test]
         public void TestReLoadingBinary()
         {
-            var model = Model.Load(GetPath("model.txt"));
-            Model m2;
+            var model = WordModel.Load(GetPath("model.txt"));
+            WordModel m2;
             using (var s = new MemoryStream())
             {
                 using (var writer = new BinaryModelWriter(s, true))
@@ -89,13 +89,14 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
                 }
                 s.Seek(0, SeekOrigin.Begin);
                 var tmr = new BinaryModelReader(s);
-                m2 = Model.Load(tmr);
+                m2 = WordModel.Load(tmr);
             }
+
             Assert.AreEqual(model.Words, m2.Words);
             Assert.AreEqual(model.Size, m2.Size);
         }
 
-        private static void TestLoadedModel(Model model)
+        private static void TestLoadedModel(WordModel model)
         {
             Assert.IsNotNull(model);
             Assert.AreEqual(4501, model.Words);
@@ -130,6 +131,16 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
 
             var vector = king.Subtract(man).Add(woman);
             Console.WriteLine(model.NearestSingle(vector));
+            var sentences = new[] { new SentenceItem(), new SentenceItem() };
+            sentences[0].Words.Add(new WordEx("whale"));
+            sentences[0].Words.Add(new WordEx("boat"));
+
+            sentences[1].Words.Add(new WordEx("whale"));
+            sentences[1].Words.Add(new WordEx{ Raw = "boat" });
+
+            var paragraph = model.GetParagraphVector(sentences);
+            var paragraph2 = model.GetParagraphVector(sentences.Take(1).ToArray());
+            Assert.AreEqual(paragraph2, paragraph);
         }
 
         [Test]
@@ -184,6 +195,14 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
 
             Assert.IsNotNull(z);
             CollectionAssert.AreEqual(new float[] { 1, 3, 4 }, z);
+        }
+        [Test]
+        public void TestVectorAverage()
+        {
+            var x = new WordVector("word1", new float[] { 1, 3, 4 });
+            var y = new WordVector("word2", new float[] { 1, 0, 0 });
+            var result = new[] { x, y }.Average();
+            CollectionAssert.AreEqual(new [] { 1, 1.5f, 2 }, result);
         }
 
         private string GetPath(string path)

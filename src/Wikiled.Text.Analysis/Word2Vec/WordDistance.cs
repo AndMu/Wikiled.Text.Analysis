@@ -9,6 +9,7 @@
         }
 
         public string Word { get; }
+
         public double Distance { get; }
 
         public override string ToString()

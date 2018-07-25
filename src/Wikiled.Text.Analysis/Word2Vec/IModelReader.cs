@@ -2,6 +2,6 @@
 {
     public interface IModelReader
     {
-        Model Open();
+        WordModel Open();
     }
 }

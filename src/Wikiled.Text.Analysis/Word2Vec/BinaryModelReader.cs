@@ -16,7 +16,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
 
         private Stream Stream { get; }
 
-        public Model Open()
+        public WordModel Open()
         {
             using (var reader = new BinaryReader(Stream, Encoding.UTF8, true))
             {
@@ -30,7 +30,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
                     vectors.Add(ReadVector(reader, words, size));
                 }
 
-                return new Model(words, size, vectors);
+                return new WordModel(words, size, vectors);
             }
         }
 

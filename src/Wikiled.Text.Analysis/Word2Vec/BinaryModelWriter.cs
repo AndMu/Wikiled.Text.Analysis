@@ -12,7 +12,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
 
         private BinaryWriter Writer { get; }
 
-        public void Write(Model m)
+        public void Write(WordModel m)
         {
             WriteHeader(m);
             foreach (var wv in m.Vectors)
@@ -26,7 +26,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
             Writer.Dispose();
         }
 
-        private void WriteHeader(Model m)
+        private void WriteHeader(WordModel m)
         {
             WriteString($"{m.Words} {m.Size}\n");
         }

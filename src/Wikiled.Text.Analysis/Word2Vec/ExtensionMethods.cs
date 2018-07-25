@@ -1,11 +1,75 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Wikiled.Text.Analysis.Structure;
 
 namespace Wikiled.Text.Analysis.Word2Vec
 {
     public static class ExtensionMethods
     {
+        public static float[] GetParagraphVector(this WordModel model, params SentenceItem[] sentences)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            if (sentences == null)
+            {
+                throw new ArgumentNullException(nameof(sentences));
+            }
+
+            if (sentences.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty collection.", nameof(sentences));
+            }
+
+            ConcurrentBag<WordVector> words = new ConcurrentBag<WordVector>();
+            Parallel.ForEach(sentences.SelectMany(item => item.Words),
+                             word =>
+                             {
+                                 if (!string.IsNullOrEmpty(word.Text))
+                                 {
+                                     var result = model.Find(word.Text);
+                                     if (result != null)
+                                     {
+                                         words.Add(result);
+                                         return;
+                                     }
+                                 }
+
+                                 if (!string.IsNullOrEmpty(word.Raw) && word.Raw != word.Text)
+                                 {
+                                     var result = model.Find(word.Raw);
+                                     if (result != null)
+                                     {
+                                         words.Add(result);
+                                     }
+                                 }
+                             });
+            return words.ToArray().Average();
+        }
+
+        public static float[] Average(this WordVector[] vectors)
+        {
+            if (vectors == null)
+            {
+                throw new ArgumentNullException(nameof(vectors));
+            }
+
+            if (vectors.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty collection.", nameof(vectors));
+            }
+
+            var result = new float[vectors[0].Vector.Length];
+            Parallel.For(0, result.Length, i => { result[i] = vectors.Sum(item => item.Vector[i]) / vectors.Length; });
+            return result;
+        }
+
+
         public static float[] Add(this float[] value1, float[] value2)
         {
             if (value1 == null)
@@ -24,11 +88,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
             }
 
             var result = new float[value1.Length];
-            for (var i = 0; i < value1.Length; i++)
-            {
-                result[i] = value1[i] + value2[i];
-            }
-
+            Parallel.For(0, value1.Length, i => { result[i] = value1[i] + value2[i]; });
             return result;
         }
 
@@ -50,11 +110,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
             }
 
             var result = new float[value1.Length];
-            for (var i = 0; i < value1.Length; i++)
-            {
-                result[i] = value1[i] - value2[i];
-            }
-
+            Parallel.For(0, value1.Length, i => { result[i] = value1[i] - value2[i]; });
             return result;
         }
 
@@ -79,22 +135,22 @@ namespace Wikiled.Text.Analysis.Word2Vec
         }
 
 
-        public static WordVector GetByWord(this Model model, string word)
+        public static WordVector GetByWord(this WordModel model, string word)
         {
             return model.Vectors.FirstOrDefault(x => x.Word == word);
         }
 
-        public static IEnumerable<WordVector> Nearest(this Model model, float[] vector)
+        public static IEnumerable<WordVector> Nearest(this WordModel model, float[] vector)
         {
             return model.Vectors.OrderBy(x => x.Vector.Distance(vector));
         }
 
-        public static WordVector NearestSingle(this Model model, float[] vector)
+        public static WordVector NearestSingle(this WordModel model, float[] vector)
         {
             return model.Vectors.OrderBy(x => x.Vector.Distance(vector)).First();
         }
 
-        public static double Distance(this Model model, string word1, string word2)
+        public static double Distance(this WordModel model, string word1, string word2)
         {
             var vector1 = model.GetByWord(word1);
             var vector2 = model.GetByWord(word2);
@@ -111,7 +167,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
             return vector1.Vector.Distance(vector2.Vector);
         }
 
-        public static IEnumerable<WordDistance> Nearest(this Model model, string word)
+        public static IEnumerable<WordDistance> Nearest(this WordModel model, string word)
         {
             var vector = model.GetByWord(word);
             if (vector == null)
@@ -119,7 +175,8 @@ namespace Wikiled.Text.Analysis.Word2Vec
                 throw new ArgumentException($"cannot find word '{word}'");
             }
 
-            return model.Vectors.Select(x => new WordDistance(x.Word, x.Vector.Distance(vector.Vector)))
+            return model.Vectors.AsParallel()
+                .Select(x => new WordDistance(x.Word, x.Vector.Distance(vector.Vector)))
                 .OrderBy(x => x.Distance)
                 .Where(x => x.Word != word);
         }
