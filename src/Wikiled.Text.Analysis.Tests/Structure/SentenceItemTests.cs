@@ -9,10 +9,17 @@ namespace Wikiled.Text.Analysis.Tests.Structure
     [TestFixture]
     public class SentenceItemTests
     {
+        private SentenceItem item;
+
+        [SetUp]
+        public void Setup()
+        {
+            item = new SentenceItem("Test");
+        }
+
         [Test]
         public void Construct()
         {
-            SentenceItem item = new SentenceItem("Test");
             Assert.AreEqual("Test", item.Text);
             Assert.AreEqual(0, item.Words.Count);
         }
@@ -20,7 +27,6 @@ namespace Wikiled.Text.Analysis.Tests.Structure
         [Test]
         public void Add()
         {
-            SentenceItem item = new SentenceItem("Test");
             Assert.AreEqual(0, item.Words.Count);
             item.Add("Test");
             Assert.AreEqual(1, item.Words.Count);
@@ -29,9 +35,24 @@ namespace Wikiled.Text.Analysis.Tests.Structure
         }
 
         [Test]
+        public void Clone()
+        {
+            item.Add("One");
+            item.Add("Two");
+            var word = new WordEx("T");
+            word.CalculatedValue = 2;
+            item.Add(word);
+            var sentence = (SentenceItem)item.Clone();
+            Assert.AreEqual(3, sentence.Words.Count);
+            Assert.AreEqual(item.CalculateSentiment().RawRating, sentence.CalculateSentiment().RawRating);
+            Assert.AreEqual("One", sentence.Words[0].Text);
+            Assert.AreEqual("Two", sentence.Words[1].Text);
+            Assert.AreEqual("T", sentence.Words[2].Text);
+        }
+
+        [Test]
         public void Serialize()
         {
-            SentenceItem item = new SentenceItem("Test");
             item.Add("Test1");
             item.Add("Test2");
             var json = JsonConvert.SerializeObject(item);

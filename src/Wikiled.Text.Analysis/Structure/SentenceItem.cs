@@ -7,7 +7,7 @@ using Wikiled.MachineLearning.Mathematics;
 namespace Wikiled.Text.Analysis.Structure
 {
     [XmlRoot("Sentence")]
-    public class SentenceItem
+    public class SentenceItem : ICloneable
     {
         public SentenceItem()
         {
@@ -53,6 +53,11 @@ namespace Wikiled.Text.Analysis.Structure
         public override string ToString()
         {
             return $"[{Words.Count}]: {Text}";
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
 
         public void Add(string word)
