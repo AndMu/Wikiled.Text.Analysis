@@ -6,6 +6,21 @@ namespace Wikiled.Text.Analysis.Word2Vec
 {
     public class ModelReaderFactory
     {
+        public WordModel Manufacture(string filePath)
+        {
+            using (var fileStream = OpenStream(filePath))
+            {
+                var ext = Path.GetExtension(filePath);
+                if (ext == ".gz")
+                {
+                    ext = Path.GetExtension(Path.GetFileNameWithoutExtension(filePath));
+                }
+
+                var reader = GetReader(fileStream, ext.ToLower());
+                return reader.Open();
+            }
+        }
+
         private Stream OpenStream(string filePath)
         {
             var fileStream = File.OpenRead(filePath);
@@ -32,19 +47,5 @@ namespace Wikiled.Text.Analysis.Word2Vec
             }
         }
 
-        public WordModel Manufacture(string filePath)
-        {
-            using (var fileStream = OpenStream(filePath))
-            {
-                var ext = Path.GetExtension(filePath);
-                if (ext == ".gz")
-                {
-                    ext = Path.GetExtension(Path.GetFileNameWithoutExtension(filePath));
-                }
-
-                var reader = GetReader(fileStream, ext.ToLower());
-                return reader.Open();
-            }
-        }
     }
 }

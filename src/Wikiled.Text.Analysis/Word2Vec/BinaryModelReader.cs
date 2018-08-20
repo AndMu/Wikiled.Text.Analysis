@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace Wikiled.Text.Analysis.Word2Vec
@@ -18,16 +19,21 @@ namespace Wikiled.Text.Analysis.Word2Vec
 
         public WordModel Open()
         {
-            using (var reader = new BinaryReader(Stream, Encoding.UTF8, true))
+            using (BinaryReader reader = new BinaryReader(Stream, Encoding.UTF8, true))
             {
-                var header = ReadHeader(reader);
-                var words = header[0];
-                var size = header[1];
+                int[] header = ReadHeader(reader);
+                int words = header[0];
+                int size = header[1];
 
-                var vectors = new List<WordVector>();
-                for (var i = 0; i < words; i++)
+                List<WordVector> vectors = new List<WordVector>();
+                for (int i = 0; i < words; i++)
                 {
-                    vectors.Add(ReadVector(reader, words, size));
+                    WordVector vector;
+                    while ((vector = ReadVector(reader, size)) == null)
+                    {
+                    }
+
+                    vectors.Add(vector);
                 }
 
                 return new WordModel(words, size, vectors);
@@ -37,28 +43,31 @@ namespace Wikiled.Text.Analysis.Word2Vec
 
         private int[] ReadHeader(BinaryReader reader)
         {
-            var words = int.Parse(ReadString(reader), CultureInfo.InvariantCulture);
-            var size = int.Parse(ReadString(reader), CultureInfo.InvariantCulture);
+            int words = int.Parse(ReadString(reader), CultureInfo.InvariantCulture);
+            int size = int.Parse(ReadString(reader), CultureInfo.InvariantCulture);
 
             return new[] { words, size };
         }
 
-        public WordVector ReadVector(BinaryReader br, int words, int size)
+        private WordVector ReadVector(BinaryReader binaryReader, int size)
         {
-            var word = ReadString(br);
-
-            var vector = new float[size];
-
-            for (var j = 0; j < size; j++)
+            string word = ReadString(binaryReader);
+            if (string.IsNullOrEmpty(word))
             {
-                vector[j] = br.ReadSingle();
+                return null;
             }
 
-            var result = new WordVector(word, vector);
+            float[] vector = new float[size];
 
+            for (int j = 0; j < size; j++)
+            {
+                vector[j] = binaryReader.ReadSingle();
+            }
+
+            WordVector result = new WordVector(word, vector);
             if (LineBreaks)
             {
-                br.ReadByte(); // consume line break
+                binaryReader.ReadByte(); // consume line break
             }
 
             return result;
@@ -69,43 +78,31 @@ namespace Wikiled.Text.Analysis.Word2Vec
             return c == null || c[0] == 32 || c[0] == 10;
         }
 
-        private static char[] ReadUTF8Char(Stream s)
+        private static char[] ReadUTF8Char(Stream stream)
         {
-            var bytes = new byte[4];
-            var enc = new UTF8Encoding(false, true);
-            if (1 != s.Read(bytes, 0, 1))
+            int byteAsInt = 0;
+            Decoder decoder = Encoding.UTF8.GetDecoder();
+            char[] nextChar = new char[2];
+
+            while ((byteAsInt = stream.ReadByte()) != -1)
             {
-                return null;
+                int charCount = decoder.GetChars(new[] { (byte)byteAsInt }, 0, 1, nextChar, 0);
+                if (charCount == 0)
+                {
+                    continue;
+                }
+
+                return nextChar.Take(charCount).ToArray();
             }
 
-            if (bytes[0] <= 0x7F) //Single byte character
-            {
-                return enc.GetChars(bytes, 0, 1);
-            }
-
-            var remainingBytes =
-                (bytes[0] & 240) == 240
-                    ? 3
-                    : (
-                        (bytes[0] & 224) == 224
-                            ? 2
-                            : (
-                                (bytes[0] & 192) == 192 ? 1 : -1
-                            ));
-            if (remainingBytes == -1)
-            {
-                return null;
-            }
-
-            s.Read(bytes, 1, remainingBytes);
-            return enc.GetChars(bytes, 0, remainingBytes + 1);
+            return null;
         }
 
-        private string ReadString(BinaryReader br)
+        private string ReadString(BinaryReader binaryReader)
         {
-            var sb = new StringBuilder();
-            char[] c = null;
-            while (!IsStringEnd(c = ReadUTF8Char(br.BaseStream)))
+            StringBuilder sb = new StringBuilder();
+            char[] c;
+            while (!IsStringEnd(c = ReadUTF8Char(binaryReader.BaseStream)))
             {
                 sb.Append(c);
             }
