@@ -63,6 +63,20 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
         }
 
         [Test]
+        public void TestUnknown()
+        {
+            var model = WordModel.Load(GetPath(@"model.bin"));
+            var sentences = new[] { new SentenceItem(), new SentenceItem() };
+            sentences[0].Words.Add(new WordEx("ssd"));
+
+            sentences[1].Words.Add(new WordEx("gfgf"));
+
+            var paragraph = model.GetParagraphVector(sentences);
+            var paragraph2 = model.GetParagraphVector(sentences.Take(1).ToArray());
+            Assert.AreEqual(paragraph2, paragraph);
+        }
+
+        [Test]
         public void TestLoadingCompressedBinary()
         {
             var model = WordModel.Load(GetPath(@"model.bin.gz"));
@@ -103,7 +117,6 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
             Assert.AreEqual(100, model.Size);
             Assert.AreEqual(4501, model.Vectors.Count());
             Assert.IsTrue(model.Vectors.Any(x => x.Word == "whale"));
-
 
             var whale = model.GetByWord("whale");
             Assert.IsNotNull(whale);

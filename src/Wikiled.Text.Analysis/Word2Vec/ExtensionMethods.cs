@@ -49,7 +49,14 @@ namespace Wikiled.Text.Analysis.Word2Vec
                                      }
                                  }
                              });
-            return words.ToArray().Average();
+
+            var arrays = words.ToArray();
+            if (arrays.Length == 0)
+            {
+                return new float[model.Size];
+            }
+
+            return arrays.Average();
         }
 
         public static float[] Average(this WordVector[] vectors)
