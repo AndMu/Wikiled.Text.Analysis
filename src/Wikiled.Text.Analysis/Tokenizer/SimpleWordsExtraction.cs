@@ -38,7 +38,7 @@ namespace Wikiled.Text.Analysis.Tokenizer
 
             if (currentSentence.Words.Count > 0)
             {
-                document.Sentences.Add(currentSentence);
+                document.Add(currentSentence);
             }
         }
     }
