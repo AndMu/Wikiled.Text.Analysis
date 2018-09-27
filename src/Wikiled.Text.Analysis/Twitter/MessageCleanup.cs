@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace Wikiled.Text.Analysis.Twitter
 {
-    public class MessageCleanup
+    public class MessageCleanup : IMessageCleanup
     {
         private readonly Dictionary<string, Emoji> complexEmojis;
 
@@ -42,6 +42,12 @@ namespace Wikiled.Text.Analysis.Twitter
                              select item).ToDictionary(item => item.Unified, emoji => emoji);
         }
 
+        public bool CleanCashTags { get; set; } = true;
+
+        public bool CleanUrl { get; set; } = true;
+
+        public bool LowerCase { get; set; } = true;
+
         public string Cleanup(string message)
         {
             if (string.IsNullOrEmpty(message))
@@ -49,8 +55,23 @@ namespace Wikiled.Text.Analysis.Twitter
                 throw new ArgumentException("message", nameof(message));
             }
 
-            var text = Replace(message.ToLower(), extractor.ExtractUrlsWithIndices(message), "URL_URL");
-            text = Replace(text, extractor.ExtractCashtagsWithIndices(text), "INDEX_INDEX");
+            string text = message;
+
+            if (LowerCase)
+            {
+                text = text.ToLower();
+            }
+                
+            if (CleanUrl)
+            {
+                text = Replace(text, extractor.ExtractUrlsWithIndices(message), "URL_URL");
+            }
+
+            if (CleanCashTags)
+            {
+                text = Replace(text, extractor.ExtractCashtagsWithIndices(text), "INDEX_INDEX");
+            }
+
             StringBuilder builder = new StringBuilder();
             char? previous = null;
             char? previousToPrevious = null;
