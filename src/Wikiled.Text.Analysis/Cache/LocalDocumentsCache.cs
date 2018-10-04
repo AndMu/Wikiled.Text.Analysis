@@ -26,13 +26,13 @@ namespace Wikiled.Text.Analysis.Cache
                 throw new ArgumentNullException(nameof(original));
             }
 
-            if (cache.TryGetValue(GetId(original), out Document document))
+            if (cache.TryGetValue(original.GetId(), out Document document))
             {
                 log.Debug("Found in cache using document id: {0}", document.Id);
                 return Task.FromResult(document);
             }
 
-            if (cache.TryGetValue(GetTextId(original), out document))
+            if (cache.TryGetValue(original.GetTextId(), out document))
             {
                 log.Debug("Found in cache using text - document id: {0}", document.Id);
             }
@@ -52,19 +52,9 @@ namespace Wikiled.Text.Analysis.Cache
 
             document = document.CloneJson();
             // Save data in cache.
-            cache.Set(GetId(document), document, cacheEntryOptions);
-            cache.Set(GetTextId(document), document, cacheEntryOptions);
+            cache.Set(document.GetId(), document, cacheEntryOptions);
+            cache.Set(document.GetTextId(), document, cacheEntryOptions);
             return Task.FromResult(true);
-        }
-
-        private string GetTextId(Document document)
-        {
-            return $"Text:{document.Text.GenerateKey()}";
-        }
-
-        private string GetId(Document document)
-        {
-            return $"Document:{document.Id}:{document.Text.GenerateKey()}";
         }
     }
 }
