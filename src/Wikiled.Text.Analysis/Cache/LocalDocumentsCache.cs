@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
+using NLog;
+using Wikiled.Common.Utilities.Helpers;
+using Wikiled.Text.Analysis.Extensions;
 using Wikiled.Text.Analysis.Structure;
 
 namespace Wikiled.Text.Analysis.Cache
@@ -9,20 +12,11 @@ namespace Wikiled.Text.Analysis.Cache
     {
         private readonly IMemoryCache cache;
 
+        private static readonly Logger log = LogManager.GetCurrentClassLogger();
+
         public LocalDocumentsCache(IMemoryCache cache)
         {
             this.cache = cache ?? throw new ArgumentNullException(nameof(cache));
-        }
-
-        public Task<Document> GetById(string id)
-        {
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                throw new ArgumentException("message", nameof(id));
-            }
-
-            cache.TryGetValue(GetId(id), out Document document);
-            return Task.FromResult(document);
         }
 
         public Task<Document> GetCached(Document original)
@@ -32,12 +26,18 @@ namespace Wikiled.Text.Analysis.Cache
                 throw new ArgumentNullException(nameof(original));
             }
 
-            return GetById(original.Id);
-        }
+            if (cache.TryGetValue(GetId(original), out Document document))
+            {
+                log.Debug("Found in cache using document id: {0}", document.Id);
+                return Task.FromResult(document);
+            }
 
-        public Task<Document> GetCached(string text)
-        {
-            return Task.FromResult((Document)null);
+            if (cache.TryGetValue(GetTextId(original), out document))
+            {
+                log.Debug("Found in cache using text - document id: {0}", document.Id);
+            }
+
+            return Task.FromResult(document);
         }
 
         public Task<bool> Save(Document document)
@@ -50,14 +50,21 @@ namespace Wikiled.Text.Analysis.Cache
             var cacheEntryOptions = new MemoryCacheEntryOptions()
                 .SetSlidingExpiration(TimeSpan.FromMinutes(1));
 
+            document = document.CloneJson();
             // Save data in cache.
-            cache.Set(GetId(document.Id), document, cacheEntryOptions);
+            cache.Set(GetId(document), document, cacheEntryOptions);
+            cache.Set(GetTextId(document), document, cacheEntryOptions);
             return Task.FromResult(true);
         }
 
-        private string GetId(string id)
+        private string GetTextId(Document document)
         {
-            return $"Document:{id}";
+            return $"Text:{document.Text.GenerateKey()}";
+        }
+
+        private string GetId(Document document)
+        {
+            return $"Document:{document.Id}:{document.Text.GenerateKey()}";
         }
     }
 }

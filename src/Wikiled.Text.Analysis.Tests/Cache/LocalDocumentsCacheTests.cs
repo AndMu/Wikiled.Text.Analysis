@@ -21,17 +21,21 @@ namespace Wikiled.Text.Analysis.Tests.Cache
         [Test]
         public async Task Test()
         {
-            Assert.Throws<ArgumentException>(() => instance.GetById(null));
-            Assert.Throws<ArgumentNullException>(() => instance.GetCached((Document)null));
-            var result = await instance.GetById("Test").ConfigureAwait(false);
-            Assert.IsNull(result);
+            Assert.Throws<ArgumentNullException>(() => instance.GetCached(null));
             Document doc = new Document();
             doc.Id = "Test";
+            doc.Text = "Test";
+            var result = await instance.GetCached(doc).ConfigureAwait(false);
+            Assert.IsNull(result);
+            
             await instance.Save(doc).ConfigureAwait(false);
-            result = await instance.GetById("Test").ConfigureAwait(false);
-            Assert.AreSame(doc, result);
             result = await instance.GetCached(doc).ConfigureAwait(false);
-            Assert.AreSame(doc, result);
+            Assert.AreNotSame(doc, result);
+            Assert.AreEqual("Test", result.Text);
+            doc.Id = "2";
+            result = await instance.GetCached(doc).ConfigureAwait(false);
+            Assert.AreNotSame(doc, result);
+            Assert.AreEqual("Test", result.Text);
         }
     }
 }

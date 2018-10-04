@@ -11,8 +11,7 @@ namespace Wikiled.Text.Analysis.NLP
         private readonly Regex wowelSplit = new Regex("[^aeiouy]+", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private readonly Regex[] subtractSyllables =
-            new[]
-                {
+            {
                     new Regex("cial", RegexOptions.Compiled | RegexOptions.IgnoreCase),
                     new Regex("tia", RegexOptions.Compiled | RegexOptions.IgnoreCase),
                     new Regex("cius", RegexOptions.Compiled | RegexOptions.IgnoreCase),
@@ -25,8 +24,7 @@ namespace Wikiled.Text.Analysis.NLP
                 };
 
         private readonly Regex[] addSyllables =
-            new[]
-                {
+            {
                     new Regex("ia", RegexOptions.Compiled | RegexOptions.IgnoreCase),
                     new Regex("riet", RegexOptions.Compiled | RegexOptions.IgnoreCase),
                     new Regex("dien", RegexOptions.Compiled | RegexOptions.IgnoreCase),

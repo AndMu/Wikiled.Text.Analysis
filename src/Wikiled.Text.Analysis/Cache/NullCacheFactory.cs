@@ -6,7 +6,7 @@ namespace Wikiled.Text.Analysis.Cache
     {
         public ICachedDocumentsSource Create(POSTaggerType tagger)
         {
-            return NullCachedDocumentsSource.Instance;
+            return new NullCachedDocumentsSource();
         }
     }
 }
