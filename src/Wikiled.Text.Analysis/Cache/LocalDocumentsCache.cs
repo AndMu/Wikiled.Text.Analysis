@@ -21,7 +21,7 @@ namespace Wikiled.Text.Analysis.Cache
                 throw new ArgumentException("message", nameof(id));
             }
 
-            cache.TryGetValue(id, out Document document);
+            cache.TryGetValue(GetId(id), out Document document);
             return Task.FromResult(document);
         }
 
@@ -51,8 +51,13 @@ namespace Wikiled.Text.Analysis.Cache
                 .SetSlidingExpiration(TimeSpan.FromMinutes(1));
 
             // Save data in cache.
-            cache.Set(document.Id, document, cacheEntryOptions);
+            cache.Set(GetId(document.Id), document, cacheEntryOptions);
             return Task.FromResult(true);
+        }
+
+        private string GetId(string id)
+        {
+            return $"Document:{id}";
         }
     }
 }
