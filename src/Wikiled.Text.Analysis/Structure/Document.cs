@@ -12,6 +12,7 @@ namespace Wikiled.Text.Analysis.Structure
         {
             Sentences = new List<SentenceItem>();
             Text = string.Empty;
+            Status = Status.Original;
         }
 
         public Document(string text)
@@ -23,6 +24,7 @@ namespace Wikiled.Text.Analysis.Structure
             }
 
             Text = text;
+            Status = Status.Original;
         }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -45,6 +47,8 @@ namespace Wikiled.Text.Analysis.Structure
 
         [XmlElement(IsNullable = true)]
         public double? Stars { get; set; }
+
+        public Status Status { get; set; }
 
         [XmlArray]
         [XmlArrayItem("Sentence")]
