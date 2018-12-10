@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using NLog;
+using Microsoft.Extensions.Logging;
 
 namespace Wikiled.Text.Analysis.Word2Vec
 {
     public class WordModel
     {
-        private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
+        private readonly ILogger Logger;
 
         private readonly Dictionary<string, WordVector> vectorsTable;
 
-        public WordModel(int words, int size, List<WordVector> vectors)
+        public WordModel(ILogger logger, int words, int size, List<WordVector> vectors)
         {
             Words = words;
             Size = size;
+            Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             vectorsTable = new Dictionary<string, WordVector>();
             if (words != vectors.Count)
             {
@@ -24,7 +25,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
             {
                 if (vectorsTable.ContainsKey(wordVector.Word))
                 {
-                    logger.Warn("Word already added: " + wordVector.Word);
+                    Logger.LogWarning("Word already added: " + wordVector.Word);
                 }
 
                 vectorsTable[wordVector.Word] = wordVector;

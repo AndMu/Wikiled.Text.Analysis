@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
-using NLog;
+using Microsoft.Extensions.Logging;
 using Wikiled.Common.Utilities.Helpers;
 using Wikiled.Text.Analysis.Extensions;
 using Wikiled.Text.Analysis.Structure;
@@ -12,11 +12,12 @@ namespace Wikiled.Text.Analysis.Cache
     {
         private readonly IMemoryCache cache;
 
-        private static readonly Logger log = LogManager.GetCurrentClassLogger();
+        private readonly ILogger<LocalDocumentsCache> log;
 
-        public LocalDocumentsCache(IMemoryCache cache)
+        public LocalDocumentsCache(ILogger<LocalDocumentsCache> log, IMemoryCache cache)
         {
             this.cache = cache ?? throw new ArgumentNullException(nameof(cache));
+            this.log = log ?? throw new ArgumentNullException(nameof(log));
         }
 
         public Task<Document> GetCached(Document original)
@@ -28,13 +29,13 @@ namespace Wikiled.Text.Analysis.Cache
 
             if (cache.TryGetValue(original.GetId(), out Document document))
             {
-                log.Debug("Found in cache using document id: {0}", document.Id);
+                log.LogDebug("Found in cache using document id: {0}", document.Id);
                 return Task.FromResult(document);
             }
 
             if (cache.TryGetValue(original.GetTextId(), out document))
             {
-                log.Debug("Found in cache using text - document id: {0}", document.Id);
+                log.LogDebug("Found in cache using text - document id: {0}", document.Id);
             }
 
             return Task.FromResult(document);

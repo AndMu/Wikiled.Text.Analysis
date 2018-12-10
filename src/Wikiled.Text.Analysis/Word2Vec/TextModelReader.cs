@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Wikiled.Common.Logging;
 
 namespace Wikiled.Text.Analysis.Word2Vec
 {
@@ -30,7 +31,10 @@ namespace Wikiled.Text.Analysis.Word2Vec
                     vectors.Add(vector);
                 }
 
-                return new WordModel(words == 0 ? vectors.Count : words, size == 0 ? (int)stream.Length : size, vectors);
+                return new WordModel(ApplicationLogging.CreateLogger<WordModel>(),
+                                     words == 0 ? vectors.Count : words,
+                                     size == 0 ? (int)stream.Length : size,
+                                     vectors);
             }
         }
 

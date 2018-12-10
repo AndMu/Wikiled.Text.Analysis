@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using NLog;
+using Microsoft.Extensions.Logging;
+using Wikiled.Common.Logging;
 
 namespace Wikiled.Text.Analysis.Reflection.Data
 {
     public class DictionaryDataItemFactory : IDataItemFactory
     {
-        private static readonly Logger log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger log = ApplicationLogging.CreateLogger<DictionaryDataItemFactory>();
 
         private readonly Dictionary<string, double> map;
 
@@ -21,7 +22,7 @@ namespace Wikiled.Text.Analysis.Reflection.Data
             {
                 if (!field.IsOptional)
                 {
-                    log.Warn("{0} value not found", field.Name);
+                    log.LogWarning("{0} value not found", field.Name);
                 }
             }
 
