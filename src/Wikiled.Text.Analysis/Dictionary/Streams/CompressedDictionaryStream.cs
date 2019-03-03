@@ -23,7 +23,7 @@ namespace Wikiled.Text.Analysis.Dictionary.Streams
 
         public TextReader ConstructReadStream()
         {
-            using (BinaryReader reader = new BinaryReader(streamSource.ConstructReader(Name)))
+            using (var reader = new BinaryReader(streamSource.ConstructReader(Name)))
             {
                 byte[] data = new byte[reader.BaseStream.Length];
                 reader.Read(data, 0, data.Length);

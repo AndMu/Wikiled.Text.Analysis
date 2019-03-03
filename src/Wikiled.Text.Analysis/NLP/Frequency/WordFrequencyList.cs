@@ -10,20 +10,15 @@ namespace Wikiled.Text.Analysis.NLP.Frequency
     {
         private readonly Dictionary<string, FrequencyInformation> indexTable = new Dictionary<string, FrequencyInformation>(StringComparer.OrdinalIgnoreCase);
 
-        public WordFrequencyList(string name, string fileName)
+        public WordFrequencyList(string name, IDictionaryStream stream)
         {
             if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentException("Value cannot be null or empty.", nameof(name));
             }
 
-            if (string.IsNullOrEmpty(fileName))
-            {
-                throw new ArgumentException("Value cannot be null or empty.", nameof(fileName));
-            }
-
             Name = name;
-            var dictionary = WordsDictionary.Construct(new CompressedDictionaryStream(fileName, new EmbeddedStreamSource<WordsDictionary>()));
+            var dictionary = WordsDictionary.Construct(stream);
             int index = 0;
             foreach (var item in dictionary.RawData.OrderByDescending(item => item.Value))
             {
