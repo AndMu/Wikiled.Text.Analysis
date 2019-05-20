@@ -2,9 +2,9 @@
 using System.Linq;
 using NUnit.Framework;
 using Wikiled.Common.Extensions;
-using Wikiled.Text.Analysis.Twitter;
+using Wikiled.Text.Analysis.Emojis;
 
-namespace Wikiled.Text.Analysis.Tests.Twitter
+namespace Wikiled.Text.Analysis.Tests.Emojis
 {
     [TestFixture]
     public class EmojiSentimentTests

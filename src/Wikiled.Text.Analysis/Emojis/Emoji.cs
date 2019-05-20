@@ -1,23 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Wikiled.Text.Analysis.Twitter
+namespace Wikiled.Text.Analysis.Emojis
 {
-    public enum EmojiCategory
-    {
-        Symbols,
-        Nature,
-        Foods,
-        People,
-        Places,
-        Activity,
-        Celebration,
-        Other,
-        Objects,
-        SkinTones,
-        Flags
-    }
-
     public partial class Emoji
     {
         public string Name { get; set; }

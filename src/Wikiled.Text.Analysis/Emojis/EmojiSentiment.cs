@@ -1,4 +1,4 @@
-﻿namespace Wikiled.Text.Analysis.Twitter
+﻿namespace Wikiled.Text.Analysis.Emojis
 {
     public static class EmojiSentiment
     {
