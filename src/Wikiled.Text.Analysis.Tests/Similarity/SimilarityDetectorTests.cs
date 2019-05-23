@@ -13,7 +13,7 @@ namespace Wikiled.Text.Analysis.Tests.Similarity
     [TestFixture]
     public class SimilarityDetectorTests
     {
-        private Mock<IOneHotEncoder> mockOneHotEncoder;
+        private Mock<IWordVectorEncoder> mockOneHotEncoder;
         private Mock<IDistance> mockDistance;
 
         private SimilarityDetector instance;
@@ -21,7 +21,7 @@ namespace Wikiled.Text.Analysis.Tests.Similarity
         [SetUp]
         public void SetUp()
         {
-            mockOneHotEncoder = new Mock<IOneHotEncoder>();
+            mockOneHotEncoder = new Mock<IWordVectorEncoder>();
             mockDistance = new Mock<IDistance>();
             instance = CreateInstance();
         }

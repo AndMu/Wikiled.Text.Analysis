@@ -10,7 +10,7 @@ namespace Wikiled.Text.Analysis.Similarity
 {
     public class SimilarityDetector
     {
-        private readonly IOneHotEncoder encoder;
+        private readonly IWordVectorEncoder encoder;
 
         private readonly IDistance distanceMeasurer;
 
@@ -18,7 +18,7 @@ namespace Wikiled.Text.Analysis.Similarity
 
         private readonly Dictionary<IBagOfWords, VectorData> vectorTable = new Dictionary<IBagOfWords,VectorData>();
 
-        public SimilarityDetector(ILogger<SimilarityDetector> logger, IOneHotEncoder encoder, IDistance distanceMeasurer)
+        public SimilarityDetector(ILogger<SimilarityDetector> logger, IWordVectorEncoder encoder, IDistance distanceMeasurer)
         {
             this.encoder = encoder ?? throw new ArgumentNullException(nameof(encoder));
             this.distanceMeasurer = distanceMeasurer ?? throw new ArgumentNullException(nameof(distanceMeasurer));
@@ -50,7 +50,7 @@ namespace Wikiled.Text.Analysis.Similarity
                 distanceTable[existing.Key] = null;
             }
 
-            Parallel.ForEach(vectorTable.Keys,
+            Parallel.ForEach(vectorTable.Keys.ToArray(),
                              existingDocument =>
                              {
                                  var existing = vectorTable[existingDocument];

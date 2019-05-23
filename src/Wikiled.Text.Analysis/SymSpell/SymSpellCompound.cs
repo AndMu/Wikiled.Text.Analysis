@@ -350,8 +350,8 @@ namespace Wikiled.Text.Analysis.SymSpell
             string[] termList1 = ParseWords(input).ToArray();
 
             List<SuggestItem> suggestionsPreviousTerm; //suggestions for a single term
-            List<SuggestItem> suggestions = new List<SuggestItem>(); //suggestions for a single term
-            List<SuggestItem> suggestionParts = new List<SuggestItem>(); //1 line with separate parts
+            var suggestions = new List<SuggestItem>(); //suggestions for a single term
+            var suggestionParts = new List<SuggestItem>(); //1 line with separate parts
 
             //translate every term to its best suggestion, otherwise it remains unchanged
             bool lastCombi = false;
@@ -366,8 +366,7 @@ namespace Wikiled.Text.Analysis.SymSpell
                 suggestions = Lookup(termList1[i], editDistanceMax);
 
                 //combi check, always before split
-                if (i > 0 &&
-                    !lastCombi)
+                if (i > 0 && !lastCombi)
                 {
                     List<SuggestItem> suggestionsCombi = Lookup(termList1[i - 1] + termList1[i], editDistanceMax);
 
