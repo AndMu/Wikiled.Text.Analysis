@@ -8,7 +8,7 @@ using Wikiled.Text.Analysis.Structure;
 
 namespace Wikiled.Text.Analysis.Similarity
 {
-    public class SimilarityDetector
+    public class SimilarityDetector : ISimilarityDetector
     {
         private readonly IWordVectorEncoder encoder;
 
