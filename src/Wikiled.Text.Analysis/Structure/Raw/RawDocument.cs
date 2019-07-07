@@ -12,19 +12,16 @@ namespace Wikiled.Text.Analysis.Structure.Raw
             var builder = new StringBuilder();
             if (Pages != null)
             {
-                foreach (var rawPage in Pages)
+                for (var i = 0; i < Pages.Length; i++)
                 {
-                    if (rawPage.Blocks != null)
+                    var text = Pages[i].Build();
+                    if (i < (Pages.Length - 1))
                     {
-                        foreach (var block in rawPage.Blocks)
-                        {
-                            if (builder.Length > 0)
-                            {
-                                builder.Append(Environment.NewLine);
-                            }
-
-                            builder.Append(block.Text);
-                        }
+                        builder.AppendLine(text);
+                    }
+                    else
+                    {
+                        builder.Append(text);
                     }
                 }
             }
