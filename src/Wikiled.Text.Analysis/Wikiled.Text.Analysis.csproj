@@ -79,8 +79,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="PluralizeService.Core" Version="1.0.0.5" />
     <PackageReference Include="Wikiled.Arff" Version="2.2.24" />
-    <PackageReference Include="Wikiled.Common" Version="1.1.7" />
+    <PackageReference Include="Wikiled.Common" Version="1.1.9" />
     <PackageReference Include="Wikiled.MachineLearning" Version="2.4.22" />
-    <PackageReference Include="Wikiled.Common.Utilities" Version="1.1.19" />
+    <PackageReference Include="Wikiled.Common.Utilities" Version="1.1.24" />
   </ItemGroup>
 </Project>
