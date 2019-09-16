@@ -1,5 +1,6 @@
-﻿using Autofac;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection;
+using Wikiled.Common.Utilities.Modules;
 using Wikiled.Text.Analysis.Dictionary;
 using Wikiled.Text.Analysis.NLP;
 using Wikiled.Text.Analysis.NLP.Frequency;
@@ -11,33 +12,37 @@ using Wikiled.Text.Analysis.Words;
 
 namespace Wikiled.Text.Analysis.Containers
 {
-    public class DefaultNlpModule : Module
+    public class DefaultNlpModule : IModule
     {
-        protected override void Load(ContainerBuilder builder)
+        public IServiceCollection ConfigureServices(IServiceCollection services)
         {
-            builder.RegisterType<BasicEnglishDictionary>().As<IWordsDictionary>().SingleInstance();
-            builder.RegisterType<NRCDictionary>()
-                .As<INRCDictionary>()
-                .SingleInstance()
-                .OnActivating(item => item.Instance.Load());
+            services.AddSingleton<IWordsDictionary, BasicEnglishDictionary>();
+            services.AddSingleton<INRCDictionary>(ctx =>
+            {
+                var dictionary = new NRCDictionary();
+                dictionary.Load();
+                return dictionary;
+            });
 
-            builder.RegisterType<SentenceTokenizerFactory>().As<ISentenceTokenizerFactory>().SingleInstance();
-            builder.RegisterType<NaivePOSTagger>().As<IPOSTagger>().SingleInstance();
-            builder.RegisterType<BNCList>().As<IPosTagResolver>().As<IWordFrequencyList>().SingleInstance();
-            builder.Register(c => WordTypeResolver.Instance).As<IWordTypeResolver>().SingleInstance();
+            services.AddSingleton<ISentenceTokenizerFactory, SentenceTokenizerFactory>();
+            services.AddSingleton<IPOSTagger, NaivePOSTagger>();
+            services.AddSingleton<BNCList>();
+            services.AddSingleton<IPosTagResolver>(ctx => ctx.GetService<BNCList>());
+            services.AddSingleton<IWordFrequencyList>(ctx => ctx.GetService<BNCList>());
 
-            builder.RegisterType<MessageCleanup>()
-                .As<IMessageCleanup>()
-                .SingleInstance()
-                .OnActivating(
-                    item =>
-                    {
-                        item.Instance.CleanCashTags = false;
-                        item.Instance.LowerCase = false;
-                    });
+            services.AddSingleton<IWordTypeResolver>(ctx => WordTypeResolver.Instance);
 
-            builder.RegisterType<RawWordExtractor>().As<IRawTextExtractor>().SingleInstance();
-            builder.Register(c => new MemoryCache(new MemoryCacheOptions())).As<IMemoryCache>().SingleInstance();
+            services.AddSingleton<IMessageCleanup>(ctx =>
+            {
+                var item = new MessageCleanup();
+                item.CleanCashTags = false;
+                item.LowerCase = false;
+                return item;
+            });
+
+            services.AddSingleton<IRawTextExtractor, RawWordExtractor>();
+            services.AddSingleton<IMemoryCache>(ctx => new MemoryCache(new MemoryCacheOptions()));
+            return services;
         }
     }
 }
