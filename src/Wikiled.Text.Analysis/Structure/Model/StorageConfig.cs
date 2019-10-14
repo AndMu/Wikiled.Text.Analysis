@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Wikiled.Text.Analysis.Structure.Model
+﻿namespace Wikiled.Text.Analysis.Structure.Model
 {
     public class StorageConfig
     {

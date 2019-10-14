@@ -5,6 +5,6 @@ namespace Wikiled.Text.Analysis.Structure.Model
 {
     public interface IModel
     {
-        Task Train(CancellationToken token);
+        Task Train(DataSet dataset, CancellationToken token);
     }
 }
