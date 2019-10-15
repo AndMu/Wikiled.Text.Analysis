@@ -1,6 +1,9 @@
-﻿namespace Wikiled.Text.Analysis.Structure.Model
+﻿using System.Threading;
+using System.Threading.Tasks;
+
+namespace Wikiled.Text.Analysis.Structure.Model
 {
-    public interface IModelStorage<out T>
+    public interface IModelStorage<T>
         where T : class, IModel
     {
         T Current { get; }
@@ -12,5 +15,7 @@
         T Load(string path);
 
         void Save(string path);
+
+        Task<T> Train(CancellationToken token);
     }
 }

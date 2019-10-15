@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Wikiled.Common.Extensions;
 
 namespace Wikiled.Text.Analysis.Structure.Model
@@ -98,15 +100,6 @@ namespace Wikiled.Text.Analysis.Structure.Model
             }
 
             current = factory.Load(path);
-            //SupportVectorMachine<Linear> model = null;
-            //if (File.Exists(files.modelFile))
-            //{
-            //    logger.LogDebug("Loading <{0}> model", files.modelFile);
-            //    model = Serializer.Load<SupportVectorMachine<Linear>>(files.modelFile);
-            //}
-
-            //logger.LogDebug("Loaded <{0}> positive and <{1}> negative", positive.Count, negative.Count);
-            //current = new SvmAnomalyDetector(vectorSource, factory, model);
             return Current;
         }
 
@@ -124,33 +117,28 @@ namespace Wikiled.Text.Analysis.Structure.Model
             File.WriteAllText(files.postiveFile, JsonConvert.SerializeObject(positive.ToArray()));
             File.WriteAllText(files.negativeFile, JsonConvert.SerializeObject(negative.ToArray()));
             factory.Save(path, Current);
-            //if (current?.Model != null)
-            //{
-            //    logger.LogInformation("Saving model...");
-            //    current.Model.Save(files.modelFile);
-            //}
         }
 
 
-        //public async Task<SvmAnomalyDetector> Train(CancellationToken token)
-        //{
-        //    logger.LogDebug("Train");
-        //    if (positive.Count < 5 || negative.Count < 5)
-        //    {
-        //        throw new InvalidOperationException("Not enough training samples");
-        //    }
+        public async Task<T> Train(CancellationToken token)
+        {
+            logger.LogDebug("Train");
+            if (positive.Count < 5 || negative.Count < 5)
+            {
+                throw new InvalidOperationException("Not enough training samples");
+            }
 
-        //    SvmAnomalyDetector detector = new SvmAnomalyDetector(vectorSource, factory, null);
-        //    DataSet dataset = new DataSet
-        //    {
-        //        Positive = positive.Select(item => new ProcessingTextBlock(item.Sentences.ToArray())).ToArray(),
-        //        Negative = negative.Select(item => new ProcessingTextBlock(item.Sentences.ToArray())).ToArray()
-        //    };
+            var instance = factory.CreateNew();
+            var dataset = new DataSet
+            {
+                Positive = positive.Select(item => new ProcessingTextBlock(item.Sentences.ToArray())).ToArray(),
+                Negative = negative.Select(item => new ProcessingTextBlock(item.Sentences.ToArray())).ToArray()
+            };
 
-        //    await detector.Train(dataset, token).ConfigureAwait(false);
-        //    current = detector;
-        //    return detector;
-        //}
+            await instance.Train(dataset, token).ConfigureAwait(false);
+            current = instance;
+            return instance;
+        }
 
         private static (string postiveFile, string negativeFile, string modelFile) GetFiles(string path)
         {
