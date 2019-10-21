@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Wikiled.Text.Analysis.Structure
 {
-    public class Document : IBagOfWords
+    public class Document : IBagOfWords, IProcessingTextBlock
     {
         public Document()
         {
