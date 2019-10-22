@@ -1,10 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 using Wikiled.Common.Utilities.Helpers;
 using Wikiled.Text.Analysis.Extensions;
-using Wikiled.Text.Analysis.Structure;
+using Wikiled.Text.Analysis.Structure.Light;
 
 namespace Wikiled.Text.Analysis.Cache
 {
@@ -20,14 +20,14 @@ namespace Wikiled.Text.Analysis.Cache
             this.log = log ?? throw new ArgumentNullException(nameof(log));
         }
 
-        public Task<Document> GetCached(Document original)
+        public Task<LightDocument> GetCached(LightDocument original)
         {
             if (original == null)
             {
                 throw new ArgumentNullException(nameof(original));
             }
 
-            if (cache.TryGetValue(original.GetId(), out Document document))
+            if (cache.TryGetValue(original.GetId(), out LightDocument document))
             {
                 log.LogDebug("Found in cache using document id: {0}", document.Id);
                 return Task.FromResult(document);
@@ -41,7 +41,7 @@ namespace Wikiled.Text.Analysis.Cache
             return Task.FromResult(document);
         }
 
-        public Task<bool> Save(Document document)
+        public Task<bool> Save(LightDocument document)
         {
             if (document == null)
             {

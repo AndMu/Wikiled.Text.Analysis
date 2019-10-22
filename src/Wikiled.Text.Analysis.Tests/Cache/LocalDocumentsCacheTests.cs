@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using NUnit.Framework;
 using Wikiled.Text.Analysis.Cache;
 using Wikiled.Text.Analysis.Structure;
+using Wikiled.Text.Analysis.Structure.Light;
 
 namespace Wikiled.Text.Analysis.Tests.Cache
 {
@@ -23,7 +24,7 @@ namespace Wikiled.Text.Analysis.Tests.Cache
         public async Task Test()
         {
             Assert.Throws<ArgumentNullException>(() => instance.GetCached(null));
-            Document doc = new Document();
+            var doc = new LightDocument();
             doc.Id = "Test";
             doc.Text = "Test";
             var result = await instance.GetCached(doc).ConfigureAwait(false);

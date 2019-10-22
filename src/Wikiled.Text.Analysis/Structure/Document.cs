@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using Wikiled.Text.Analysis.Structure.Light;
 
 namespace Wikiled.Text.Analysis.Structure
 {
-    public class Document : IBagOfWords, IProcessingTextBlock
+    public class Document : IBagOfWords, IProcessingTextBlock, IDocument
     {
         public Document()
         {
