@@ -6,7 +6,7 @@ namespace Wikiled.Text.Analysis.Cache
 {
     public interface ICachedDocumentsSource
     {
-        Task<LightDocument> GetCached(LightDocument original);
+        Task<LightDocument> GetCached(IDocument original);
 
         Task<bool> Save(LightDocument document);
     }

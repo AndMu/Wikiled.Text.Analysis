@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
+using Wikiled.Text.Analysis.Structure;
 using Wikiled.Text.Analysis.Structure.Light;
 
 namespace Wikiled.Text.Analysis.Cache
 {
     public class NullCachedDocumentsSource : ICachedDocumentsSource
     {
-        public Task<LightDocument> GetCached(LightDocument original)
+        public Task<LightDocument> GetCached(IDocument original)
         {
             return Task.FromResult((LightDocument)null);
         }

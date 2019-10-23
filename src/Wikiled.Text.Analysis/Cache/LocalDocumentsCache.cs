@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using Wikiled.Common.Utilities.Helpers;
 using Wikiled.Text.Analysis.Extensions;
+using Wikiled.Text.Analysis.Structure;
 using Wikiled.Text.Analysis.Structure.Light;
 
 namespace Wikiled.Text.Analysis.Cache
@@ -20,7 +21,7 @@ namespace Wikiled.Text.Analysis.Cache
             this.log = log ?? throw new ArgumentNullException(nameof(log));
         }
 
-        public Task<LightDocument> GetCached(LightDocument original)
+        public Task<LightDocument> GetCached(IDocument original)
         {
             if (original == null)
             {
