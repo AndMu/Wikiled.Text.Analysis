@@ -23,18 +23,23 @@ namespace Wikiled.Text.Analysis.Extensions
             result.DocumentTime = document.DocumentTime;
             result.Id = result.Id;
             result.Title = result.Title;
-            foreach (var sentence in document.Sentences)
+            result.Sentences = new LightSentence[document.Sentences.Count];
+
+            for (var i = 0; i < document.Sentences.Count; i++)
             {
+                var sentence = document.Sentences[i];
                 var resultSentence = new LightSentence();
                 resultSentence.Text = sentence.Text;
-                result.Sentences.Add(resultSentence);
-                foreach (var word in sentence.Words)
+                result.Sentences[i] = resultSentence;
+                resultSentence.Words = new LightWord[sentence.Words.Count];
+                for (var index = 0; index < sentence.Words.Count; index++)
                 {
+                    var word = sentence.Words[index];
                     var resultWord = new LightWord();
                     resultWord.Text = word.Text;
                     resultWord.Tag = word.Type;
                     resultWord.Phrase = word.Phrase;
-                    resultSentence.Words.Add(resultWord);
+                    resultSentence.Words[index] = resultWord;
                 }
             }
 

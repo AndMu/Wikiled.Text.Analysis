@@ -5,7 +5,7 @@ namespace Wikiled.Text.Analysis.Structure.Light
 {
     public class LightDocument : IDocument
     {
-        public List<LightSentence> Sentences { get; set; } = new List<LightSentence>();
+        public LightSentence[] Sentences { get; set; } = Array.Empty<LightSentence>();
 
         public string Text { get; set; }
 

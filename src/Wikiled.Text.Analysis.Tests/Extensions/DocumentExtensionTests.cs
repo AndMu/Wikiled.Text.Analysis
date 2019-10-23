@@ -44,8 +44,8 @@ namespace Wikiled.Text.Analysis.Tests.Extensions
 
             var result = fullDocument.GetLight();
             Assert.AreEqual("Test", result.Text);
-            Assert.AreEqual(2, result.Sentences.Count);
-            Assert.AreEqual(1, result.Sentences[0].Words.Count);
+            Assert.AreEqual(2, result.Sentences.Length);
+            Assert.AreEqual(1, result.Sentences[0].Words.Length);
             Assert.AreEqual("Test Word", result.Sentences[0].Words[0].Text);
         }
     }

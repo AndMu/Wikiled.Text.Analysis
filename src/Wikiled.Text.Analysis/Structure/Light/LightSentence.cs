@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
 namespace Wikiled.Text.Analysis.Structure.Light
 {
     public class LightSentence
     {
-        public List<LightWord> Words { get; set; } = new List<LightWord>();
+        public LightWord[] Words { get; set; } = Array.Empty<LightWord>();
 
         public string Text { get; set; }
     }
