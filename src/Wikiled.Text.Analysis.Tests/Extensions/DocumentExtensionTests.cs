@@ -1,3 +1,4 @@
+using System;
 using System.Buffers;
 using NUnit.Framework;
 using Wikiled.Text.Analysis.Extensions;
@@ -39,11 +40,17 @@ namespace Wikiled.Text.Analysis.Tests.Extensions
         public void GetLight()
         {
             var fullDocument = new Document("Test");
+            fullDocument.Id = "TestId";
+            fullDocument.Title = "Title";
+            fullDocument.DocumentTime = DateTime.Today;
             fullDocument.Add(new SentenceItem());
             fullDocument.Sentences[0].Add("Test Word");
             fullDocument.Add(new SentenceItem());
             var result = fullDocument.GetLight();
             Assert.AreEqual("Test", result.Text);
+            Assert.AreEqual("TestId", result.Id);
+            Assert.AreEqual(DateTime.Today, result.DocumentTime);
+            Assert.AreEqual("Title", result.Title);
             Assert.AreEqual(2, result.Sentences.Length);
             Assert.AreEqual(1, result.Sentences[0].Words.Length);
             Assert.AreEqual("Test Word", result.Sentences[0].Words[0].Text);
