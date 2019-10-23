@@ -1,5 +1,4 @@
-﻿using System.Buffers;
-using Wikiled.Text.Analysis.Structure;
+﻿using Wikiled.Text.Analysis.Structure;
 using Wikiled.Text.Analysis.Structure.Light;
 
 namespace Wikiled.Text.Analysis.Extensions
@@ -16,16 +15,6 @@ namespace Wikiled.Text.Analysis.Extensions
             return $"Document:{document.Id}:{document.Text.GenerateKey()}";
         }
 
-        public static void Release(this LightDocument document)
-        {
-            foreach (var sentence in document.Sentences)
-            {
-                ArrayPool<LightWord>.Shared.Return(sentence.Words);
-            }
-
-            ArrayPool<LightSentence>.Shared.Return(document.Sentences);
-        }
-
         public static LightDocument GetLight(this Document document)
         {
             var result = new LightDocument();
@@ -34,16 +23,15 @@ namespace Wikiled.Text.Analysis.Extensions
             result.DocumentTime = document.DocumentTime;
             result.Id = result.Id;
             result.Title = result.Title;
-            result.Sentences = ArrayPool<LightSentence>.Shared.Rent(document.Sentences.Count);
-            
+            result.Sentences = new LightSentence[document.Sentences.Count];
+
             for (var i = 0; i < document.Sentences.Count; i++)
             {
                 var sentence = document.Sentences[i];
                 var resultSentence = new LightSentence();
                 resultSentence.Text = sentence.Text;
-                result.Sentences[i] = resultSentence;
-                resultSentence.Words = ArrayPool<LightWord>.Shared.Rent(sentence.Words.Count);
-                
+                resultSentence.Words = new LightWord[sentence.Words.Count];
+
                 for (var index = 0; index < sentence.Words.Count; index++)
                 {
                     var word = sentence.Words[index];
@@ -53,6 +41,8 @@ namespace Wikiled.Text.Analysis.Extensions
                     resultWord.Phrase = word.Phrase;
                     resultSentence.Words[index] = resultWord;
                 }
+
+                result.Sentences[i] = resultSentence;
             }
 
             return result;
