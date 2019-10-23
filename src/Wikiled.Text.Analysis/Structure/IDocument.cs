@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Wikiled.Text.Analysis.Structure.Light
+namespace Wikiled.Text.Analysis.Structure
 {
     public interface IDocument
     {
