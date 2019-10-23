@@ -2,7 +2,7 @@
 
 namespace Wikiled.Text.Analysis.Structure.Light
 {
-    public struct LightDocument : IDocument
+    public class LightDocument : IDocument
     {
         public LightSentence[] Sentences { get; set; }
 
