@@ -44,11 +44,6 @@ namespace Wikiled.Text.Analysis.Cache
 
         public Task<bool> Save(LightDocument document)
         {
-            if (document == null)
-            {
-                throw new ArgumentNullException(nameof(document));
-            }
-
             var cacheEntryOptions = new MemoryCacheEntryOptions()
                 .SetSlidingExpiration(TimeSpan.FromMinutes(1));
 

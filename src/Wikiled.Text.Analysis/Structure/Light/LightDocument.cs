@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Wikiled.Text.Analysis.Structure.Light
 {
-    public class LightDocument : IDocument
+    public struct LightDocument : IDocument
     {
-        public LightSentence[] Sentences { get; set; } = Array.Empty<LightSentence>();
+        public LightSentence[] Sentences { get; set; }
 
         public string Text { get; set; }
 

@@ -30,7 +30,7 @@ namespace Wikiled.Text.Analysis.Structure
 
         public WordEx(LightWord item)
         {
-            UnderlyingWord = item ?? throw new ArgumentNullException(nameof(item));
+            UnderlyingWord = item;
             Text = item.Text;
             Type = item.Tag;
             Phrase = item.Phrase;

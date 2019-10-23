@@ -8,7 +8,7 @@ namespace Wikiled.Text.Analysis.Cache
     {
         public Task<LightDocument> GetCached(IDocument original)
         {
-            return Task.FromResult((LightDocument)null);
+            return Task.FromResult((LightDocument)default);
         }
 
         public Task<bool> Save(LightDocument annotation)

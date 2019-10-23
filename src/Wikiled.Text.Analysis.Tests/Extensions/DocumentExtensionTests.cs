@@ -1,3 +1,4 @@
+using System.Buffers;
 using NUnit.Framework;
 using Wikiled.Text.Analysis.Extensions;
 using Wikiled.Text.Analysis.Structure;
@@ -41,7 +42,6 @@ namespace Wikiled.Text.Analysis.Tests.Extensions
             fullDocument.Add(new SentenceItem());
             fullDocument.Sentences[0].Add("Test Word");
             fullDocument.Add(new SentenceItem());
-
             var result = fullDocument.GetLight();
             Assert.AreEqual("Test", result.Text);
             Assert.AreEqual(2, result.Sentences.Length);
