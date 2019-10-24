@@ -21,8 +21,8 @@ namespace Wikiled.Text.Analysis.Extensions
             result.Text = document.Text;
             result.Author = document.Author;
             result.DocumentTime = document.DocumentTime;
-            result.Id = result.Id;
-            result.Title = result.Title;
+            result.Id = document.Id;
+            result.Title = document.Title;
             result.Sentences = new LightSentence[document.Sentences.Count];
 
             for (var i = 0; i < document.Sentences.Count; i++)

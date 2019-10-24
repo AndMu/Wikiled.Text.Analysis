@@ -1,6 +1,6 @@
 ﻿namespace Wikiled.Text.Analysis.Structure.Light
 {
-    public struct LightWord : IItem
+    public class LightWord : IItem
     {
         public string Text { get; set; }
 
