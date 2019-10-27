@@ -52,7 +52,7 @@ namespace Wikiled.Text.Analysis.Twitter
                 return message;
             }
 
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
             int index = 0;
             foreach (var tweetEntity in entities.OrderBy(item => item.Start))
             {

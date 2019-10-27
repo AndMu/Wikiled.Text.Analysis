@@ -30,7 +30,7 @@ namespace Wikiled.Text.Analysis.Containers
             services.AddSingleton<IPosTagResolver>(ctx => ctx.GetService<BNCList>());
             services.AddSingleton<IWordFrequencyList>(ctx => ctx.GetService<BNCList>());
 
-            services.AddSingleton<IWordTypeResolver>(ctx => WordTypeResolver.Instance);
+            services.AddSingleton(ctx => WordTypeResolver.Instance);
 
             services.AddSingleton<IMessageCleanup>(ctx =>
             {

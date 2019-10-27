@@ -1,7 +1,6 @@
-﻿using System.Linq;
-using System.Xml.Linq;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using NUnit.Framework;
+using System.Linq;
 using Wikiled.Common.Serialization;
 using Wikiled.Text.Analysis.Structure;
 
@@ -13,7 +12,7 @@ namespace Wikiled.Text.Analysis.Tests.Structure
         [Test]
         public void Construct()
         {
-            Document document = new Document("Test");
+            var document = new Document("Test");
             Assert.AreEqual("Test", document.Text);
             Assert.AreEqual(0, document.Sentences.Count);
         }
@@ -21,7 +20,7 @@ namespace Wikiled.Text.Analysis.Tests.Structure
         [Test]
         public void Add()
         {
-            Document document = new Document("Test");
+            var document = new Document("Test");
             Assert.AreEqual(0, document.Sentences.Count);
             document.Add(new SentenceItem());
             Assert.AreEqual(1, document.Sentences.Count);
@@ -30,7 +29,7 @@ namespace Wikiled.Text.Analysis.Tests.Structure
         [Test]
         public void Words()
         {
-            Document document = new Document("Test");
+            var document = new Document("Test");
             Assert.AreEqual(0, document.TotalWords);
             Assert.AreEqual(0, document.Words.Count());
             document.Add(new SentenceItem());
@@ -48,16 +47,16 @@ namespace Wikiled.Text.Analysis.Tests.Structure
         [Test]
         public void Serialize()
         {
-            Document document = new Document("Test");
+            var document = new Document("Test");
             document.Add(new SentenceItem());
             document.Sentences[0].Add("Test Word");
             document.Add(new SentenceItem());
             var json = JsonConvert.SerializeObject(document);
-            Document documentDeserialized = JsonConvert.DeserializeObject<Document>(json);
+            var documentDeserialized = JsonConvert.DeserializeObject<Document>(json);
             Assert.AreEqual(2, documentDeserialized.Sentences.Count);
             Assert.AreEqual("Test", documentDeserialized.Text);
 
-            XDocument xDocument = document.XmlSerialize();
+            var xDocument = document.XmlSerialize();
             documentDeserialized = xDocument.XmlDeserialize<Document>();
             Assert.AreEqual(2, documentDeserialized.Sentences.Count);
             Assert.AreEqual("Test", documentDeserialized.Text);

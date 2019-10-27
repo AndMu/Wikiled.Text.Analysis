@@ -12,6 +12,6 @@
 
         public override string Tag => ".";
 
-        public override WordType WordType => WordType.Symbol;
+        public override WordType WordType => WordType.SeparationSymbol;
     }
 }
