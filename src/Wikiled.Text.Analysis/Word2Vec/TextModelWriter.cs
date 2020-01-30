@@ -12,13 +12,13 @@ namespace Wikiled.Text.Analysis.Word2Vec
 
         private StreamWriter Writer { get; }
 
-        public void Write(WordModel m)
+        public void Write(IWordModel model)
         {
             //Write the header
-            WriteHeader(m);
+            WriteHeader(model);
 
             //Write the vectors
-            foreach (var wv in m.Vectors)
+            foreach (var wv in model.Vectors)
             {
                 WriteWordVector(wv);
             }
@@ -37,7 +37,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
             Writer.Write('\n');
         }
 
-        private void WriteHeader(WordModel m)
+        private void WriteHeader(IWordModel m)
         {
             Writer.Write(m.Words);
             Writer.Write(' ');

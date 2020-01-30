@@ -16,7 +16,9 @@ namespace Wikiled.Text.Analysis.Word2Vec
             this.stream = stream;
         }
 
-        public WordModel Open()
+        public bool CaseSensitive { get; set; }
+
+        public IWordModel Open()
         {
             using (var reader = new StreamReader(stream, Encoding.UTF8, true, 4 * 1024))
             {
@@ -34,7 +36,8 @@ namespace Wikiled.Text.Analysis.Word2Vec
                 return new WordModel(ApplicationLogging.CreateLogger<WordModel>(),
                                      words == 0 ? vectors.Count : words,
                                      size == 0 ? (int)stream.Length : size,
-                                     vectors);
+                                     vectors,
+                                     CaseSensitive);
             }
         }
 

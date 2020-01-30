@@ -18,15 +18,17 @@ namespace Wikiled.Text.Analysis.Word2Vec
 
         private Stream Stream { get; }
 
-        public WordModel Open()
+        public bool CaseSensitive { get; set; }
+
+        public IWordModel Open()
         {
-            using (BinaryReader reader = new BinaryReader(Stream, Encoding.UTF8, true))
+            var vectors = new List<WordVector>();
+            using (var reader = new BinaryReader(Stream, Encoding.UTF8, true))
             {
                 int[] header = ReadHeader(reader);
                 int words = header[0];
                 int size = header[1];
 
-                List<WordVector> vectors = new List<WordVector>();
                 for (int i = 0; i < words; i++)
                 {
                     WordVector vector;
@@ -37,7 +39,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
                     vectors.Add(vector);
                 }
 
-                return new WordModel(ApplicationLogging.CreateLogger<WordModel>(), words, size, vectors);
+                return new WordModel(ApplicationLogging.CreateLogger<WordModel>(), words, size, vectors, CaseSensitive);
             }
         }
 
@@ -101,7 +103,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
 
         private string ReadString(BinaryReader binaryReader)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             char[] c;
             while (!IsStringEnd(c = ReadUTF8Char(binaryReader.BaseStream)))
             {

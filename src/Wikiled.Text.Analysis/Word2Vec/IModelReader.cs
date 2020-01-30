@@ -2,6 +2,8 @@
 {
     public interface IModelReader
     {
-        WordModel Open();
+        bool CaseSensitive { get; set; }
+
+        IWordModel Open();
     }
 }

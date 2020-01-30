@@ -37,7 +37,7 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
         public void TestReLoadingText()
         {
             var model = WordModel.Load(GetPath("model.txt"));
-            WordModel m2;
+            IWordModel wordModel;
             using (var s = new MemoryStream())
             {
                 using (var writer = new TextModelWriter(s, true))
@@ -47,12 +47,12 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
                 s.Seek(0, SeekOrigin.Begin);
                 var tmr = new TextModelReader(s);
                 {
-                    m2 = WordModel.Load(tmr);
+                    wordModel = WordModel.Load(tmr);
                 }
             }
 
-            Assert.AreEqual(model.Words, m2.Words);
-            Assert.AreEqual(model.Size, m2.Size);
+            Assert.AreEqual(model.Words, wordModel.Words);
+            Assert.AreEqual(model.Size, wordModel.Size);
         }
 
         [Test]
@@ -94,23 +94,24 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
         public void TestReLoadingBinary()
         {
             var model = WordModel.Load(GetPath("model.txt"));
-            WordModel m2;
+            IWordModel wordModel;
             using (var s = new MemoryStream())
             {
                 using (var writer = new BinaryModelWriter(s, true))
                 {
                     writer.Write(model);
                 }
+
                 s.Seek(0, SeekOrigin.Begin);
                 var tmr = new BinaryModelReader(s);
-                m2 = WordModel.Load(tmr);
+                wordModel = WordModel.Load(tmr);
             }
 
-            Assert.AreEqual(model.Words, m2.Words);
-            Assert.AreEqual(model.Size, m2.Size);
+            Assert.AreEqual(model.Words, wordModel.Words);
+            Assert.AreEqual(model.Size, wordModel.Size);
         }
 
-        private static void TestLoadedModel(WordModel model)
+        private static void TestLoadedModel(IWordModel model)
         {
             Assert.IsNotNull(model);
             Assert.AreEqual(4501, model.Words);

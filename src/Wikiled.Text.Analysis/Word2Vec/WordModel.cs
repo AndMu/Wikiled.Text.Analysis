@@ -4,18 +4,18 @@ using Microsoft.Extensions.Logging;
 
 namespace Wikiled.Text.Analysis.Word2Vec
 {
-    public class WordModel
+    public class WordModel : IWordModel
     {
-        private readonly ILogger Logger;
+        private readonly ILogger logger;
 
         private readonly Dictionary<string, WordVector> vectorsTable;
 
-        public WordModel(ILogger logger, int words, int size, List<WordVector> vectors)
+        public WordModel(ILogger logger, int words, int size, List<WordVector> vectors, bool caseSensitive)
         {
             Words = words;
             Size = size;
-            Logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            vectorsTable = new Dictionary<string, WordVector>();
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            vectorsTable = new Dictionary<string, WordVector>(caseSensitive ? StringComparer.CurrentCulture : StringComparer.CurrentCultureIgnoreCase);
             if (words != vectors.Count)
             {
                 throw new ArgumentOutOfRangeException("Size mistmatch");
@@ -25,7 +25,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
             {
                 if (vectorsTable.ContainsKey(wordVector.Word))
                 {
-                    Logger.LogWarning("Word already added: " + wordVector.Word);
+                    this.logger.LogWarning("Word already added: " + wordVector.Word);
                 }
 
                 vectorsTable[wordVector.Word] = wordVector;
@@ -50,12 +50,12 @@ namespace Wikiled.Text.Analysis.Word2Vec
             vectorsTable.Add(vector.Word, vector);
         }
 
-        public static WordModel Load(string filename)
+        public static IWordModel Load(string filename)
         {
-            return new ModelReaderFactory().Manufacture(filename);
+            return new ModelReaderFactory().Contruct(filename);
         }
 
-        public static WordModel Load(IModelReader source)
+        public static IWordModel Load(IModelReader source)
         {
             return source.Open();
         }

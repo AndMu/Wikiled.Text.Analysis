@@ -4,9 +4,9 @@ using System.IO.Compression;
 
 namespace Wikiled.Text.Analysis.Word2Vec
 {
-    public class ModelReaderFactory
+    public class ModelReaderFactory : IModelReaderFactory
     {
-        public WordModel Manufacture(string filePath)
+        public IWordModel Contruct(string filePath)
         {
             using (var fileStream = OpenStream(filePath))
             {

@@ -4,9 +4,9 @@ using System.IO.Compression;
 
 namespace Wikiled.Text.Analysis.Word2Vec
 {
-    public class ModelWriterFactory
+    public class ModelWriterFactory : IModelWriterFactory
     {
-        public IModelWriter Manufacture(string filePath)
+        public IModelWriter Contruct(string filePath)
         {
             Stream fileStream = File.OpenWrite(filePath);
             var ext = Path.GetExtension(filePath);
