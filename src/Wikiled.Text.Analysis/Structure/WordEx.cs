@@ -4,6 +4,7 @@ using System.Xml.Serialization;
 using Newtonsoft.Json;
 using Wikiled.Text.Analysis.POS;
 using Wikiled.Text.Analysis.POS.Tags;
+using Wikiled.Text.Analysis.Structure.Light;
 
 namespace Wikiled.Text.Analysis.Structure
 {
@@ -25,6 +26,14 @@ namespace Wikiled.Text.Analysis.Structure
         {
             UnderlyingWord = item;
             Text = item.Text;
+        }
+
+        public WordEx(LightWord item)
+        {
+            UnderlyingWord = item;
+            Text = item.Text;
+            Type = item.Tag;
+            Phrase = item.Phrase;
         }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

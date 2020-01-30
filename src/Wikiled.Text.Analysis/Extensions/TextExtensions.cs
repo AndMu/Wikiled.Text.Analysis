@@ -16,13 +16,12 @@ namespace Wikiled.Text.Analysis.Extensions
             var ending = text.Substring(text.Length - total, total).CreatePureLetterText();
             var length = text.Length;
             return string.Format(
-                "{0}{3}{1}{4}{2}{5}",
+                "{0}{3}{1}{4}{2}",
                 beggining,
                 ending,
                 length,
                 "__End__",
-                "__Len__",
-                text.GetHashCode());
+                "__Len__");
         }
 
         public static bool IsVowel(this char letter)

@@ -42,15 +42,17 @@ namespace Wikiled.Text.Analysis.Emojis
 
         public bool Remove { get; set; }
 
+        public bool NormalizeText { get; set; } = true;
+
         public EmojyExtractResult Extract(string text)
         {
             var result = new EmojyExtractResult(text);
             var builder = new StringBuilder();
-            char? previous = null;
-            char? previousToPrevious = null;
+
             for (int i = 0; i < text.Length; i++)
             {
                 var letter = text[i];
+
                 if (letter == '…' ||
                     letter == '\r')
                 {
@@ -64,35 +66,58 @@ namespace Wikiled.Text.Analysis.Emojis
                 }
 
                 var emoji = GetEmoji(text, ref i);
+
                 if (emoji != null)
                 {
                     result.AddEmoji(emoji);
-                    ReplaceEmoji(builder, emoji);
+                    ReplaceEmoji(builder, emoji, text, i);
+
                     continue;
                 }
 
                 emoji = GetTextEmoji(text, ref i);
+
                 if (emoji != null)
                 {
-                    ReplaceEmoji(builder, emoji);
+                    ReplaceEmoji(builder, emoji, text, i);
+
                     continue;
                 }
 
-                if ((char.IsLetterOrDigit(letter) && letter != previousToPrevious) || letter != previous)
+                if (NormalizeText)
                 {
-                    builder.Append(letter);
+                    char? previous = builder.Length > 0 ? builder[builder.Length - 1] : (char?) null;
+                    char? previousToPrevious = builder.Length > 1 ? builder[builder.Length - 2] : (char?) null;
+
+                    if (letter == previous)
+                    {
+                        // not allow text with more than two repeating letter
+                        // and not allow more than one symbol in sequence
+                        if (!char.IsLetterOrDigit(letter) ||
+                            (char.IsLetterOrDigit(letter) && letter == previousToPrevious))
+                        {
+                            continue;
+                        }
+                    }
                 }
 
-                previousToPrevious = previous;
-                previous = letter;
+                builder.Append(letter);
             }
 
             text = builder.ToString().Trim();
-            result.Cleaned = Regex.Replace(text, @"\b(\w+)\s+\1\b", "$1", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
+
+            result.Cleaned =
+                NormalizeText
+                    ? Regex.Replace(text,
+                                    @"\b(\w+)\s+\1\b",
+                                    "$1",
+                                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline)
+                    : text;
+
             return result;
         }
 
-        private void ReplaceEmoji(StringBuilder builder, Emoji emoji)
+        private void ReplaceEmoji(StringBuilder builder, Emoji emoji, string text, int index)
         {
             if (Remove)
             {
@@ -105,7 +130,13 @@ namespace Wikiled.Text.Analysis.Emojis
                 builder.Append(' ');
             }
 
-            builder.AppendFormat($"{emoji.AsShortcode()} ");
+            builder.Append(emoji.AsShortcode());
+
+            if (index < (text.Length - 1) &&
+                text[index + 1] != ' ')
+            {
+                builder.Append(' ');
+            }
         }
 
         private Emoji GetTextEmoji(string text, ref int index)
