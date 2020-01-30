@@ -18,7 +18,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
 
         private Stream Stream { get; }
 
-        public bool CaseSensitive { get; set; }
+        public bool CaseSensitive { get; set; } = true;
 
         public IWordModel Open()
         {
