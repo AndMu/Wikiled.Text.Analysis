@@ -9,6 +9,23 @@ namespace Wikiled.Text.Analysis.Word2Vec
 {
     public static class ExtensionMethods
     {
+        public static IEnumerable<WordVector> GetDocumentVector(this IWordModel model, Document document)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            if (document == null) throw new ArgumentNullException(nameof(document));
+
+
+            foreach (var word in document.Words)
+            {
+                yield return GetWordVector(model, word);
+            }
+
+        }
+
         public static float[] GetParagraphVector(this IWordModel model, params SentenceItem[] sentences)
         {
             if (model == null)
@@ -28,27 +45,14 @@ namespace Wikiled.Text.Analysis.Word2Vec
 
             var words = new ConcurrentBag<WordVector>();
             Parallel.ForEach(sentences.SelectMany(item => item.Words),
-                             word =>
-                             {
-                                 if (!string.IsNullOrEmpty(word.Text))
-                                 {
-                                     var result = model.Find(word.Text);
-                                     if (result != null)
-                                     {
-                                         words.Add(result);
-                                         return;
-                                     }
-                                 }
-
-                                 if (!string.IsNullOrEmpty(word.Raw) && word.Raw != word.Text)
-                                 {
-                                     var result = model.Find(word.Raw);
-                                     if (result != null)
-                                     {
-                                         words.Add(result);
-                                     }
-                                 }
-                             });
+                word =>
+                {
+                    var result = GetWordVector(model, word);
+                    if (result != null)
+                    {
+                        words.Add(result);
+                    }
+                });
 
             var arrays = words.ToArray();
             if (arrays.Length == 0)
@@ -75,7 +79,6 @@ namespace Wikiled.Text.Analysis.Word2Vec
             Parallel.For(0, result.Length, i => { result[i] = vectors.Sum(item => item.Vector[i]) / vectors.Length; });
             return result;
         }
-
 
         public static float[] Add(this float[] value1, float[] value2)
         {
@@ -216,6 +219,30 @@ namespace Wikiled.Text.Analysis.Word2Vec
         public static double Distance(this float[] word1, WordVector word2)
         {
             return word1.Distance(word2.Vector);
+        }
+
+
+        private static WordVector GetWordVector(IWordModel model, WordEx word)
+        {
+            if (!string.IsNullOrEmpty(word.Text))
+            {
+                var result = model.Find(word.Text);
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(word.Raw) && word.Raw != word.Text)
+            {
+                var result = model.Find(word.Raw);
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+
+            return null;
         }
     }
 }

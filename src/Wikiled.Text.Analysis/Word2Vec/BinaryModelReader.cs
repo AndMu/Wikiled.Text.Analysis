@@ -67,7 +67,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
                 vector[j] = binaryReader.ReadSingle();
             }
 
-            WordVector result = new WordVector(word, vector);
+            var result = new WordVector(word, vector);
             if (LineBreaks)
             {
                 binaryReader.ReadByte(); // consume line break
