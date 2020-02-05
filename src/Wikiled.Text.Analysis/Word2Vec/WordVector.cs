@@ -2,11 +2,14 @@
 {
     public class WordVector
     {
-        public WordVector(string word, float[] vector)
+        public WordVector(int index, string word, float[] vector)
         {
+            Index = index;
             Word = word;
             Vector = vector;
         }
+
+        public int Index { get; }
 
         public string Word { get; }
 

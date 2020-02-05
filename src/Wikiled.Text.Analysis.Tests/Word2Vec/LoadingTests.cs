@@ -192,8 +192,8 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
         [Test]
         public void TestVectorAdditionOperator()
         {
-            var x = new WordVector("word1", new float[] { 1, 3, 4 });
-            var y = new WordVector("word2", new float[] { 1, 0, 0 });
+            var x = new WordVector(0, "word1", new float[] { 1, 3, 4 });
+            var y = new WordVector(1, "word2", new float[] { 1, 0, 0 });
             var z = x + y;
 
             Assert.IsNotNull(z);
@@ -203,8 +203,8 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
         [Test]
         public void TestVectorSubtractionOperator()
         {
-            var x = new WordVector("word1", new float[] { 1, 3, 4 });
-            var y = new WordVector("word2", new float[] { 1, 0, 0 });
+            var x = new WordVector(0, "word1", new float[] { 1, 3, 4 });
+            var y = new WordVector(1, "word2", new float[] { 1, 0, 0 });
             var z = y + x - y;
 
             Assert.IsNotNull(z);
@@ -213,8 +213,8 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
         [Test]
         public void TestVectorAverage()
         {
-            var x = new WordVector("word1", new float[] { 1, 3, 4 });
-            var y = new WordVector("word2", new float[] { 1, 0, 0 });
+            var x = new WordVector(0, "word1", new float[] { 1, 3, 4 });
+            var y = new WordVector(1, "word2", new float[] { 1, 0, 0 });
             var result = new[] { x, y }.Average();
             CollectionAssert.AreEqual(new [] { 1, 1.5f, 2 }, result);
         }

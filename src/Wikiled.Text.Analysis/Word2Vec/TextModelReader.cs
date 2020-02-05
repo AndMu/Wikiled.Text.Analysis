@@ -28,7 +28,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
 
                 var vectors = new List<WordVector>();
                 WordVector vector = null;
-                while (null != (vector = ReadVector(reader)))
+                while (null != (vector = ReadVector(reader, vectors.Count)))
                 {
                     vectors.Add(vector);
                 }
@@ -56,7 +56,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
             return new[] { 0, 0 };
         }
 
-        private WordVector ReadVector(StreamReader reader)
+        private WordVector ReadVector(StreamReader reader, int index)
         {
             var line = reader.ReadLine();
             if (line == null)
@@ -70,7 +70,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .Select(x => float.Parse(x, CultureInfo.InvariantCulture))
                 .ToArray();
-            return new WordVector(word, vector);
+            return new WordVector(index, word, vector);
         }
     }
 }

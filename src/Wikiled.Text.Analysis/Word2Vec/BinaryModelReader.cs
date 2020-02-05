@@ -32,7 +32,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
                 for (int i = 0; i < words; i++)
                 {
                     WordVector vector;
-                    while ((vector = ReadVector(reader, size)) == null)
+                    while ((vector = ReadVector(reader, size, i)) == null)
                     {
                     }
 
@@ -52,7 +52,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
             return new[] { words, size };
         }
 
-        private WordVector ReadVector(BinaryReader binaryReader, int size)
+        private WordVector ReadVector(BinaryReader binaryReader, int size, int index)
         {
             string word = ReadString(binaryReader);
             if (string.IsNullOrEmpty(word))
@@ -67,7 +67,7 @@ namespace Wikiled.Text.Analysis.Word2Vec
                 vector[j] = binaryReader.ReadSingle();
             }
 
-            var result = new WordVector(word, vector);
+            var result = new WordVector(index, word, vector);
             if (LineBreaks)
             {
                 binaryReader.ReadByte(); // consume line break
