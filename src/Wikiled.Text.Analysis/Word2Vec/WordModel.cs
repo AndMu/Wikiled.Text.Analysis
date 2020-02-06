@@ -1,25 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
+using Wikiled.Common.Logging;
 
 namespace Wikiled.Text.Analysis.Word2Vec
 {
     public class WordModel : IWordModel
     {
-        private readonly ILogger logger;
+        private readonly ILogger<WordModel> logger;
 
         private readonly Dictionary<string, WordVector> vectorsTable;
 
-        public WordModel(ILogger logger, int words, int size, List<WordVector> vectors, bool caseSensitive)
+        public WordModel(ILogger<WordModel> logger, int size, IEnumerable<WordVector> vectors, bool caseSensitive)
         {
-            Words = words;
             Size = size;
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.CaseSensitive = caseSensitive;
             vectorsTable = new Dictionary<string, WordVector>(caseSensitive ? StringComparer.CurrentCulture : StringComparer.CurrentCultureIgnoreCase);
-            if (words != vectors.Count)
-            {
-                throw new ArgumentOutOfRangeException("Size mistmatch");
-            }
 
             foreach (var wordVector in vectors)
             {
@@ -32,12 +29,23 @@ namespace Wikiled.Text.Analysis.Word2Vec
             }
         }
 
-        public int Words { get; }
+        public bool CaseSensitive { get; }
+
+        public int Words => vectorsTable.Count;
 
         public int Size { get; }
 
         public IEnumerable<WordVector> Vectors => vectorsTable.Values;
 
+        public static IWordModel Load(string filename)
+        {
+            return new ModelReaderFactory(ApplicationLogging.LoggerFactory).Construct(filename);
+        }
+
+        public static IWordModel Load(IModelReader source)
+        {
+            return source.Open();
+        }
 
         public WordVector Find(string word)
         {
@@ -48,16 +56,6 @@ namespace Wikiled.Text.Analysis.Word2Vec
         protected void AddVector(WordVector vector)
         {
             vectorsTable.Add(vector.Word, vector);
-        }
-
-        public static IWordModel Load(string filename)
-        {
-            return new ModelReaderFactory().Contruct(filename);
-        }
-
-        public static IWordModel Load(IModelReader source)
-        {
-            return source.Open();
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Wikiled.Common.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace Wikiled.Text.Analysis.Word2Vec
 {
@@ -11,34 +11,48 @@ namespace Wikiled.Text.Analysis.Word2Vec
     {
         private readonly Stream stream;
 
-        public TextModelReader(Stream stream)
+        private readonly ILoggerFactory loggerFactory;
+
+        private readonly ILogger<TextModelReader> logger;
+
+        public TextModelReader(ILoggerFactory loggerFactory, Stream stream)
         {
             this.stream = stream;
+            this.loggerFactory = loggerFactory;
+            logger = loggerFactory.CreateLogger<TextModelReader>();
         }
 
         public bool CaseSensitive { get; set; } = true;
 
         public IWordModel Open()
         {
-            using (var reader = new StreamReader(stream, Encoding.UTF8, true, 4 * 1024))
+            logger.LogDebug("Open");
+            using var reader = new StreamReader(stream, Encoding.UTF8, true, 4 * 1024);
+            var header = ReadHeader(reader);
+            var words = header[0];
+            var size = header[1];
+
+            IEnumerable<WordVector> Populate()
             {
-                var header = ReadHeader(reader);
-                var words = header[0];
-                var size = header[1];
-
-                var vectors = new List<WordVector>();
-                WordVector vector = null;
-                while (null != (vector = ReadVector(reader, vectors.Count)))
+                WordVector vector;
+                int count = 0;
+                while ((vector = ReadVector(reader, count)) != null)
                 {
-                    vectors.Add(vector);
+                    yield return vector;
+                    count++;
                 }
-
-                return new WordModel(ApplicationLogging.CreateLogger<WordModel>(),
-                                     words == 0 ? vectors.Count : words,
-                                     size == 0 ? (int)stream.Length : size,
-                                     vectors,
-                                     CaseSensitive);
             }
+
+            var result = new WordModel(loggerFactory.CreateLogger<WordModel>(),
+                size == 0 ? (int) stream.Length : size,
+                Populate(),
+                CaseSensitive);
+            if (words != result.Words)
+            {
+                logger.LogWarning("Mismatch in word count. Expected {0} and got {1}", words, result.Words);
+            }
+
+            return result;
         }
 
         private int[] ReadHeader(StreamReader reader)

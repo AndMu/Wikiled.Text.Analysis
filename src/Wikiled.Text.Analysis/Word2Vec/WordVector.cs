@@ -13,6 +13,8 @@
 
         public string Word { get; }
 
+        public int? Count { get; set; }
+
         public float[] Vector { get; }
 
         public override string ToString()

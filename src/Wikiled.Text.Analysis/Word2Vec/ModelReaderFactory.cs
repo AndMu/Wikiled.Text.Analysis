@@ -1,12 +1,20 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
+using Microsoft.Extensions.Logging;
 
 namespace Wikiled.Text.Analysis.Word2Vec
 {
     public class ModelReaderFactory : IModelReaderFactory
     {
-        public IWordModel Contruct(string filePath)
+        private readonly ILoggerFactory loggerFactory;
+
+        public ModelReaderFactory(ILoggerFactory loggerFactory)
+        {
+            this.loggerFactory = loggerFactory ?? throw new ArgumentNullException(nameof(loggerFactory));
+        }
+
+        public IWordModel Construct(string filePath)
         {
             using (var fileStream = OpenStream(filePath))
             {
@@ -37,9 +45,9 @@ namespace Wikiled.Text.Analysis.Word2Vec
             switch (fileExtension)
             {
                 case ".txt":
-                    return new TextModelReader(stream);
+                    return new TextModelReader(loggerFactory, stream);
                 case ".bin":
-                    return new BinaryModelReader(stream);
+                    return new BinaryModelReader(loggerFactory, stream);
                 default:
                     var error = new InvalidOperationException("Unrecognized file type");
                     error.Data.Add("extension", fileExtension);

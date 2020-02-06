@@ -2,6 +2,6 @@
 {
     public interface IModelReaderFactory
     {
-        IWordModel Contruct(string filePath);
+        IWordModel Construct(string filePath);
     }
 }

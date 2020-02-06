@@ -1,14 +1,46 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Wikiled.Common.Logging;
 using Wikiled.Text.Analysis.Structure;
 
 namespace Wikiled.Text.Analysis.Word2Vec
 {
     public static class ExtensionMethods
     {
+        public static void PopulateDictionary(this IWordModel model, string fileName)
+        {
+            if (model == null) throw new ArgumentNullException(nameof(model));
+            if (fileName == null) throw new ArgumentNullException(nameof(fileName));
+            if (!File.Exists(fileName))
+            {
+                throw new ArgumentOutOfRangeException(nameof(fileName), $"{fileName} not found");
+            }
+
+            foreach (var line in File.ReadLines(fileName))
+            {
+                var items = line.Split(' ');
+                if (items.Length > 1)
+                {
+                    var vector = model.Find(items[0]);
+                    if (vector != null)
+                    {
+                        vector.Count = int.Parse(items[1]);
+                    }
+                }
+            }
+        }
+
+        public static IWordModel GetTopWords(this IWordModel model, int top)
+        {
+            var vectors = model.Vectors.OrderByDescending(item => item.Count).Take(top);
+            return new WordModel(ApplicationLogging.LoggerFactory.CreateLogger<WordModel>(), model.Size, vectors, model.CaseSensitive);
+        }
+
         public static IEnumerable<WordVector> GetDocumentVector(this IWordModel model, Document document)
         {
             if (model == null)

@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using Microsoft.Extensions.Logging.Abstractions;
 using NUnit.Framework;
 using Wikiled.Text.Analysis.Structure;
 using Wikiled.Text.Analysis.Word2Vec;
@@ -38,14 +39,14 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
         {
             var model = WordModel.Load(GetPath("model.txt"));
             IWordModel wordModel;
-            using (var s = new MemoryStream())
+            using (var stream = new MemoryStream())
             {
-                using (var writer = new TextModelWriter(s, true))
+                using (var writer = new TextModelWriter(stream, true))
                 {
                     writer.Write(model);
                 }
-                s.Seek(0, SeekOrigin.Begin);
-                var tmr = new TextModelReader(s);
+                stream.Seek(0, SeekOrigin.Begin);
+                var tmr = new TextModelReader(new NullLoggerFactory(), stream);
                 {
                     wordModel = WordModel.Load(tmr);
                 }
@@ -95,15 +96,15 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
         {
             var model = WordModel.Load(GetPath("model.txt"));
             IWordModel wordModel;
-            using (var s = new MemoryStream())
+            using (var memoryStream = new MemoryStream())
             {
-                using (var writer = new BinaryModelWriter(s, true))
+                using (var writer = new BinaryModelWriter(memoryStream, true))
                 {
                     writer.Write(model);
                 }
 
-                s.Seek(0, SeekOrigin.Begin);
-                var tmr = new BinaryModelReader(s);
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                var tmr = new BinaryModelReader(new NullLoggerFactory(), memoryStream);
                 wordModel = WordModel.Load(tmr);
             }
 

@@ -1,20 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Microsoft.Extensions.Logging;
 using Wikiled.Common.Logging;
 
 namespace Wikiled.Text.Analysis.Word2Vec
 {
     public class BinaryModelReader : IModelReader
     {
-        public BinaryModelReader(Stream stream, bool lineBreaks = false, bool leaveOpen = false)
+        private readonly ILoggerFactory loggerFactory;
+
+        private readonly bool leaveOpen;
+
+        private readonly ILogger<BinaryModelReader> logger;
+
+        public BinaryModelReader(ILoggerFactory loggerFactory, Stream stream, bool lineBreaks = false, bool leaveOpen = false)
         {
-            Stream = stream;
+            Stream = stream ?? throw new ArgumentNullException(nameof(stream));
+            this.loggerFactory = loggerFactory ?? throw new ArgumentNullException(nameof(loggerFactory));
+            this.leaveOpen = leaveOpen;
+            LineBreaks = lineBreaks;
         }
 
-        public bool LineBreaks { get; private set; }
+        public bool LineBreaks { get; }
 
         private Stream Stream { get; }
 
@@ -22,13 +33,13 @@ namespace Wikiled.Text.Analysis.Word2Vec
 
         public IWordModel Open()
         {
-            var vectors = new List<WordVector>();
-            using (var reader = new BinaryReader(Stream, Encoding.UTF8, true))
-            {
-                int[] header = ReadHeader(reader);
-                int words = header[0];
-                int size = header[1];
+            using var reader = new BinaryReader(Stream, Encoding.UTF8, leaveOpen);
+            int[] header = ReadHeader(reader);
+            var words = header[0];
+            var size = header[1];
 
+            IEnumerable<WordVector> Populate()
+            {
                 for (int i = 0; i < words; i++)
                 {
                     WordVector vector;
@@ -36,11 +47,17 @@ namespace Wikiled.Text.Analysis.Word2Vec
                     {
                     }
 
-                    vectors.Add(vector);
+                    yield return vector;
                 }
-
-                return new WordModel(ApplicationLogging.CreateLogger<WordModel>(), words, size, vectors, CaseSensitive);
             }
+
+            var result = new WordModel(loggerFactory.CreateLogger<WordModel>(), size, Populate(), CaseSensitive);
+            if (words != result.Words)
+            {
+                logger.LogWarning("Mismatch in word count. Expected {0} and got {1}", words, result.Words);
+            }
+
+            return result;
         }
 
 
