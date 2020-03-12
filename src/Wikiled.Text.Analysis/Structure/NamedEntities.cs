@@ -7,6 +7,7 @@ namespace Wikiled.Text.Analysis.Structure
     public enum NamedEntities
     {
         None,
+        Custom,
         Person,
         Location,
         Organization,

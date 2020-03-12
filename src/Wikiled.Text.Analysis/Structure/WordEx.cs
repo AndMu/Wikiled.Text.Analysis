@@ -49,6 +49,10 @@ namespace Wikiled.Text.Analysis.Structure
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public NamedEntities EntityType { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [XmlElement]
+        public string CustomEntity { get; set; }
+
         [JsonIgnore]
         [XmlIgnore]
         public int Id { get; set; }
