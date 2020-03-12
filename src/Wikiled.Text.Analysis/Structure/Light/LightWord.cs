@@ -6,6 +6,8 @@
 
         public string Tag { get; set; }
 
+        public string Entity { get; set; }
+
         public string Phrase { get; set; }
     }
 }
