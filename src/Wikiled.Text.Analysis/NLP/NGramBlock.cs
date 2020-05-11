@@ -14,7 +14,7 @@ namespace Wikiled.Text.Analysis.NLP
             WordOccurrences = wordOccurrences ?? throw new ArgumentNullException(nameof(wordOccurrences));
         }
 
-        private void PopuplateMasks()
+        private void PopulateMasks()
         {
             if (!string.IsNullOrEmpty(posMask))
             {
@@ -40,7 +40,7 @@ namespace Wikiled.Text.Analysis.NLP
         {
             get
             {
-                PopuplateMasks();
+                PopulateMasks();
                 return posMask;
             }
             set => posMask = value;
@@ -50,7 +50,7 @@ namespace Wikiled.Text.Analysis.NLP
         {
             get
             {
-                PopuplateMasks();
+                PopulateMasks();
                 return wordMask;
             }
             set => wordMask = value;

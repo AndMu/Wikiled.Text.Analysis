@@ -48,7 +48,6 @@ namespace Wikiled.Text.Analysis.NLP
                 yield break;
             }
 
-            var result = new List<NGramBlock>();
             var wordOccurrences = new Queue<WordEx>();
 
             foreach (var word in words)
