@@ -26,6 +26,7 @@ namespace Wikiled.Text.Analysis.Structure
         {
             UnderlyingWord = item;
             Text = item.Text;
+            Span = Text;
         }
 
         public WordEx(LightWord item)
@@ -34,7 +35,12 @@ namespace Wikiled.Text.Analysis.Structure
             Text = item.Text;
             Type = item.Tag;
             Phrase = item.Phrase;
+            Span = Text;
         }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [XmlElement]
+        public string Span { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [XmlElement]
