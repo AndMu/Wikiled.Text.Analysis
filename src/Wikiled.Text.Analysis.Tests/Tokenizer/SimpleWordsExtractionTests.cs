@@ -12,6 +12,7 @@ namespace Wikiled.Text.Analysis.Tests.Tokenizer
         {
             SimpleWordsExtraction extraction = new SimpleWordsExtraction(Global.Factory.Create(true, false));
             Document document = extraction.GetDocument("I went to forest and don't know what I thought. But that is ok and not so bad and ok");
+            Assert.AreEqual("I went to forest and don't know what I thought. But that is ok and not so bad and ok", document.Text);
             Assert.AreEqual(20, document.TotalWords);
             Assert.AreEqual(2, document.Sentences.Count);
             Assert.AreEqual("I went to forest and don't know what I thought.", document.Sentences[0].Text);

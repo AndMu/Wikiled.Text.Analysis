@@ -68,7 +68,7 @@ namespace Wikiled.Text.Analysis.Structure
             get { return Sentences.SelectMany(sentenceItem => sentenceItem.Words); }
         }
 
-        public void Add(SentenceItem sentence)
+        public void Add(SentenceItem sentence, bool buildText)
         {
             if (sentence == null)
             {
@@ -77,6 +77,12 @@ namespace Wikiled.Text.Analysis.Structure
 
             sentence.Index = Sentences.Count;
             Sentences.Add(sentence);
+
+            if (!buildText)
+            {
+                return;
+            }
+
             if (!string.IsNullOrEmpty(Text))
             {
                 Text += " ";

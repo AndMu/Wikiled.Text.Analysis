@@ -22,7 +22,7 @@ namespace Wikiled.Text.Analysis.Tests.Structure
         {
             var document = new Document("Test");
             Assert.AreEqual(0, document.Sentences.Count);
-            document.Add(new SentenceItem());
+            document.Add(new SentenceItem(), false);
             Assert.AreEqual(1, document.Sentences.Count);
         }
 
@@ -32,11 +32,11 @@ namespace Wikiled.Text.Analysis.Tests.Structure
             var document = new Document("Test");
             Assert.AreEqual(0, document.TotalWords);
             Assert.AreEqual(0, document.Words.Count());
-            document.Add(new SentenceItem());
+            document.Add(new SentenceItem(), false);
             Assert.AreEqual(0, document.TotalWords);
             Assert.AreEqual(0, document.Words.Count());
             Assert.AreEqual(1, document.Sentences.Count);
-            document.Add(new SentenceItem());
+            document.Add(new SentenceItem(), false);
             Assert.AreEqual(2, document.Sentences.Count);
             document.Sentences[0].Add(new WordEx(new SimpleWord("Test")));
             document.Sentences[1].Add(new WordEx(new SimpleWord("Test")));
@@ -48,9 +48,9 @@ namespace Wikiled.Text.Analysis.Tests.Structure
         public void Serialize()
         {
             var document = new Document("Test");
-            document.Add(new SentenceItem());
+            document.Add(new SentenceItem(), false);
             document.Sentences[0].Add("Test Word");
-            document.Add(new SentenceItem());
+            document.Add(new SentenceItem(), false);
             var json = JsonConvert.SerializeObject(document);
             var documentDeserialized = JsonConvert.DeserializeObject<Document>(json);
             Assert.AreEqual(2, documentDeserialized.Sentences.Count);

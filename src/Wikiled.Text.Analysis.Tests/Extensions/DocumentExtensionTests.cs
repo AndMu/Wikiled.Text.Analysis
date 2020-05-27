@@ -43,11 +43,11 @@ namespace Wikiled.Text.Analysis.Tests.Extensions
             fullDocument.Id = "TestId";
             fullDocument.Title = "Title";
             fullDocument.DocumentTime = DateTime.Today;
-            fullDocument.Add(new SentenceItem());
+            fullDocument.Add(new SentenceItem { Text = "One" }, true);
             fullDocument.Sentences[0].Add("Test Word");
-            fullDocument.Add(new SentenceItem());
+            fullDocument.Add(new SentenceItem { Text = "Two" }, true);
             var result = fullDocument.GetLight();
-            Assert.AreEqual("Test", result.Text);
+            Assert.AreEqual("Test One Two", result.Text);
             Assert.AreEqual("TestId", result.Id);
             Assert.AreEqual(DateTime.Today, result.DocumentTime);
             Assert.AreEqual("Title", result.Title);
