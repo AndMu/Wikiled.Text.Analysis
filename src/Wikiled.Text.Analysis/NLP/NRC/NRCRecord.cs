@@ -10,6 +10,8 @@ namespace Wikiled.Text.Analysis.NLP.NRC
     [XmlRoot("NRC")]
     public class NRCRecord : ICloneable
     {
+        private static SentimentCategory[] sentimentCategories = Enum.GetValues(typeof(SentimentCategory)).Cast<SentimentCategory>().ToArray();
+
         public NRCRecord(string word)
         {
             Word = word;
@@ -97,7 +99,7 @@ namespace Wikiled.Text.Analysis.NLP.NRC
 
         public IEnumerable<SentimentCategory> GetDefinedCategories()
         {
-            return Enum.GetValues(typeof(SentimentCategory)).Cast<SentimentCategory>().Where(HasValue);
+            return sentimentCategories.Where(HasValue);
         }
 
         public bool HasValue(SentimentCategory category)
