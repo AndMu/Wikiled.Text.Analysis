@@ -25,7 +25,7 @@ namespace Wikiled.Text.Analysis.Reflection.Data
 
         public string Name => field.Name;
 
-        public string Description => field.Description;
+        public string Description => field.Description ?? field.PropertyName;
 
         public object Value
         {
