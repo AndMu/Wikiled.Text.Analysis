@@ -37,7 +37,7 @@ namespace Wikiled.Text.Analysis.Extensions
                     var word = sentence.Words[index];
                     var resultWord = new LightWord();
                     resultWord.Text = word.Text;
-                    resultWord.Tag = word.Type;
+                    resultWord.Tag = word.POS;
                     resultWord.Phrase = word.Phrase;
                     resultSentence.Words[index] = resultWord;
                 }

@@ -35,11 +35,11 @@ namespace Wikiled.Text.Analysis.Tokenizer.Pipelined
             if (removeStopWords)
             {
                 pipelines.Add(new StopWordItemPipeline());
-                pipelines.Add(new WordItemFilterOutPipeline(item => item.Tag.WordType == WordType.SeparationSymbol));
+                pipelines.Add(new WordItemFilterOutPipeline(item => item.POSType.WordType == WordType.SeparationSymbol));
                 pipelines.Add(new WordItemFilterOutPipeline(item => item.IsConjunction()));
             }
 
-            pipelines.Add(new WordItemFilterOutPipeline(item => item.Tag == SentenceFinalPunctuation.Instance));
+            pipelines.Add(new WordItemFilterOutPipeline(item => item.POSType == SentenceFinalPunctuation.Instance));
 
             WordsTokenizerFactory factory = new WordsTokenizerFactory(
                 wordPattern,

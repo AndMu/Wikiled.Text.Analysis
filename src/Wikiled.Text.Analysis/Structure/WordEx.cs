@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using Wikiled.Text.Analysis.NLP.NRC;
 using Wikiled.Text.Analysis.POS;
 using Wikiled.Text.Analysis.POS.Tags;
 using Wikiled.Text.Analysis.Structure.Light;
@@ -33,7 +34,7 @@ namespace Wikiled.Text.Analysis.Structure
         {
             UnderlyingWord = item;
             Text = item.Text;
-            Type = item.Tag;
+            POS = item.Tag;
             Phrase = item.Phrase;
             Span = Text;
         }
@@ -41,6 +42,10 @@ namespace Wikiled.Text.Analysis.Structure
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [XmlElement]
         public string Span { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [XmlElement]
+        public string[] Attributes { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [XmlElement]
@@ -97,15 +102,15 @@ namespace Wikiled.Text.Analysis.Structure
         public string Raw { get; set; }
 
         [XmlElement]
-        public string Type
+        public string POS
         {
-            get => Tag.Tag;
+            get => POSType.Tag;
             set => tag = POSTags.Instance.FindType(value);
         }
 
         [JsonIgnore]
         [XmlIgnore]
-        public BasePOSType Tag => tag ?? POSTags.Instance.UnknownWord;
+        public BasePOSType POSType => tag ?? POSTags.Instance.UnknownWord;
 
         [JsonIgnore]
         [XmlIgnore]
@@ -117,7 +122,7 @@ namespace Wikiled.Text.Analysis.Structure
 
         public override string ToString()
         {
-            return $"{Text}:{Tag.Tag}";
+            return $"{Text}:{POSType.Tag}";
         }
 
         public object Clone()

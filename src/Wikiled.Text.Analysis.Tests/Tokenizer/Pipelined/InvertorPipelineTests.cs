@@ -18,7 +18,7 @@ namespace Wikiled.Text.Analysis.Tests.Tokenizer.Pipelined
                 new WordEx("Two") {IsInvertor = true},
                 new WordEx("Three"),
                 new WordEx("Four"),
-                new WordEx("X") {Type = CoordinatingConjunction.Instance.Tag},
+                new WordEx("X") {POS = CoordinatingConjunction.Instance.Tag},
                 new WordEx("Five")
             };
 

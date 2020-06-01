@@ -29,7 +29,7 @@ namespace Wikiled.Text.Analysis.NLP
                     wordMask += " ";
                 }
 
-                posMask += WordOccurrences[i].Tag.Tag;
+                posMask += WordOccurrences[i].POSType.Tag;
                 wordMask += WordOccurrences[i].Text;
             }
         }

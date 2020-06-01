@@ -68,7 +68,7 @@ namespace Wikiled.Text.Analysis.Structure
 
         public static bool IsConjunction(this WordEx word)
         {
-            return word.Tag.WordType == WordType.Conjunction ||
+            return word.POSType.WordType == WordType.Conjunction ||
                    WordTypeResolver.Instance.IsInvertingConjunction(word.Text) ||
                    WordTypeResolver.Instance.IsSpecialEndSymbol(word.Text) ||
                    WordTypeResolver.Instance.IsRegularConjunction(word.Text) ||

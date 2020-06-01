@@ -13,10 +13,10 @@ namespace Wikiled.Text.Analysis.Tests.NLP
         public void GetNGram()
         {
             List<WordEx> words = new List<WordEx>();
-            words.Add(new WordEx(new SimpleWord("Test")) { Type = "NN" });
-            words.Add(new WordEx(new SimpleWord("Test1")) { Type = "VB" });
-            words.Add(new WordEx(new SimpleWord("Test2")) { Type = "NN" });
-            words.Add(new WordEx(new SimpleWord("Test3")) { Type = "VB" });
+            words.Add(new WordEx(new SimpleWord("Test")) { POS = "NN" });
+            words.Add(new WordEx(new SimpleWord("Test1")) { POS = "VB" });
+            words.Add(new WordEx(new SimpleWord("Test2")) { POS = "NN" });
+            words.Add(new WordEx(new SimpleWord("Test3")) { POS = "VB" });
             var result = words.ToArray().GetNGram().ToArray();
             Assert.AreEqual(2, result.Length);
             Assert.AreEqual("Test Test1 Test2", result[0].WordMask);
