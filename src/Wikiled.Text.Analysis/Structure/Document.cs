@@ -29,6 +29,10 @@ namespace Wikiled.Text.Analysis.Structure
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [XmlElement]
+        public string[] Attributes{ get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [XmlElement]
         public string Author { get; set; }
 
         [XmlElement(IsNullable = true)]
