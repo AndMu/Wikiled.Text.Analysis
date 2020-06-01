@@ -49,6 +49,10 @@ namespace Wikiled.Text.Analysis.Structure
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [XmlElement]
+        public SentimentCategory[] Emotions { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [XmlElement]
         public string Phrase { get; set; }
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
