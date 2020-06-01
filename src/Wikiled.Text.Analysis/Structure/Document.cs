@@ -28,8 +28,8 @@ namespace Wikiled.Text.Analysis.Structure
         }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        [XmlElement]
-        public Dictionary<string, object> Attributes{ get; set; }
+        [XmlIgnore]
+        public Dictionary<string, string> Attributes{ get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [XmlElement]
