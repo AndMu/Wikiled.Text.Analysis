@@ -18,6 +18,8 @@ namespace Wikiled.Text.Analysis.Reflection
 
         public IMapCategory Category { get; }
 
+        public string PropertyName => propertyInfo.Name;
+
         public string Description => attribute.Description;
 
         public bool IsOptional => attribute.IsOptional;

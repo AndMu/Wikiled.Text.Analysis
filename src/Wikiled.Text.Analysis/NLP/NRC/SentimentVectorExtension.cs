@@ -13,6 +13,5 @@ namespace Wikiled.Text.Analysis.NLP.NRC
             var items = occurences ? vector.GetOccurences() : vector.GetProbabilities();
             return new DataTree(new ItemProbabilityHolder(items.ToArray()), MapProbabilityOnly);
         }
-
     }
 }

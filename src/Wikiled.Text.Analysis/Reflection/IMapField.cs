@@ -6,6 +6,8 @@ namespace Wikiled.Text.Analysis.Reflection
     {
         IMapCategory Category { get; }
 
+        string PropertyName { get; }
+
         string Description { get; }
 
         bool IsOptional { get; }
