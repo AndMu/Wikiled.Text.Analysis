@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.Reflection;
 using Wikiled.Text.Analysis.Reflection.Data;
 using Wikiled.Text.Analysis.Tests.Reflection.TestData;
@@ -18,11 +19,11 @@ namespace Wikiled.Text.Analysis.Tests.Reflection
             IMapCategory construction = mapper.Construct<MainItem>();
             MainItem main = new MainItem();
             DataTree tree = new DataTree(main, construction);
-            Assert.AreEqual(main, tree.Instance);
-            Assert.AreEqual(construction.Categories.Count(), tree.Branches.Count);
-            Assert.AreEqual(main.SubCat, tree.Branches[0].Instance);
-            Assert.AreEqual(construction.Fields.Count(), tree.Leafs.Count);
-            Assert.AreEqual(construction.AllChildFields.Count(), tree.AllLeafs.Count());
+            ClassicAssert.AreEqual(main, tree.Instance);
+            ClassicAssert.AreEqual(construction.Categories.Count(), tree.Branches.Count);
+            ClassicAssert.AreEqual(main.SubCat, tree.Branches[0].Instance);
+            ClassicAssert.AreEqual(construction.Fields.Count(), tree.Leafs.Count);
+            ClassicAssert.AreEqual(construction.AllChildFields.Count(), tree.AllLeafs.Count());
         }
 
         [Test]
@@ -32,14 +33,14 @@ namespace Wikiled.Text.Analysis.Tests.Reflection
             IMapCategory construction = mapper.Construct<MainItem>();
             MainItem main = new MainItem();
             DataTree tree = new DataTree(main, construction);
-            Assert.AreEqual(0, tree.Branches[1].Leafs.Count);
+            ClassicAssert.AreEqual(0, tree.Branches[1].Leafs.Count);
             main.Data["Test"] = 4;
             tree = new DataTree(main, construction);
-            Assert.AreEqual(1, tree.Branches[1].Leafs.Count);
+            ClassicAssert.AreEqual(1, tree.Branches[1].Leafs.Count);
 
-            Assert.AreEqual(4, tree.Branches[1].Leafs[0].Value);
-            Assert.AreEqual("Test", tree.Branches[1].Leafs[0].Name);
-            Assert.AreEqual("Test", tree.Branches[1].Leafs[0].Description);
+            ClassicAssert.AreEqual(4, tree.Branches[1].Leafs[0].Value);
+            ClassicAssert.AreEqual("Test", tree.Branches[1].Leafs[0].Name);
+            ClassicAssert.AreEqual("Test", tree.Branches[1].Leafs[0].Description);
         }
 
         [Test]
@@ -52,21 +53,21 @@ namespace Wikiled.Text.Analysis.Tests.Reflection
             main.Total = 2;
             main.SubCat.Weight = 4;
             DataTree tree = new DataTree(main, construction);
-            Assert.AreEqual(true, tree.Leafs[1].Value);
-            Assert.AreEqual(2, tree.Leafs[0].Value);
-            Assert.AreEqual(4, tree.Branches[0].Leafs[0].Value);
+            ClassicAssert.AreEqual(true, tree.Leafs[1].Value);
+            ClassicAssert.AreEqual(2, tree.Leafs[0].Value);
+            ClassicAssert.AreEqual(4, tree.Branches[0].Leafs[0].Value);
 
             tree.Leafs[1].Value = false;
-            Assert.AreEqual(false, tree.Leafs[1].Value);
-            Assert.AreEqual(false, main.IsGood);
+            ClassicAssert.AreEqual(false, tree.Leafs[1].Value);
+            ClassicAssert.AreEqual(false, main.IsGood);
 
             tree.Leafs[0].Value = 88;
-            Assert.AreEqual(88, tree.Leafs[0].Value);
-            Assert.AreEqual(88, main.Total);
+            ClassicAssert.AreEqual(88, tree.Leafs[0].Value);
+            ClassicAssert.AreEqual(88, main.Total);
 
             tree.Branches[0].Leafs[0].Value = 7;
-            Assert.AreEqual(7, tree.Branches[0].Leafs[0].Value);
-            Assert.AreEqual(7, main.SubCat.Weight);
+            ClassicAssert.AreEqual(7, tree.Branches[0].Leafs[0].Value);
+            ClassicAssert.AreEqual(7, main.SubCat.Weight);
         }
 
         [Test]
@@ -82,9 +83,9 @@ namespace Wikiled.Text.Analysis.Tests.Reflection
             main.Total = 2;
             main.SubCat.Weight = 4;
             DataTree tree = new DataTree(main, construction, new DictionaryDataItemFactory(map));
-            Assert.AreEqual(0.1, Math.Round((double)tree.Leafs[1].Value, 2));
-            Assert.AreEqual(0, tree.Leafs[0].Value);
-            Assert.AreEqual(3, tree.Branches[0].Leafs[0].Value);
+            ClassicAssert.AreEqual(0.1, Math.Round((double)tree.Leafs[1].Value, 2));
+            ClassicAssert.AreEqual(0, tree.Leafs[0].Value);
+            ClassicAssert.AreEqual(3, tree.Branches[0].Leafs[0].Value);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.Tokenizer;
 using Wikiled.Text.Analysis.Tokenizer.Pipelined;
 
@@ -12,9 +13,9 @@ namespace Wikiled.Text.Analysis.Tests.Tokenizer.Pipelined
         public void Create()
         {
             CombinedPipeline<string> combined = new CombinedPipeline<string>(new LowerCasePipeline());
-            Assert.AreEqual(1, combined.Pipelines.Count);
+            ClassicAssert.AreEqual(1, combined.Pipelines.Count);
             combined = new CombinedPipeline<string>();
-            Assert.AreEqual(0, combined.Pipelines.Count);
+            ClassicAssert.AreEqual(0, combined.Pipelines.Count);
         }
 
         [Test]
@@ -23,8 +24,8 @@ namespace Wikiled.Text.Analysis.Tests.Tokenizer.Pipelined
             string[] data = { "Test", string.Empty };
             CombinedPipeline<string> combined = new CombinedPipeline<string>(new LowerCasePipeline());
             string[] results = combined.Process(data).ToArray();
-            Assert.AreEqual(1, results.Length);
-            Assert.AreEqual("test", results[0]);
+            ClassicAssert.AreEqual(1, results.Length);
+            ClassicAssert.AreEqual("test", results[0]);
         }
     }
 }

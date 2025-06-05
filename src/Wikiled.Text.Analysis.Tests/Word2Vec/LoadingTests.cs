@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Logging.Abstractions;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.Structure;
 using Wikiled.Text.Analysis.Word2Vec;
 
@@ -52,8 +53,8 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
                 }
             }
 
-            Assert.AreEqual(model.Words, wordModel.Words);
-            Assert.AreEqual(model.Size, wordModel.Size);
+            ClassicAssert.AreEqual(model.Words, wordModel.Words);
+            ClassicAssert.AreEqual(model.Size, wordModel.Size);
         }
 
         [Test]
@@ -74,7 +75,7 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
 
             var paragraph = model.GetParagraphVector(sentences);
             var paragraph2 = model.GetParagraphVector(sentences.Take(1).ToArray());
-            Assert.AreEqual(paragraph2, paragraph);
+            ClassicAssert.AreEqual(paragraph2, paragraph);
         }
 
         [Test]
@@ -88,7 +89,7 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
         public void TestLoadingTextFileWithNoHeader()
         {
             var model = WordModel.Load(GetPath("modelWithNoHeader.txt"));
-            Assert.AreEqual(2, model.Words);
+            ClassicAssert.AreEqual(2, model.Words);
         }
 
         [Test]
@@ -108,37 +109,37 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
                 wordModel = WordModel.Load(tmr);
             }
 
-            Assert.AreEqual(model.Words, wordModel.Words);
-            Assert.AreEqual(model.Size, wordModel.Size);
+            ClassicAssert.AreEqual(model.Words, wordModel.Words);
+            ClassicAssert.AreEqual(model.Size, wordModel.Size);
         }
 
         private static void TestLoadedModel(IWordModel model)
         {
-            Assert.IsNotNull(model);
-            Assert.AreEqual(4501, model.Words);
-            Assert.AreEqual(100, model.Size);
-            Assert.AreEqual(4501, model.Vectors.Count());
-            Assert.IsTrue(model.Vectors.Any(x => x.Word == "whale"));
+            ClassicAssert.IsNotNull(model);
+            ClassicAssert.AreEqual(4501, model.Words);
+            ClassicAssert.AreEqual(100, model.Size);
+            ClassicAssert.AreEqual(4501, model.Vectors.Count());
+            ClassicAssert.IsTrue(model.Vectors.Any(x => x.Word == "whale"));
 
             var whale = model.GetByWord("whale");
-            Assert.IsNotNull(whale);
+            ClassicAssert.IsNotNull(whale);
 
             var xyz = model.GetByWord("xyz");
-            Assert.IsNull(xyz);
+            ClassicAssert.IsNull(xyz);
 
             var results = model.Nearest(whale.Vector).Take(10).ToArray();
-            Assert.AreEqual(10, results.Length);
-            Assert.AreEqual("whale", results[0].Word);
+            ClassicAssert.AreEqual(10, results.Length);
+            ClassicAssert.AreEqual("whale", results[0].Word);
 
             var results2 = model.Nearest("whale").Take(10).ToArray();
-            Assert.AreEqual(10, results2.Length);
-            Assert.AreNotEqual("whale", results2[0].Word);
-            Assert.AreEqual("whale,", results2[0].Word);
+            ClassicAssert.AreEqual(10, results2.Length);
+            ClassicAssert.AreNotEqual("whale", results2[0].Word);
+            ClassicAssert.AreEqual("whale,", results2[0].Word);
 
             var nearest = model.NearestSingle(model.GetByWord("whale").Subtract(model.GetByWord("sea")));
-            Assert.IsNotNull(nearest);
+            ClassicAssert.IsNotNull(nearest);
 
-            Assert.AreNotEqual(0, model.Distance("whale", "boat"));
+            ClassicAssert.AreNotEqual(0, model.Distance("whale", "boat"));
 
             var king = model.GetByWord("whale");
             var man = model.GetByWord("boat");
@@ -155,7 +156,7 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
 
             var paragraph = model.GetParagraphVector(sentences);
             var paragraph2 = model.GetParagraphVector(sentences.Take(1).ToArray());
-            Assert.AreEqual(paragraph2, paragraph);
+            ClassicAssert.AreEqual(paragraph2, paragraph);
         }
 
         [Test]
@@ -163,10 +164,10 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
         {
             var x = new float[] { 1, 2, 3 };
             var result = x.Add(x);
-            Assert.IsNotNull(result);
-            Assert.AreEqual(2, result[0]);
-            Assert.AreEqual(4, result[1]);
-            Assert.AreEqual(6, result[2]);
+            ClassicAssert.IsNotNull(result);
+            ClassicAssert.AreEqual(2, result[0]);
+            ClassicAssert.AreEqual(4, result[1]);
+            ClassicAssert.AreEqual(6, result[2]);
         }
 
         [Test]
@@ -174,10 +175,10 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
         {
             var x = new float[] { 1, 2, 3 };
             var result = x.Subtract(x);
-            Assert.IsNotNull(result);
-            Assert.AreEqual(0, result[0]);
-            Assert.AreEqual(0, result[1]);
-            Assert.AreEqual(0, result[2]);
+            ClassicAssert.IsNotNull(result);
+            ClassicAssert.AreEqual(0, result[0]);
+            ClassicAssert.AreEqual(0, result[1]);
+            ClassicAssert.AreEqual(0, result[2]);
         }
 
         [Test]
@@ -186,8 +187,8 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
             var x = new float[] { 1, 3, 4 };
             var y = new float[] { 1, 0, 0 };
             var result = x.Distance(y);
-            Assert.IsNotNull(result);
-            Assert.AreEqual(5, result);
+            ClassicAssert.IsNotNull(result);
+            ClassicAssert.AreEqual(5, result);
         }
 
         [Test]
@@ -197,7 +198,7 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
             var y = new WordVector(1, "word2", new float[] { 1, 0, 0 });
             var z = x + y;
 
-            Assert.IsNotNull(z);
+            ClassicAssert.IsNotNull(z);
             CollectionAssert.AreEqual(new float[] { 2, 3, 4 }, z);
         }
 
@@ -208,7 +209,7 @@ namespace Wikiled.Text.Analysis.Tests.Word2Vec
             var y = new WordVector(1, "word2", new float[] { 1, 0, 0 });
             var z = y + x - y;
 
-            Assert.IsNotNull(z);
+            ClassicAssert.IsNotNull(z);
             CollectionAssert.AreEqual(new float[] { 1, 3, 4 }, z);
         }
         [Test]

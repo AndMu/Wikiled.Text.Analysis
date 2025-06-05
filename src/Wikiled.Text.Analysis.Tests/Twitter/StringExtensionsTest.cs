@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.Twitter;
 
 namespace Wikiled.Text.Analysis.Tests.Twitter
@@ -14,13 +15,13 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
         {
             string str;
             str = "Hello world!";
-            Assert.AreEqual("Hello world!", str.Slice(0));
-            Assert.AreEqual("lo world!", str.Slice(3));
-            Assert.AreEqual("lo wo", str.Slice(3, 8));
-            Assert.AreEqual("H", str.Slice(0, 1));
-            Assert.AreEqual("!", str.Slice(-1));
-            Assert.AreEqual("lo world", str.Slice(3, -1));
-            Assert.AreEqual("", str.Slice(-1, -1));
+            ClassicAssert.AreEqual("Hello world!", str.Slice(0));
+            ClassicAssert.AreEqual("lo world!", str.Slice(3));
+            ClassicAssert.AreEqual("lo wo", str.Slice(3, 8));
+            ClassicAssert.AreEqual("H", str.Slice(0, 1));
+            ClassicAssert.AreEqual("!", str.Slice(-1));
+            ClassicAssert.AreEqual("lo world", str.Slice(3, -1));
+            ClassicAssert.AreEqual("", str.Slice(-1, -1));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.NLP.Frequency;
 using Wikiled.Text.Analysis.POS;
 
@@ -18,18 +19,18 @@ namespace Wikiled.Text.Analysis.Tests.NLP.Frequency
         [Test]
         public void GetIndex()
         {
-            Assert.AreEqual(10, instance.GetIndex("was").Index);
-            Assert.AreEqual(22, instance.GetIndex("have").Index);
-            Assert.AreEqual(32, instance.GetIndex("which").Index);
+            ClassicAssert.AreEqual(10, instance.GetIndex("was").Index);
+            ClassicAssert.AreEqual(22, instance.GetIndex("have").Index);
+            ClassicAssert.AreEqual(32, instance.GetIndex("which").Index);
         }
 
 
         [Test]
         public void GetPOS()
         {
-            Assert.AreEqual(POSTags.Instance.VBD, instance.GetPOS("was"));
-            Assert.AreEqual(POSTags.Instance.VBP, instance.GetPOS("have"));
-            Assert.AreEqual(POSTags.Instance.WDT, instance.GetPOS("which"));
+            ClassicAssert.AreEqual(POSTags.Instance.VBD, instance.GetPOS("was"));
+            ClassicAssert.AreEqual(POSTags.Instance.VBP, instance.GetPOS("have"));
+            ClassicAssert.AreEqual(POSTags.Instance.WDT, instance.GetPOS("which"));
         }
     }
 }

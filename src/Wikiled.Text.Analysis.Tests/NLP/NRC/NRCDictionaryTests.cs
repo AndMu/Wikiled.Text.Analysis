@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.NLP.NRC;
 using Wikiled.Text.Analysis.Structure;
 
@@ -19,59 +20,59 @@ namespace Wikiled.Text.Analysis.Tests.NLP.NRC
         public void Extract()
         {
             var vector = dictionary.Extract(new[] { new WordEx("kill") });
-            Assert.AreEqual(0, vector.Anger);
-            Assert.AreEqual(0, vector.Anticipation);
-            Assert.AreEqual(0, vector.Disgust);
-            Assert.AreEqual(1, vector.Fear);
-            Assert.AreEqual(0, vector.Joy);
-            Assert.AreEqual(0, vector.Trust);
-            Assert.AreEqual(1, vector.Sadness);
-            Assert.AreEqual(0, vector.Surprise);
-            Assert.AreEqual(1, vector.Total);
-            Assert.AreEqual(2, vector.TotalSum);
+            ClassicAssert.AreEqual(0, vector.Anger);
+            ClassicAssert.AreEqual(0, vector.Anticipation);
+            ClassicAssert.AreEqual(0, vector.Disgust);
+            ClassicAssert.AreEqual(1, vector.Fear);
+            ClassicAssert.AreEqual(0, vector.Joy);
+            ClassicAssert.AreEqual(0, vector.Trust);
+            ClassicAssert.AreEqual(1, vector.Sadness);
+            ClassicAssert.AreEqual(0, vector.Surprise);
+            ClassicAssert.AreEqual(1, vector.Total);
+            ClassicAssert.AreEqual(2, vector.TotalSum);
 
             vector = dictionary.Extract(new[] { new WordEx(("love")) });
-            Assert.AreEqual(0, vector.Anger);
-            Assert.AreEqual(0, vector.Anticipation);
-            Assert.AreEqual(0, vector.Disgust);
-            Assert.AreEqual(0, vector.Fear);
-            Assert.AreEqual(1, vector.Joy);
-            Assert.AreEqual(0, vector.Sadness);
-            Assert.AreEqual(0, vector.Surprise);
-            Assert.AreEqual(0, vector.Trust);
-            Assert.AreEqual(1, vector.Total);
-            Assert.AreEqual(1, vector.TotalSum);
+            ClassicAssert.AreEqual(0, vector.Anger);
+            ClassicAssert.AreEqual(0, vector.Anticipation);
+            ClassicAssert.AreEqual(0, vector.Disgust);
+            ClassicAssert.AreEqual(0, vector.Fear);
+            ClassicAssert.AreEqual(1, vector.Joy);
+            ClassicAssert.AreEqual(0, vector.Sadness);
+            ClassicAssert.AreEqual(0, vector.Surprise);
+            ClassicAssert.AreEqual(0, vector.Trust);
+            ClassicAssert.AreEqual(1, vector.Total);
+            ClassicAssert.AreEqual(1, vector.TotalSum);
         }
 
         [Test]
         public void FindRecord()
         {
             var record = dictionary.FindRecord("smut");
-            Assert.IsFalse(record.IsAnger);
-            Assert.IsFalse(record.IsAnticipation);
-            Assert.IsTrue(record.IsDisgust);
-            Assert.IsTrue(record.IsFear);
-            Assert.IsFalse(record.IsJoy);
-            Assert.IsTrue(record.IsNegative);
-            Assert.IsFalse(record.IsPositive);
-            Assert.IsFalse(record.IsSadness);
-            Assert.IsFalse(record.IsSurprise);
-            Assert.IsFalse(record.IsTrust);
+            ClassicAssert.IsFalse(record.IsAnger);
+            ClassicAssert.IsFalse(record.IsAnticipation);
+            ClassicAssert.IsTrue(record.IsDisgust);
+            ClassicAssert.IsTrue(record.IsFear);
+            ClassicAssert.IsFalse(record.IsJoy);
+            ClassicAssert.IsTrue(record.IsNegative);
+            ClassicAssert.IsFalse(record.IsPositive);
+            ClassicAssert.IsFalse(record.IsSadness);
+            ClassicAssert.IsFalse(record.IsSurprise);
+            ClassicAssert.IsFalse(record.IsTrust);
 
             record = dictionary.FindRecord("kill");
-            Assert.IsFalse(record.IsAnger);
-            Assert.IsFalse(record.IsAnticipation);
-            Assert.IsFalse(record.IsDisgust);
-            Assert.IsTrue(record.IsFear);
-            Assert.IsFalse(record.IsJoy);
-            Assert.IsTrue(record.IsNegative);
-            Assert.IsFalse(record.IsPositive);
-            Assert.IsTrue(record.IsSadness);
-            Assert.IsFalse(record.IsSurprise);
-            Assert.IsFalse(record.IsTrust);
+            ClassicAssert.IsFalse(record.IsAnger);
+            ClassicAssert.IsFalse(record.IsAnticipation);
+            ClassicAssert.IsFalse(record.IsDisgust);
+            ClassicAssert.IsTrue(record.IsFear);
+            ClassicAssert.IsFalse(record.IsJoy);
+            ClassicAssert.IsTrue(record.IsNegative);
+            ClassicAssert.IsFalse(record.IsPositive);
+            ClassicAssert.IsTrue(record.IsSadness);
+            ClassicAssert.IsFalse(record.IsSurprise);
+            ClassicAssert.IsFalse(record.IsTrust);
 
             record = dictionary.FindRecord("xxx");
-            Assert.IsNull(record);
+            ClassicAssert.IsNull(record);
         }
     }
 }

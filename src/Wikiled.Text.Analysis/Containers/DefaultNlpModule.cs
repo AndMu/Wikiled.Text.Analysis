@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
-using Wikiled.Common.Utilities.Modules;
 using Wikiled.Text.Analysis.Dictionary;
 using Wikiled.Text.Analysis.NLP;
 using Wikiled.Text.Analysis.NLP.Frequency;
@@ -12,9 +11,9 @@ using Wikiled.Text.Analysis.Words;
 
 namespace Wikiled.Text.Analysis.Containers
 {
-    public class DefaultNlpModule : IModule
+    public static class DefaultNlpModule
     {
-        public IServiceCollection ConfigureServices(IServiceCollection services)
+        public static IServiceCollection ConfigureServices(this IServiceCollection services)
         {
             services.AddSingleton<IWordsDictionary, BasicEnglishDictionary>();
             services.AddSingleton<INRCDictionary>(ctx =>

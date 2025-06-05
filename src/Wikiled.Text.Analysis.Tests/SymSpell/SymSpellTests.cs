@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.NLP.Frequency;
 using Wikiled.Text.Analysis.SymSpell;
 
@@ -33,7 +34,7 @@ namespace Wikiled.Text.Analysis.Tests.SymSpell
         public void Construct(string word, string expected)
         {
             var result = instance.Lookup(word);
-            Assert.AreEqual(expected, result[0].Term);
+            ClassicAssert.AreEqual(expected, result[0].Term);
         }
 
         [TestCase("whereis th elove hehad dated forImuch of thepast who couqdn'tread in sixthgrade and ins pired him",
@@ -41,7 +42,7 @@ namespace Wikiled.Text.Analysis.Tests.SymSpell
         public void ConstructCompound(string word, string expected)
         {
             var result = instanceCompound.LookupCompound(word);
-            Assert.AreEqual(expected, result[0].Term);
+            ClassicAssert.AreEqual(expected, result[0].Term);
         }
     }
 }

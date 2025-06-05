@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Wikiled.Text.Analysis.Tests.Tokenizer.Pipelined
 {
@@ -13,7 +14,7 @@ namespace Wikiled.Text.Analysis.Tests.Tokenizer.Pipelined
         {
             var sentences = Global.Factory.Create(true, false)
                 .Parse(text).ToArray();
-            Assert.AreEqual(total, sentences.Length);
+            ClassicAssert.AreEqual(total, sentences.Length);
         }
 
         [Test]
@@ -21,8 +22,8 @@ namespace Wikiled.Text.Analysis.Tests.Tokenizer.Pipelined
         {
             var sentences = Global.Factory.Create(true, false)
                 .Parse("quint is drawn into telling the story of his experiences aboard the u . s . s . indianapolis").ToArray();
-            Assert.AreEqual(1, sentences.Length);
-            Assert.AreEqual("quint is drawn into telling the story of his experiences aboard the u.s.s. indianapolis", sentences[0].SentenceText);
+            ClassicAssert.AreEqual(1, sentences.Length);
+            ClassicAssert.AreEqual("quint is drawn into telling the story of his experiences aboard the u.s.s. indianapolis", sentences[0].SentenceText);
         }
     }
 }

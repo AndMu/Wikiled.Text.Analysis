@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.NLP.Frequency;
 using Wikiled.Text.Analysis.POS;
 using Wikiled.Text.Analysis.Words;
@@ -20,25 +21,25 @@ namespace Wikiled.Text.Analysis.Tests.POS
         public void GetTag()
         {
             var value = instance.GetTag(",");
-            Assert.AreEqual(POSTags.Instance.Comma, value);
+            ClassicAssert.AreEqual(POSTags.Instance.Comma, value);
             value = instance.GetTag("!");
-            Assert.AreEqual(POSTags.Instance.SYM, value);
+            ClassicAssert.AreEqual(POSTags.Instance.SYM, value);
             value = instance.GetTag("axe");
-            Assert.AreEqual(POSTags.Instance.NN, value);
+            ClassicAssert.AreEqual(POSTags.Instance.NN, value);
             value = instance.GetTag("abject");
-            Assert.AreEqual(POSTags.Instance.JJ, value);
+            ClassicAssert.AreEqual(POSTags.Instance.JJ, value);
             value = instance.GetTag("utterly");
-            Assert.AreEqual(POSTags.Instance.RB, value);
+            ClassicAssert.AreEqual(POSTags.Instance.RB, value);
             value = instance.GetTag("around");
-            Assert.AreEqual(POSTags.Instance.RP, value);
+            ClassicAssert.AreEqual(POSTags.Instance.RP, value);
             value = instance.GetTag("xxxx1");
-            Assert.AreEqual(POSTags.Instance.UnknownWord, value);
+            ClassicAssert.AreEqual(POSTags.Instance.UnknownWord, value);
             value = instance.GetTag("a");
-            Assert.AreEqual(POSTags.Instance.RP, value);
+            ClassicAssert.AreEqual(POSTags.Instance.RP, value);
             value = instance.GetTag("each");
-            Assert.AreEqual(POSTags.Instance.PRP, value);
+            ClassicAssert.AreEqual(POSTags.Instance.PRP, value);
             value = instance.GetTag("run");
-            Assert.AreEqual(POSTags.Instance.VB, value);
+            ClassicAssert.AreEqual(POSTags.Instance.VB, value);
         }
     }
 }

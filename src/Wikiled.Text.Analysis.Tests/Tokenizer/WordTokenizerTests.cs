@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.Tokenizer;
 using Wikiled.Text.Analysis.Tokenizer.Pipelined;
 
@@ -18,10 +19,10 @@ namespace Wikiled.Text.Analysis.Tests.Tokenizer
                 NullWordItemPipeline.Instance, 
                 new[] { "test", "one" });
             var result = tokenizer.GetWords().ToArray();
-            Assert.AreEqual("Test", tokenizer.SentenceText);
-            Assert.AreEqual(2, result.Length);
-            Assert.AreEqual("test", result[0]);
-            Assert.AreEqual("one", result[1]);
+            ClassicAssert.AreEqual("Test", tokenizer.SentenceText);
+            ClassicAssert.AreEqual(2, result.Length);
+            ClassicAssert.AreEqual("test", result[0]);
+            ClassicAssert.AreEqual("one", result[1]);
         }
 
         [Test]
@@ -34,8 +35,8 @@ namespace Wikiled.Text.Analysis.Tests.Tokenizer
                 NullWordItemPipeline.Instance, 
                 new[] { "", "one" });
             var result = tokenizer.GetWords().ToArray();
-            Assert.AreEqual(1, result.Length);
-            Assert.AreEqual("one", result[0]);
+            ClassicAssert.AreEqual(1, result.Length);
+            ClassicAssert.AreEqual("one", result[0]);
         }
     }
 }

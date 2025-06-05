@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.Structure.Raw;
 
 namespace Wikiled.Text.Analysis.Tests.Structure.Raw
@@ -18,7 +19,7 @@ namespace Wikiled.Text.Analysis.Tests.Structure.Raw
         public void BuildEmpty()
         {
             var result = instance.Build();
-            Assert.IsEmpty(result);
+            ClassicAssert.IsEmpty(result);
         }
 
         [Test]
@@ -33,7 +34,7 @@ namespace Wikiled.Text.Analysis.Tests.Structure.Raw
             instance.Pages[1].Blocks[1].Text = "I-II";
 
             var result = instance.Build();
-            Assert.AreEqual("I\r\nII\r\nI-I\r\nI-II", result);
+            ClassicAssert.AreEqual("I\r\nII\r\nI-I\r\nI-II", result);
         }
 
         private RawDocument CreateRawDocument()

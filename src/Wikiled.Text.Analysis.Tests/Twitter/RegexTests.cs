@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.Twitter;
 
 namespace Wikiled.Text.Analysis.Tests.Twitter
@@ -35,12 +36,12 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
             AssertCaptureCount(4, TwitterRegex.VALID_HASHTAG, "#日本語ハッシュタグ");
             AssertCaptureCount(4, TwitterRegex.VALID_HASHTAG, "＃日本語ハッシュタグ");
 
-            Assert.IsTrue(TwitterRegex.VALID_HASHTAG.Match("これはOK #ハッシュタグ").Success);
-            Assert.IsTrue(TwitterRegex.VALID_HASHTAG.Match("これもOK。#ハッシュタグ").Success);
-            Assert.IsFalse(TwitterRegex.VALID_HASHTAG.Match("これはダメ#ハッシュタグ").Success);
+            ClassicAssert.IsTrue(TwitterRegex.VALID_HASHTAG.Match("これはOK #ハッシュタグ").Success);
+            ClassicAssert.IsTrue(TwitterRegex.VALID_HASHTAG.Match("これもOK。#ハッシュタグ").Success);
+            ClassicAssert.IsFalse(TwitterRegex.VALID_HASHTAG.Match("これはダメ#ハッシュタグ").Success);
 
-            Assert.IsFalse(TwitterRegex.VALID_HASHTAG.Match("#1").Success);
-            Assert.IsFalse(TwitterRegex.VALID_HASHTAG.Match("#0").Success);
+            ClassicAssert.IsFalse(TwitterRegex.VALID_HASHTAG.Match("#1").Success);
+            ClassicAssert.IsFalse(TwitterRegex.VALID_HASHTAG.Match("#0").Success);
         }
 
         [Test]
@@ -64,7 +65,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
         {
             String longPathIsLong =
                 "Check out http://example.com/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-            Assert.IsTrue(TwitterRegex.VALID_URL.Match(longPathIsLong).Success, "Failed to correctly match a very long path");
+            ClassicAssert.IsTrue(TwitterRegex.VALID_URL.Match(longPathIsLong).Success, "Failed to correctly match a very long path");
         }
 
         [Test]
@@ -83,21 +84,21 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                 bool isValid = TwitterRegex.VALID_URL.Match(text).Success;
                 stopWatch.Stop();
 
-                Assert.IsTrue(isValid, "Should be able to extract a valid URL even followed by punctuations");
-                Assert.IsTrue((stopWatch.ElapsedMilliseconds < 10), "Matching a repeated path end should take less than 10ms (took " + stopWatch.ElapsedMilliseconds + "ms)");
+                ClassicAssert.IsTrue(isValid, "Should be able to extract a valid URL even followed by punctuations");
+                ClassicAssert.IsTrue((stopWatch.ElapsedMilliseconds < 10), "Matching a repeated path end should take less than 10ms (took " + stopWatch.ElapsedMilliseconds + "ms)");
             }
         }
 
         [Test]
         public void ValidURLWithoutProtocolTest()
         {
-            Assert.IsTrue(TwitterRegex.VALID_URL.Match("twitter.com").Success, "Matching a URL with gTLD without protocol.");
-            Assert.IsTrue(TwitterRegex.VALID_URL.Match("www.foo.co.jp").Success, "Matching a URL with ccTLD without protocol.");
-            Assert.IsTrue(TwitterRegex.VALID_URL.Match("www.foo.org.za").Success, "Matching a URL with gTLD followed by ccTLD without protocol.");
-            Assert.IsTrue(TwitterRegex.VALID_URL.Match("http://t.co").Success, "Should not match a short URL with ccTLD without protocol.");
-            Assert.IsFalse(TwitterRegex.VALID_URL.Match("it.so").Success, "Should not match a short URL with ccTLD without protocol.");
-            Assert.IsFalse(TwitterRegex.VALID_URL.Match("www.xxxxxxx.baz").Success, "Should not match a URL with invalid gTLD.");
-            Assert.IsTrue(TwitterRegex.VALID_URL.Match("t.co/blahblah").Success, "Match a short URL with ccTLD and '/' but without protocol.");
+            ClassicAssert.IsTrue(TwitterRegex.VALID_URL.Match("twitter.com").Success, "Matching a URL with gTLD without protocol.");
+            ClassicAssert.IsTrue(TwitterRegex.VALID_URL.Match("www.foo.co.jp").Success, "Matching a URL with ccTLD without protocol.");
+            ClassicAssert.IsTrue(TwitterRegex.VALID_URL.Match("www.foo.org.za").Success, "Matching a URL with gTLD followed by ccTLD without protocol.");
+            ClassicAssert.IsTrue(TwitterRegex.VALID_URL.Match("http://t.co").Success, "Should not match a short URL with ccTLD without protocol.");
+            ClassicAssert.IsFalse(TwitterRegex.VALID_URL.Match("it.so").Success, "Should not match a short URL with ccTLD without protocol.");
+            ClassicAssert.IsFalse(TwitterRegex.VALID_URL.Match("www.xxxxxxx.baz").Success, "Should not match a URL with invalid gTLD.");
+            ClassicAssert.IsTrue(TwitterRegex.VALID_URL.Match("t.co/blahblah").Success, "Match a short URL with ccTLD and '/' but without protocol.");
         }
 
         [Test]
@@ -106,7 +107,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
             char[] invalid_chars = new char[] {'\u202A', '\u202B', '\u202C', '\u202D', '\u202E'};
             foreach(char c in invalid_chars)
             {
-                Assert.IsFalse(TwitterRegex.VALID_URL.Match("http://twitt" + c + "er.com").Success, "Should not extract URLs with invalid character");
+                ClassicAssert.IsFalse(TwitterRegex.VALID_URL.Match("http://twitt" + c + "er.com").Success, "Should not extract URLs with invalid character");
             }
         }
 
@@ -122,7 +123,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
             char[] invalid_chars = new char[] {'!', '@', '#', '$', '%', '&', '*'};
             foreach(char c in invalid_chars)
             {
-                Assert.IsFalse(TwitterRegex.VALID_MENTION_OR_LIST.Match("f" + c + "@kn").Success, "Failed to ignore a mention preceded by " + c);
+                ClassicAssert.IsFalse(TwitterRegex.VALID_MENTION_OR_LIST.Match("f" + c + "@kn").Success, "Failed to ignore a mention preceded by " + c);
             }
         }
 
@@ -136,8 +137,8 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
         private void AssertCaptureCount(int expectedCount, Regex pattern, string sample)
         {
-            Assert.IsTrue(pattern.Match(sample).Success, "Pattern failed to match sample: '" + sample + "'");
-            Assert.AreEqual(expectedCount, pattern.Match(sample).Groups.Count, "Does not have " + expectedCount + " captures as expected: '" + sample + "'");
+            ClassicAssert.IsTrue(pattern.Match(sample).Success, "Pattern failed to match sample: '" + sample + "'");
+            ClassicAssert.AreEqual(expectedCount, pattern.Match(sample).Groups.Count, "Does not have " + expectedCount + " captures as expected: '" + sample + "'");
         }
     }
 }

@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.Extensions;
 
 namespace Wikiled.Text.Analysis.Tests.Extensions
@@ -13,7 +14,7 @@ namespace Wikiled.Text.Analysis.Tests.Extensions
         public void Construct(char letter, bool expected)
         {
             var result = TextExtensions.IsVowel(letter);
-            Assert.AreEqual(expected, result);
+            ClassicAssert.AreEqual(expected, result);
         }
 
     }

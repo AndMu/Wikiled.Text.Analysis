@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.Twitter;
 
 namespace Wikiled.Text.Analysis.Tests.Twitter
@@ -21,10 +22,10 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
         public void UrlWithIndicesTest()
         {
             var extracted = extractor.ExtractUrlsWithIndices("http://t.co url https://www.twitter.com ");
-            Assert.AreEqual(extracted[0].Start, 0);
-            Assert.AreEqual(extracted[0].End, 11);
-            Assert.AreEqual(extracted[1].Start, 16);
-            Assert.AreEqual(extracted[1].End, 39);
+            ClassicAssert.AreEqual(extracted[0].Start, 0);
+            ClassicAssert.AreEqual(extracted[0].End, 11);
+            ClassicAssert.AreEqual(extracted[1].Start, 16);
+            ClassicAssert.AreEqual(extracted[1].End, 39);
         }
 
         [Test]
@@ -36,15 +37,15 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
             CollectionAssert.AreEqual(expected, actual);
 
             var extracted = extractor.ExtractUrlsWithIndices(text);
-            Assert.AreEqual(extracted[0].Start, 0);
-            Assert.AreEqual(extracted[0].End, 15);
-            Assert.AreEqual(extracted[1].Start, 17);
-            Assert.AreEqual(extracted[1].End, 32);
-            Assert.AreEqual(extracted[2].Start, 34);
-            Assert.AreEqual(extracted[2].End, 47);
+            ClassicAssert.AreEqual(extracted[0].Start, 0);
+            ClassicAssert.AreEqual(extracted[0].End, 15);
+            ClassicAssert.AreEqual(extracted[1].Start, 17);
+            ClassicAssert.AreEqual(extracted[1].End, 32);
+            ClassicAssert.AreEqual(extracted[2].Start, 34);
+            ClassicAssert.AreEqual(extracted[2].End, 47);
 
             extractor.ExtractUrlWithoutProtocol = false;
-            Assert.IsTrue(extractor.ExtractUrls(text).Length == 0, "Should not extract URLs w/o protocol");
+            ClassicAssert.IsTrue(extractor.ExtractUrls(text).Length == 0, "Should not extract URLs w/o protocol");
             extractor.ExtractUrlWithoutProtocol = true;
         }
 
@@ -75,7 +76,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
             foreach (string url in urls)
             {
                 List<string> extractedUrls = new List<string>(extractor.ExtractUrls(url));
-                Assert.AreEqual(url, extractedUrls[0]);
+                ClassicAssert.AreEqual(url, extractedUrls[0]);
             }
         }
 
@@ -87,27 +88,27 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             // count U+10400 as 2 characters (as in UTF-16)
             var extracted = extractor.ExtractUrlsWithIndices(text);
-            Assert.AreEqual(extracted.Length, 2);
-            Assert.AreEqual(extracted[0].Value, "http://twitter.com");
-            Assert.AreEqual(extracted[0].Start, 3);
-            Assert.AreEqual(extracted[0].End, 21);
-            Assert.AreEqual(extracted[1].Value, "http://twitter.com");
-            Assert.AreEqual(extracted[1].Start, 25);
-            Assert.AreEqual(extracted[1].End, 43);
+            ClassicAssert.AreEqual(extracted.Length, 2);
+            ClassicAssert.AreEqual(extracted[0].Value, "http://twitter.com");
+            ClassicAssert.AreEqual(extracted[0].Start, 3);
+            ClassicAssert.AreEqual(extracted[0].End, 21);
+            ClassicAssert.AreEqual(extracted[1].Value, "http://twitter.com");
+            ClassicAssert.AreEqual(extracted[1].Start, 25);
+            ClassicAssert.AreEqual(extracted[1].End, 43);
         }
 
         [Test]
         public void ReplyAtTheBeginningTest()
         {
             string extracted = extractor.ExtractReplyScreenname("@user reply");
-            Assert.AreEqual("user", extracted, "Failed to extract reply at the start");
+            ClassicAssert.AreEqual("user", extracted, "Failed to extract reply at the start");
         }
 
         [Test]
         public void ReplyWithLeadingSpaceTest()
         {
             string extracted = extractor.ExtractReplyScreenname(" @user reply");
-            Assert.AreEqual("user", extracted, "Failed to extract reply with leading space");
+            ClassicAssert.AreEqual("user", extracted, "Failed to extract reply with leading space");
         }
 
 
@@ -148,13 +149,13 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
         public void MentionWithIndicesTest()
         {
             var extracted = extractor.ExtractMentionedScreennamesWithIndices(" @user1 mention @user2 here @user3 ");
-            Assert.AreEqual(extracted.Count(), 3);
-            Assert.AreEqual(extracted[0].Start, 1);
-            Assert.AreEqual(extracted[0].End, 7);
-            Assert.AreEqual(extracted[1].Start, 16);
-            Assert.AreEqual(extracted[1].End, 22);
-            Assert.AreEqual(extracted[2].Start, 28);
-            Assert.AreEqual(extracted[2].End, 34);
+            ClassicAssert.AreEqual(extracted.Count(), 3);
+            ClassicAssert.AreEqual(extracted[0].Start, 1);
+            ClassicAssert.AreEqual(extracted[0].End, 7);
+            ClassicAssert.AreEqual(extracted[1].Start, 16);
+            ClassicAssert.AreEqual(extracted[1].End, 22);
+            ClassicAssert.AreEqual(extracted[2].Start, 28);
+            ClassicAssert.AreEqual(extracted[2].End, 34);
         }
 
         [Test]
@@ -165,13 +166,13 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             // count U+10400 as 2 characters (as in UTF-16)
             var extracted = extractor.ExtractMentionedScreennamesWithIndices(text);
-            Assert.AreEqual(extracted.Count(), 2);
-            Assert.AreEqual(extracted[0].Value, "mention");
-            Assert.AreEqual(extracted[0].Start, 3);
-            Assert.AreEqual(extracted[0].End, 11);
-            Assert.AreEqual(extracted[1].Value, "mention");
-            Assert.AreEqual(extracted[1].Start, 15);
-            Assert.AreEqual(extracted[1].End, 23);
+            ClassicAssert.AreEqual(extracted.Count(), 2);
+            ClassicAssert.AreEqual(extracted[0].Value, "mention");
+            ClassicAssert.AreEqual(extracted[0].Start, 3);
+            ClassicAssert.AreEqual(extracted[0].End, 11);
+            ClassicAssert.AreEqual(extracted[1].Value, "mention");
+            ClassicAssert.AreEqual(extracted[1].Start, 15);
+            ClassicAssert.AreEqual(extracted[1].End, 23);
         }
 
         [Test]
@@ -210,13 +211,13 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
         public void HashtagWithIndicesTest()
         {
             var extracted = extractor.ExtractHashtagsWithIndices(" #user1 mention #user2 here #user3 ");
-            Assert.AreEqual(extracted.Length, 3);
-            Assert.AreEqual(extracted[0].Start, 1);
-            Assert.AreEqual(extracted[0].End, 7);
-            Assert.AreEqual(extracted[1].Start, 16);
-            Assert.AreEqual(extracted[1].End, 22);
-            Assert.AreEqual(extracted[2].Start, 28);
-            Assert.AreEqual(extracted[2].End, 34);
+            ClassicAssert.AreEqual(extracted.Length, 3);
+            ClassicAssert.AreEqual(extracted[0].Start, 1);
+            ClassicAssert.AreEqual(extracted[0].End, 7);
+            ClassicAssert.AreEqual(extracted[1].Start, 16);
+            ClassicAssert.AreEqual(extracted[1].End, 22);
+            ClassicAssert.AreEqual(extracted[2].Start, 28);
+            ClassicAssert.AreEqual(extracted[2].End, 34);
         }
 
         [Test]
@@ -227,13 +228,13 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             // count U+10400 as 2 characters (as in UTF-16)
             var extracted = extractor.ExtractHashtagsWithIndices(text);
-            Assert.AreEqual(extracted.Length, 2);
-            Assert.AreEqual(extracted[0].Value, "hashtag");
-            Assert.AreEqual(extracted[0].Start, 3);
-            Assert.AreEqual(extracted[0].End, 11);
-            Assert.AreEqual(extracted[1].Value, "hashtag");
-            Assert.AreEqual(extracted[1].Start, 15);
-            Assert.AreEqual(extracted[1].End, 23);
+            ClassicAssert.AreEqual(extracted.Length, 2);
+            ClassicAssert.AreEqual(extracted[0].Value, "hashtag");
+            ClassicAssert.AreEqual(extracted[0].Start, 3);
+            ClassicAssert.AreEqual(extracted[0].End, 11);
+            ClassicAssert.AreEqual(extracted[1].Value, "hashtag");
+            ClassicAssert.AreEqual(extracted[1].Start, 15);
+            ClassicAssert.AreEqual(extracted[1].End, 23);
         }
     }
 }
