@@ -30,8 +30,8 @@ namespace Wikiled.Text.Analysis.Tests.Wordnet.InformationContent
         public void SetupGlobal()
         {
             var path = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.FullName!)!);
-            resnik = InformationContentResnik.Load(Path.Combine(path, "Resources", @"WordNet-InfoContent-3.0\ic-brown-resnik-add1.dat"));
-            engine = new WordNetEngine(Path.Combine(path, "Resources", @"Wordnet 3.0"));
+            resnik = InformationContentResnik.Load(Path.Combine(path, "Resources", "WordNet-InfoContent-3.0", "ic-brown-resnik-add1.dat"));
+            engine = new WordNetEngine(Path.Combine(path, "Resources", "Wordnet 3.0"));
         }
 
         [Test]

@@ -17,7 +17,7 @@ namespace Wikiled.Text.Analysis.Tests.Dictionary.Streams
         public void Construct()
         {
             var path = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.FullName!)!);
-            var file = Path.Combine(path, "Resources", @"Embedded\Dictionary\NRC.txt");
+            var file = Path.Combine(path, "Resources", "Embedded", "Dictionary", "NRC.txt");
             var stream = new DictionaryStream(file, new FileStreamSource());
             var table = stream.ReadDataFromStream(double.Parse).ToArray();
             ClassicAssert.AreEqual(141820, table.Length);
