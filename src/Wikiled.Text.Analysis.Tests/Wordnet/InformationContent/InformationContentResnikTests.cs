@@ -7,7 +7,6 @@ using System.Reflection;
 using Wikiled.Text.Analysis.POS;
 using Wikiled.Text.Analysis.WordNet.Engine;
 using Wikiled.Text.Analysis.WordNet.InformationContent;
-using ConfigurationManager = System.Configuration.ConfigurationManager;
 
 namespace Wikiled.Text.Analysis.Tests.Wordnet.InformationContent
 {

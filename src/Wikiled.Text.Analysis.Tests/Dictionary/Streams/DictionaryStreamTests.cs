@@ -1,7 +1,6 @@
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
