@@ -22,7 +22,7 @@ namespace Wikiled.Text.Analysis.Tests.Wordnet.InformationContent
         [SetUp]
         public void Setup()
         {
-            instance = new JcnMeasure(new MemoryCache(new MemoryCacheOptions()), resnik, engine);
+            instance = new JcnMeasure(resnik, engine);
         }
 
         [OneTimeSetUp]

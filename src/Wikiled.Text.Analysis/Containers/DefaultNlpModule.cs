@@ -13,7 +13,7 @@ namespace Wikiled.Text.Analysis.Containers
 {
     public static class DefaultNlpModule
     {
-        public static IServiceCollection ConfigureServices(this IServiceCollection services)
+        public static IServiceCollection AddDefaultNlp(this IServiceCollection services)
         {
             services.AddSingleton<IWordsDictionary, BasicEnglishDictionary>();
             services.AddSingleton<INRCDictionary>(ctx =>
@@ -40,7 +40,6 @@ namespace Wikiled.Text.Analysis.Containers
             });
 
             services.AddSingleton<IRawTextExtractor, RawWordExtractor>();
-            services.AddSingleton<IMemoryCache>(ctx => new MemoryCache(new MemoryCacheOptions()));
             return services;
         }
     }

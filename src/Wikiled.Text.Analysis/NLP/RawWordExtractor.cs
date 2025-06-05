@@ -1,4 +1,5 @@
 ﻿using System;
+using Jitbit.Utils;
 using Microsoft.Extensions.Caching.Memory;
 using Wikiled.Common.Extensions;
 using Wikiled.Text.Analysis.Dictionary;
@@ -10,12 +11,11 @@ namespace Wikiled.Text.Analysis.NLP
     {
         private readonly PluralizationServiceInstance service;
 
-        private readonly IMemoryCache cache;
+        private readonly FastCache<string, string> cache = new ();
 
-        public RawWordExtractor(IWordsDictionary dictionary, IMemoryCache cache)
+        public RawWordExtractor(IWordsDictionary dictionary)
         {
             Dictionary = dictionary ?? throw new ArgumentNullException(nameof(dictionary));
-            this.cache = cache ?? throw new ArgumentNullException(nameof(cache));
             service = new PluralizationServiceInstance();
         }
 
@@ -28,13 +28,10 @@ namespace Wikiled.Text.Analysis.NLP
                 return string.Empty;
             }
 
-            return cache.GetOrCreate(
+            return cache.GetOrAdd(
                 word,
-                entry =>
-                    {
-                        entry.SlidingExpiration = TimeSpan.FromMinutes(1);
-                        return GetWordInternal(word);
-                    });
+                entry => GetWordInternal(word), 
+                TimeSpan.FromMinutes(1));
         }
 
         private string GetWordInternal(string word)
