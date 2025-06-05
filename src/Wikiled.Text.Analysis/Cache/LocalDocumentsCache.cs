@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using Jitbit.Utils;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
@@ -11,11 +11,11 @@ namespace Wikiled.Text.Analysis.Cache
 {
     public class LocalDocumentsCache : ICachedDocumentsSource
     {
-        private readonly IMemoryCache cache;
+        private readonly FastCache<string, LightDocument> cache = new();
 
         private readonly ILogger<LocalDocumentsCache> log;
 
-        public LocalDocumentsCache(ILogger<LocalDocumentsCache> log, IMemoryCache cache)
+        public LocalDocumentsCache(ILogger<LocalDocumentsCache> log)
         {
             this.cache = cache ?? throw new ArgumentNullException(nameof(cache));
             this.log = log ?? throw new ArgumentNullException(nameof(log));
@@ -28,13 +28,13 @@ namespace Wikiled.Text.Analysis.Cache
                 throw new ArgumentNullException(nameof(original));
             }
 
-            if (cache.TryGetValue(original.GetId(), out LightDocument document))
+            if (cache.TryGet(original.GetId(), out LightDocument document))
             {
                 log.LogDebug("Found in cache using document id: {0}", document.Id);
                 return Task.FromResult(document);
             }
 
-            if (cache.TryGetValue(original.GetTextId(), out document))
+            if (cache.TryGet(original.GetTextId(), out document))
             {
                 log.LogDebug("Found in cache using text - document id: {0}", document.Id);
             }
@@ -44,13 +44,10 @@ namespace Wikiled.Text.Analysis.Cache
 
         public Task<bool> Save(LightDocument document)
         {
-            var cacheEntryOptions = new MemoryCacheEntryOptions()
-                .SetSlidingExpiration(TimeSpan.FromMinutes(1));
-
             document = document.CloneJson();
             // Save data in cache.
-            cache.Set(document.GetId(), document, cacheEntryOptions);
-            cache.Set(document.GetTextId(), document, cacheEntryOptions);
+            cache.TryAdd(document.GetId(), document, TimeSpan.FromMinutes(1));
+            cache.TryAdd(document.GetTextId(), document, TimeSpan.FromMinutes(1));
             return Task.FromResult(true);
         }
     }

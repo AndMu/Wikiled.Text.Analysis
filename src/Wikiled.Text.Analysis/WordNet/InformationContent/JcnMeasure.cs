@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Jitbit.Utils;
+using System;
 using Wikiled.Text.Analysis.POS;
 using Wikiled.Text.Analysis.WordNet.Engine;
 
@@ -7,13 +7,13 @@ namespace Wikiled.Text.Analysis.WordNet.InformationContent
 {
     public class JcnMeasure : IRelatednessMesaure
     {
-        private readonly IMemoryCache cache;
+        private readonly FastCache<string, double> cache = new();
 
         private readonly IWordNetEngine engine;
 
         private readonly IInformationContentResnik resnik;
 
-        public JcnMeasure(IMemoryCache cache, IInformationContentResnik resnik, IWordNetEngine engine)
+        public JcnMeasure(IInformationContentResnik resnik, IWordNetEngine engine)
         {
             this.resnik = resnik ?? throw new ArgumentNullException(nameof(resnik));
             this.engine = engine ?? throw new ArgumentNullException(nameof(engine));
@@ -87,7 +87,7 @@ namespace Wikiled.Text.Analysis.WordNet.InformationContent
             }
 
             var tag = GenerateTag(synSet1, synSet2);
-            return cache.GetOrCreate(
+            return cache.GetOrAdd(
                 tag,
                 entry =>
                     {
@@ -111,7 +111,8 @@ namespace Wikiled.Text.Analysis.WordNet.InformationContent
                         }
 
                         return 1 / distance;
-                    });
+                    },
+                TimeSpan.FromHours(1));
         }
 
         private string GenerateTag(SynSet synSet1, SynSet synSet2)

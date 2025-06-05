@@ -1,6 +1,4 @@
-﻿using System.IO;
-using Microsoft.Extensions.Caching.Memory;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Wikiled.Text.Analysis.Dictionary;
 using Wikiled.Text.Analysis.NLP;
 using Wikiled.Text.Analysis.NLP.Frequency;
@@ -23,7 +21,7 @@ namespace Wikiled.Text.Analysis.Tests
         public void Setup()
         {
             PosTagger = new NaivePOSTagger(new BNCList(), WordTypeResolver.Instance);
-            Raw = new RawWordExtractor(new BasicEnglishDictionary(), new MemoryCache(new MemoryCacheOptions()));
+            Raw = new RawWordExtractor(new BasicEnglishDictionary());
             Factory = new SentenceTokenizerFactory(PosTagger, Raw);
         }
 
