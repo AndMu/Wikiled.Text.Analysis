@@ -1,13 +1,14 @@
 name: .NET CI
 on:
+  workflow_dispatch:
   push:
     paths:
     - 'src/**'
     - '.github/workflows/build.yml'
 env:
-  DOTNET_CORE_VERSION: '8.0.x'
-  MAJOR_VERSION: '1'
-  MINOR_VERSION: '6'
+  DOTNET_CORE_VERSION: '9.0.x'
+  MAJOR_VERSION: '2'
+  MINOR_VERSION: '3'
   REVISION_VERSION: '0'
   NUGET_SOURCE: 'https://api.nuget.org/v3/index.json'
 
@@ -16,12 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout source code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
     
     - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
 
@@ -53,7 +54,7 @@ jobs:
       # Note: Adjust the `dotnet test` command to target your specific test project if necessary.
 
     - name: Upload test results # This step will upload the test results as an artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always() # This ensures that the test results are uploaded even if the test step fails
       with:
         name: test-results

@@ -13,7 +13,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="System.Text.Json" Version="9.0.5" />
-    <PackageReference Include="Wikiled.Arff" Version="2.2.27" />
+    <PackageReference Include="Wikiled.Arff" Version="2.3.0.5" />
     <PackageReference Include="Wikiled.Common" Version="1.6.0.8" />
     <PackageReference Include="YamlDotNet" Version="16.3.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.5" />
