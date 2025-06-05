@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.Twitter;
 
 namespace Wikiled.Text.Analysis.Tests.Twitter
@@ -18,25 +19,25 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
         [Test]
         public void BOMCharacterTest()
         {
-            Assert.IsFalse(validator.IsValidTweet("test \uFFFE"));
-            Assert.IsFalse(validator.IsValidTweet("test \uFEFF"));
+            ClassicAssert.IsFalse(validator.IsValidTweet("test \uFFFE"));
+            ClassicAssert.IsFalse(validator.IsValidTweet("test \uFEFF"));
         }
 
         [Test]
         public void InvalidCharacterTest()
         {
-            Assert.IsFalse(validator.IsValidTweet("test \uFFFF"));
-            Assert.IsFalse(validator.IsValidTweet("test \uFEFF"));
+            ClassicAssert.IsFalse(validator.IsValidTweet("test \uFFFF"));
+            ClassicAssert.IsFalse(validator.IsValidTweet("test \uFEFF"));
         }
 
         [Test]
         public void DirectionChangeCharactersTest()
         {
-            Assert.IsFalse(validator.IsValidTweet("test \u202A test"));
-            Assert.IsFalse(validator.IsValidTweet("test \u202B test"));
-            Assert.IsFalse(validator.IsValidTweet("test \u202C test"));
-            Assert.IsFalse(validator.IsValidTweet("test \u202D test"));
-            Assert.IsFalse(validator.IsValidTweet("test \u202E test"));
+            ClassicAssert.IsFalse(validator.IsValidTweet("test \u202A test"));
+            ClassicAssert.IsFalse(validator.IsValidTweet("test \u202B test"));
+            ClassicAssert.IsFalse(validator.IsValidTweet("test \u202C test"));
+            ClassicAssert.IsFalse(validator.IsValidTweet("test \u202D test"));
+            ClassicAssert.IsFalse(validator.IsValidTweet("test \u202E test"));
         }
 
         [Test]
@@ -48,9 +49,9 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
             {
                 builder.Append(c);
             }
-            Assert.IsTrue(validator.IsValidTweet(builder.ToString()));
-            Assert.IsTrue(validator.IsValidTweet(builder.Append(c).ToString()));
-            Assert.IsFalse(validator.IsValidTweet(builder.Append(c).ToString()));
+            ClassicAssert.IsTrue(validator.IsValidTweet(builder.ToString()));
+            ClassicAssert.IsTrue(validator.IsValidTweet(builder.Append(c).ToString()));
+            ClassicAssert.IsFalse(validator.IsValidTweet(builder.Append(c).ToString()));
         }
 
         [Test]
@@ -62,9 +63,9 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
             {
                 builder.Append(c);
             }
-            Assert.IsTrue(validator.IsValidTweet(builder.ToString()));
-            Assert.IsTrue(validator.IsValidTweet(builder.Append(c).ToString()));
-            Assert.IsFalse(validator.IsValidTweet(builder.Append(c).ToString()));
+            ClassicAssert.IsTrue(validator.IsValidTweet(builder.ToString()));
+            ClassicAssert.IsTrue(validator.IsValidTweet(builder.Append(c).ToString()));
+            ClassicAssert.IsFalse(validator.IsValidTweet(builder.Append(c).ToString()));
         }
     }
 }

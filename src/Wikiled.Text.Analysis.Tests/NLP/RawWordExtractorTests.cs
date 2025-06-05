@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Wikiled.Text.Analysis.Tests.NLP
 {
@@ -41,7 +42,7 @@ namespace Wikiled.Text.Analysis.Tests.NLP
         public void GetSpecialSymbols(string word, string extected)
         {
             var result = Global.Raw.GetWord(word);
-            Assert.AreEqual(extected, result);
+            ClassicAssert.AreEqual(extected, result);
         }
     }
 }

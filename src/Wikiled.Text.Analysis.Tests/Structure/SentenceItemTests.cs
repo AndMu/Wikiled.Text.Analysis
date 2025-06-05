@@ -1,6 +1,7 @@
 ﻿using System.Xml.Linq;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Common.Serialization;
 using Wikiled.Text.Analysis.Structure;
 
@@ -20,18 +21,18 @@ namespace Wikiled.Text.Analysis.Tests.Structure
         [Test]
         public void Construct()
         {
-            Assert.AreEqual("Test", item.Text);
-            Assert.AreEqual(0, item.Words.Count);
+            ClassicAssert.AreEqual("Test", item.Text);
+            ClassicAssert.AreEqual(0, item.Words.Count);
         }
 
         [Test]
         public void Add()
         {
-            Assert.AreEqual(0, item.Words.Count);
+            ClassicAssert.AreEqual(0, item.Words.Count);
             item.Add("Test");
-            Assert.AreEqual(1, item.Words.Count);
+            ClassicAssert.AreEqual(1, item.Words.Count);
             item.Add(new WordEx(new SimpleWord("Test")));
-            Assert.AreEqual(2, item.Words.Count);
+            ClassicAssert.AreEqual(2, item.Words.Count);
         }
 
         [Test]
@@ -43,11 +44,11 @@ namespace Wikiled.Text.Analysis.Tests.Structure
             word.CalculatedValue = 2;
             item.Add(word);
             var sentence = (SentenceItem)item.Clone();
-            Assert.AreEqual(3, sentence.Words.Count);
-            Assert.AreEqual(item.CalculateSentiment().RawRating, sentence.CalculateSentiment().RawRating);
-            Assert.AreEqual("One", sentence.Words[0].Text);
-            Assert.AreEqual("Two", sentence.Words[1].Text);
-            Assert.AreEqual("T", sentence.Words[2].Text);
+            ClassicAssert.AreEqual(3, sentence.Words.Count);
+            ClassicAssert.AreEqual(item.CalculateSentiment().RawRating, sentence.CalculateSentiment().RawRating);
+            ClassicAssert.AreEqual("One", sentence.Words[0].Text);
+            ClassicAssert.AreEqual("Two", sentence.Words[1].Text);
+            ClassicAssert.AreEqual("T", sentence.Words[2].Text);
         }
 
         [Test]
@@ -57,13 +58,13 @@ namespace Wikiled.Text.Analysis.Tests.Structure
             item.Add("Test2");
             var json = JsonConvert.SerializeObject(item);
             var itemDeserialized = JsonConvert.DeserializeObject<SentenceItem>(json);
-            Assert.AreEqual(2, itemDeserialized.Words.Count);
-            Assert.AreEqual("Test", itemDeserialized.Text);
+            ClassicAssert.AreEqual(2, itemDeserialized.Words.Count);
+            ClassicAssert.AreEqual("Test", itemDeserialized.Text);
 
             XDocument document = item.XmlSerialize();
             itemDeserialized = document.XmlDeserialize<SentenceItem>();
-            Assert.AreEqual(2, itemDeserialized.Words.Count);
-            Assert.AreEqual("Test", itemDeserialized.Text);
+            ClassicAssert.AreEqual(2, itemDeserialized.Words.Count);
+            ClassicAssert.AreEqual("Test", itemDeserialized.Text);
         }
     }
 }

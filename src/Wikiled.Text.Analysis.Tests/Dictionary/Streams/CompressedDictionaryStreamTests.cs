@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Linq;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.Dictionary;
 using Wikiled.Text.Analysis.Dictionary.Streams;
 
@@ -13,7 +14,7 @@ namespace Wikiled.Text.Analysis.Tests.Dictionary.Streams
         {
             var stream = new CompressedDictionaryStream("Resources.Dictionary.RawEnglish.dat", new EmbeddedStreamSource<WordsDictionary>());
             var table = stream.ReadDataFromStream(double.Parse).ToDictionary(item => item.Word, item => item.Value);
-            Assert.AreEqual(44323, table.Count);
+            ClassicAssert.AreEqual(44323, table.Count);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.Twitter;
 
 namespace Wikiled.Text.Analysis.Tests.Twitter
@@ -45,7 +46,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
         public void Cleanup(string message, string expected)
         {
             var result = instance.Cleanup(message);
-            Assert.AreEqual(expected, result);
+            ClassicAssert.AreEqual(expected, result);
         }
 
         [TestCase(@"https://t.co/a762lFPC6T $AAPL good", @"https:/t.co/a762lFPC6T $AAPL good", false, false, false)]
@@ -58,7 +59,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
             instance.CleanCashTags = cash;
             instance.CleanUrl = url;
             var result = instance.Cleanup(message);
-            Assert.AreEqual(expected, result);
+            ClassicAssert.AreEqual(expected, result);
         }
 
         private MessageCleanup CreateMessageCleanup()

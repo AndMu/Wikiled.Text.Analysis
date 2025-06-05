@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.NLP.Frequency;
 
 namespace Wikiled.Text.Analysis.Tests.NLP.Frequency
@@ -10,10 +11,10 @@ namespace Wikiled.Text.Analysis.Tests.NLP.Frequency
         public void Test()
         {
             var instance = new FrequencyListManager();
-            Assert.AreEqual(347, instance.BNC.GetIndex("mother").Index);
-            Assert.AreEqual(900, instance.Internet.GetIndex("mother").Index);
-            Assert.AreEqual(2129, instance.Reuters.GetIndex("mother").Index);
-            Assert.AreEqual(241, instance.Subtitles.GetIndex("mother").Index);
+            ClassicAssert.AreEqual(347, instance.BNC.GetIndex("mother").Index);
+            ClassicAssert.AreEqual(900, instance.Internet.GetIndex("mother").Index);
+            ClassicAssert.AreEqual(2129, instance.Reuters.GetIndex("mother").Index);
+            ClassicAssert.AreEqual(241, instance.Subtitles.GetIndex("mother").Index);
         }
     }
 }

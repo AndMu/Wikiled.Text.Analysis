@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.Helpers;
 
 namespace Wikiled.Text.Analysis.Tests.Helpers
@@ -12,7 +13,7 @@ namespace Wikiled.Text.Analysis.Tests.Helpers
             object value1 = 1;
             object value2 = 2;
             var result = Calculator<object>.Add(value1, value2);
-            Assert.AreEqual(3, result);
+            ClassicAssert.AreEqual(3, result);
         }
     }
 }

@@ -4,6 +4,7 @@ using Moq;
 using NUnit.Framework;
 using System;
 using System.Linq;
+using NUnit.Framework.Legacy;
 using Wikiled.MachineLearning.Mathematics.Vectors;
 using Wikiled.Text.Analysis.Similarity;
 using Wikiled.Text.Analysis.Structure;
@@ -34,23 +35,23 @@ namespace Wikiled.Text.Analysis.Tests.Similarity
             instance.Register(BagOfWords.Create("one", "one", "two"));
 
             var result = instance.FindSimilar(BagOfWords.Create("thee", "two", "three")).ToArray();
-            Assert.AreEqual(3, result.Length);
+            ClassicAssert.AreEqual(3, result.Length);
         }
 
         [Test]
         public void Construct()
         {
-            Assert.Throws<ArgumentNullException>(() => new SimilarityDetector(
+            ClassicAssert.Throws<ArgumentNullException>(() => new SimilarityDetector(
                                                      null,
                                                      mockOneHotEncoder.Object,
                                                      mockDistance.Object));
 
-            Assert.Throws<ArgumentNullException>(() => new SimilarityDetector(
+            ClassicAssert.Throws<ArgumentNullException>(() => new SimilarityDetector(
                                                      new NullLogger<SimilarityDetector>(),
                                                      null,
                                                      mockDistance.Object));
 
-            Assert.Throws<ArgumentNullException>(() => new SimilarityDetector(
+            ClassicAssert.Throws<ArgumentNullException>(() => new SimilarityDetector(
                                                      new NullLogger<SimilarityDetector>(),
                                                      mockOneHotEncoder.Object,
                                                      null));

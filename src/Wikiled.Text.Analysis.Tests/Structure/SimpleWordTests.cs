@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.Structure;
 
 namespace Wikiled.Text.Analysis.Tests.Structure
@@ -18,7 +19,7 @@ namespace Wikiled.Text.Analysis.Tests.Structure
         [Test]
         public void Construct()
         {
-            Assert.Throws<ArgumentException>(() => new SimpleWord(null));
+            ClassicAssert.Throws<ArgumentException>(() => new SimpleWord(null));
         }
 
         private SimpleWord CreateSimpleWord()

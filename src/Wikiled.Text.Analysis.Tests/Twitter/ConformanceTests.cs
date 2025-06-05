@@ -4,6 +4,7 @@ using System.Dynamic;
 using System.IO;
 using System.Linq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.Twitter;
 using YamlDotNet.RepresentationModel;
 
@@ -38,7 +39,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                 try
                 {
                     string actual = autolink.AutoLink(test.Text);
-                    Assert.AreEqual(test.Expected, actual);
+                    ClassicAssert.AreEqual(test.Expected, actual);
                 }
                 catch(Exception)
                 {
@@ -47,7 +48,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
             }
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -60,7 +61,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                 try
                 {
                     string actual = autolink.AutoLinkCashtags(test.Text);
-                    Assert.AreEqual(test.Expected, actual);
+                    ClassicAssert.AreEqual(test.Expected, actual);
                 }
                 catch(Exception)
                 {
@@ -70,7 +71,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -83,7 +84,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                 try
                 {
                     string actual = autolink.AutoLinkHashtags(test.Text);
-                    Assert.AreEqual(test.Expected, actual);
+                    ClassicAssert.AreEqual(test.Expected, actual);
                 }
                 catch(Exception)
                 {
@@ -93,7 +94,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -106,7 +107,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                 try
                 {
                     string actual = autolink.AutoLinkUsernamesAndLists(test.Text);
-                    Assert.AreEqual(test.Expected, actual);
+                    ClassicAssert.AreEqual(test.Expected, actual);
                 }
                 catch(Exception)
                 {
@@ -116,7 +117,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -129,7 +130,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                 try
                 {
                     string actual = autolink.AutoLinkUrls(test.Text);
-                    Assert.AreEqual(test.Expected, actual);
+                    ClassicAssert.AreEqual(test.Expected, actual);
                 }
                 catch(Exception)
                 {
@@ -139,7 +140,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -152,7 +153,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                 try
                 {
                     string actual = autolink.AutoLinkUsernamesAndLists(test.Text);
-                    Assert.AreEqual(test.Expected, actual);
+                    ClassicAssert.AreEqual(test.Expected, actual);
                 }
                 catch(Exception)
                 {
@@ -162,7 +163,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -185,7 +186,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -208,7 +209,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -224,9 +225,9 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                     for(int i = 0; i < actual.Length; i++)
                     {
                         var entity = actual[i];
-                        Assert.AreEqual(test.Expected[i].cashtag, entity.Value);
-                        Assert.AreEqual(test.Expected[i].indices[0], entity.Start);
-                        Assert.AreEqual(test.Expected[i].indices[1], entity.End);
+                        ClassicAssert.AreEqual(test.Expected[i].cashtag, entity.Value);
+                        ClassicAssert.AreEqual(test.Expected[i].indices[0], entity.Start);
+                        ClassicAssert.AreEqual(test.Expected[i].indices[1], entity.End);
                     }
                 }
                 catch(Exception)
@@ -237,7 +238,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -260,7 +261,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -276,9 +277,9 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                     for(int i = 0; i < actual.Length; i++)
                     {
                         var entity = actual[i];
-                        Assert.AreEqual(test.Expected[i].hashtag, entity.Value);
-                        Assert.AreEqual(test.Expected[i].indices[0], entity.Start);
-                        Assert.AreEqual(test.Expected[i].indices[1], entity.End);
+                        ClassicAssert.AreEqual(test.Expected[i].hashtag, entity.Value);
+                        ClassicAssert.AreEqual(test.Expected[i].indices[0], entity.Start);
+                        ClassicAssert.AreEqual(test.Expected[i].indices[1], entity.End);
                     }
                 }
                 catch(Exception)
@@ -289,7 +290,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -312,7 +313,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -328,10 +329,10 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                     for(int i = 0; i < actual.Count; i++)
                     {
                         var entity = actual[i];
-                        Assert.AreEqual(test.Expected[i].screen_name, entity.Value);
-                        Assert.AreEqual(test.Expected[i].list_slug, entity.ListSlug);
-                        Assert.AreEqual(test.Expected[i].indices[0], entity.Start);
-                        Assert.AreEqual(test.Expected[i].indices[1], entity.End);
+                        ClassicAssert.AreEqual(test.Expected[i].screen_name, entity.Value);
+                        ClassicAssert.AreEqual(test.Expected[i].list_slug, entity.ListSlug);
+                        ClassicAssert.AreEqual(test.Expected[i].indices[0], entity.Start);
+                        ClassicAssert.AreEqual(test.Expected[i].indices[1], entity.End);
                     }
                 }
                 catch(Exception)
@@ -342,7 +343,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -358,9 +359,9 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                     for(int i = 0; i < actual.Length; i++)
                     {
                         var entity = actual[i];
-                        Assert.AreEqual(test.Expected[i].screen_name, entity.Value);
-                        Assert.AreEqual(test.Expected[i].indices[0], entity.Start);
-                        Assert.AreEqual(test.Expected[i].indices[1], entity.End);
+                        ClassicAssert.AreEqual(test.Expected[i].screen_name, entity.Value);
+                        ClassicAssert.AreEqual(test.Expected[i].indices[0], entity.Start);
+                        ClassicAssert.AreEqual(test.Expected[i].indices[1], entity.End);
                     }
                 }
                 catch(Exception)
@@ -371,7 +372,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -384,7 +385,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                 try
                 {
                     string actual = extractor.ExtractReplyScreenname(test.Text);
-                    Assert.AreEqual(test.Expected, actual);
+                    ClassicAssert.AreEqual(test.Expected, actual);
                 }
                 catch(Exception)
                 {
@@ -394,7 +395,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -417,7 +418,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -433,9 +434,9 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                     for(int i = 0; i < actual.Length; i++)
                     {
                         var entity = actual[i];
-                        Assert.AreEqual(test.Expected[i].url, entity.Value);
-                        Assert.AreEqual(test.Expected[i].indices[0], entity.Start);
-                        Assert.AreEqual(test.Expected[i].indices[1], entity.End);
+                        ClassicAssert.AreEqual(test.Expected[i].url, entity.Value);
+                        ClassicAssert.AreEqual(test.Expected[i].indices[0], entity.Start);
+                        ClassicAssert.AreEqual(test.Expected[i].indices[1], entity.End);
                     }
                 }
                 catch(Exception)
@@ -446,7 +447,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -469,7 +470,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -482,7 +483,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                 try
                 {
                     string actual = highlighter.Highlight(test.Text, test.Hits);
-                    Assert.AreEqual(test.Expected, actual);
+                    ClassicAssert.AreEqual(test.Expected, actual);
                 }
                 catch(Exception)
                 {
@@ -492,7 +493,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -505,7 +506,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                 try
                 {
                     string actual = highlighter.Highlight(test.Text, test.Hits);
-                    Assert.AreEqual(test.Expected, actual);
+                    ClassicAssert.AreEqual(test.Expected, actual);
                 }
                 catch(Exception)
                 {
@@ -515,7 +516,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -528,7 +529,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                 try
                 {
                     bool actual = validator.IsValidHashTag(test.Text);
-                    Assert.AreEqual(test.Expected, actual);
+                    ClassicAssert.AreEqual(test.Expected, actual);
                 }
                 catch(Exception)
                 {
@@ -538,7 +539,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -552,7 +553,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                 try
                 {
                     actual = validator.GetTweetLength(test.Text);
-                    Assert.AreEqual(test.Expected, actual);
+                    ClassicAssert.AreEqual(test.Expected, actual);
                 }
                 catch(Exception)
                 {
@@ -562,7 +563,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -575,7 +576,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                 try
                 {
                     bool actual = validator.IsValidList(test.Text);
-                    Assert.AreEqual(test.Expected, actual);
+                    ClassicAssert.AreEqual(test.Expected, actual);
                 }
                 catch(Exception)
                 {
@@ -585,7 +586,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -598,7 +599,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                 try
                 {
                     bool actual = validator.IsValidTweet(test.Text);
-                    Assert.AreEqual(test.Expected, actual);
+                    ClassicAssert.AreEqual(test.Expected, actual);
                 }
                 catch(Exception)
                 {
@@ -608,7 +609,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -621,7 +622,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                 try
                 {
                     bool actual = validator.IsValidUrl(test.Text);
-                    Assert.AreEqual(test.Expected, actual);
+                    ClassicAssert.AreEqual(test.Expected, actual);
                 }
                 catch(Exception)
                 {
@@ -631,7 +632,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -644,7 +645,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                 try
                 {
                     bool actual = validator.IsValidUrl(test.Text);
-                    Assert.AreEqual(test.Expected, actual);
+                    ClassicAssert.AreEqual(test.Expected, actual);
                 }
                 catch(Exception)
                 {
@@ -654,7 +655,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 
@@ -667,7 +668,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
                 try
                 {
                     bool actual = validator.IsValidUsername(test.Text);
-                    Assert.AreEqual(test.Expected, actual);
+                    ClassicAssert.AreEqual(test.Expected, actual);
                 }
                 catch(Exception)
                 {
@@ -677,7 +678,7 @@ namespace Wikiled.Text.Analysis.Tests.Twitter
 
             if(failures.Any())
             {
-                Assert.Fail(string.Join("\n", failures));
+                ClassicAssert.Fail(string.Join("\n", failures));
             }
         }
 

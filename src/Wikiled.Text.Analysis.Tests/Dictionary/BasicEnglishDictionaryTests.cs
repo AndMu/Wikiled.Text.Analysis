@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.Dictionary;
 
 namespace Wikiled.Text.Analysis.Tests.Dictionary
@@ -11,9 +12,9 @@ namespace Wikiled.Text.Analysis.Tests.Dictionary
         {
             var instance = new BasicEnglishDictionary();
             var data = instance.GetWords();
-            Assert.AreEqual(44323, data.Length);
-            Assert.IsTrue(instance.IsKnown("mother"));
-            Assert.IsFalse(instance.IsKnown("motherzzz"));
+            ClassicAssert.AreEqual(44323, data.Length);
+            ClassicAssert.IsTrue(instance.IsKnown("mother"));
+            ClassicAssert.IsFalse(instance.IsKnown("motherzzz"));
         }
     }
 }

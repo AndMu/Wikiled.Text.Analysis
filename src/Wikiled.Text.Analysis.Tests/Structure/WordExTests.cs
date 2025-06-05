@@ -1,6 +1,7 @@
 ﻿using System.Xml.Linq;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Common.Serialization;
 using Wikiled.Text.Analysis.Structure;
 
@@ -16,12 +17,12 @@ namespace Wikiled.Text.Analysis.Tests.Structure
             word.Value = 11.11;
             var json = JsonConvert.SerializeObject(word);
             WordEx deserialized = JsonConvert.DeserializeObject<WordEx>(json);
-            Assert.AreEqual(word.UnderlyingWord.Text, deserialized.UnderlyingWord.Text);
-            Assert.AreEqual(11.11, deserialized.Value);
+            ClassicAssert.AreEqual(word.UnderlyingWord.Text, deserialized.UnderlyingWord.Text);
+            ClassicAssert.AreEqual(11.11, deserialized.Value);
 
             XDocument doc = word.XmlSerialize();
             deserialized = doc.XmlDeserialize<WordEx>();
-            Assert.AreEqual(11.11, deserialized.Value);
+            ClassicAssert.AreEqual(11.11, deserialized.Value);
         }
 
         [Test]
@@ -35,11 +36,11 @@ namespace Wikiled.Text.Analysis.Tests.Structure
             word.EntityType = NamedEntities.Date;
 
             var wordClone = (WordEx)word.Clone();
-            Assert.AreEqual(11.11, wordClone.Value);
-            Assert.AreEqual(2, wordClone.CalculatedValue);
-            Assert.AreEqual(true, wordClone.IsInvertor);
-            Assert.AreEqual(1, wordClone.Id);
-            Assert.AreEqual(NamedEntities.Date, wordClone.EntityType);
+            ClassicAssert.AreEqual(11.11, wordClone.Value);
+            ClassicAssert.AreEqual(2, wordClone.CalculatedValue);
+            ClassicAssert.AreEqual(true, wordClone.IsInvertor);
+            ClassicAssert.AreEqual(1, wordClone.Id);
+            ClassicAssert.AreEqual(NamedEntities.Date, wordClone.EntityType);
         }
     }
 }

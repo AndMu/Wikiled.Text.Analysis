@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Wikiled.Text.Analysis.Emojis;
 
 namespace Wikiled.Text.Analysis.Tests.Emojis
@@ -16,8 +17,8 @@ namespace Wikiled.Text.Analysis.Tests.Emojis
             instance.Remove = clean;
             instance.NormalizeText = normalize;
             var extract = instance.Extract(text);
-            Assert.AreEqual(total, extract.Emojis.Count());
-            Assert.AreEqual(result, extract.Cleaned);
+            ClassicAssert.AreEqual(total, extract.Emojis.Count());
+            ClassicAssert.AreEqual(result, extract.Cleaned);
         }
     }
 }
